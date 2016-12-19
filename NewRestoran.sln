@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewRestoran", "NewRestoran\NewRestoran.csproj", "{DFA93097-C281-4941-B61F-3289D15A5CD6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomWidgetLibrary", "CustomWidgetLibrary\CustomWidgetLibrary.csproj", "{AAD63DC2-627E-4E31-93F5-67133FB05C9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,5 +15,9 @@ Global
 		{DFA93097-C281-4941-B61F-3289D15A5CD6}.Debug|x86.Build.0 = Debug|x86
 		{DFA93097-C281-4941-B61F-3289D15A5CD6}.Release|x86.ActiveCfg = Release|x86
 		{DFA93097-C281-4941-B61F-3289D15A5CD6}.Release|x86.Build.0 = Release|x86
+		{AAD63DC2-627E-4E31-93F5-67133FB05C9C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AAD63DC2-627E-4E31-93F5-67133FB05C9C}.Debug|x86.Build.0 = Debug|Any CPU
+		{AAD63DC2-627E-4E31-93F5-67133FB05C9C}.Release|x86.ActiveCfg = Release|Any CPU
+		{AAD63DC2-627E-4E31-93F5-67133FB05C9C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
