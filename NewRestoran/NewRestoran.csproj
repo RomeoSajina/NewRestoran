@@ -47,18 +47,60 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
+    <Reference Include="CustomWidgetLibrary">
+      <HintPath>..\CustomWidgetLibrary\bin\Debug\CustomWidgetLibrary.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
       <LogicalName>gui.stetic</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\..\icons\table2chairs.png">
+      <Link>images\table2chairs.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\icons\table4chairs.png">
+      <Link>images\table4chairs.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\icons\table6chairs.png">
+      <Link>images\table6chairs.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\icons\table8chairs.png">
+      <Link>images\table8chairs.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\icons\logo.png">
+      <Link>images\logo.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\icons\Hrana.png">
+      <Link>images\Hrana.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\icons\Ostalo.png">
+      <Link>images\Ostalo.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\icons\Pice.png">
+      <Link>images\Pice.png</Link>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
-    <Compile Include="MainWindow.cs" />
-    <Compile Include="gtk-gui\MainWindow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Model\Aritkl.cs" />
+    <Compile Include="Model\Narudzba.cs" />
+    <Compile Include="Model\NarudzbaStavka.cs" />
+    <Compile Include="Model\Stol.cs" />
+    <Compile Include="Model\Zaposlenik.cs" />
+    <Compile Include="Presenter\ArtiklNode.cs" />
+    <Compile Include="Presenter\ArtiklNodeStore.cs" />
+    <Compile Include="View\ArtikliWindow.cs" />
+    <Compile Include="gtk-gui\NewRestoran.ArtikliWindow.cs" />
+    <Compile Include="View\MainWindow.cs" />
+    <Compile Include="gtk-gui\NewRestoran.MainWindow.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
+    <Folder Include="Presenter\" />
+    <Folder Include="View\" />
+    <Folder Include="images\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -178,6 +178,7 @@ namespace CustomWidgetLibrary{
 			choosedImg = new Gtk.Image();
 			choosedImg.WidthRequest = fixedSheme.WidthRequest;
 			choosedImg.HeightRequest = fixedSheme.HeightRequest;
+			choosedImg.Name = "BGIMAGE";
 
 			choosedImg.Pixbuf = pixbuf.ScaleSimple(fixedSheme.WidthRequest, fixedSheme.HeightRequest, InterpType.Bilinear);
 			fixedSheme.Put(choosedImg, 0, 0);
@@ -219,23 +220,25 @@ namespace CustomWidgetLibrary{
 																		  this.TooltipWindow, FileChooserAction.Open,
 																		  "Cancel", ResponseType.Cancel,
 																		  "Open", ResponseType.Accept);
+
 			if (filechooser.Run() == (int)ResponseType.Accept){
 				System.IO.FileStream file = System.IO.File.OpenRead(filechooser.Filename);
 
-				CreateBackgroundImage(new Pixbuf(filechooser.Filename));
-
 				string[,] data = new string[fixedSheme.Children.Length, 4];
 				int i = 0;
+
 				fixedSheme.Foreach((b) =>{
-					if (b is Button){
-						data[i, 0] = b.Name;
-						data[i, 1] = (b as Button).Image.Name;
-						data[i, 2] = fixedSheme.ChildGetProperty(b, "x").Val.ToString();
-						data[i, 3] = fixedSheme.ChildGetProperty(b, "y").Val.ToString();
+					if (b is Button) {
+						data [i, 0] = b.Name;
+						data [i, 1] = (b as Button).Image.Name;
+						data [i, 2] = fixedSheme.ChildGetProperty (b, "x").Val.ToString ();
+						data [i, 3] = fixedSheme.ChildGetProperty (b, "y").Val.ToString ();
 						i++;
-						fixedSheme.Remove(b);
 					}
+					fixedSheme.Remove (b);
 				});
+
+				CreateBackgroundImage (new Pixbuf (filechooser.Filename));
 
 				for (int j = 0; j < i; j++)
 					AddNewTableButtonImage(data[j, 0], data[j, 1], int.Parse(data[j, 2]), int.Parse(data[j, 3]), size);
