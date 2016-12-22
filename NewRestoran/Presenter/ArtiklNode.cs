@@ -24,7 +24,7 @@ namespace NewRestoran {
 		public Pixbuf OznakaPixbuf;
 
 		[Gtk.TreeNodeValue (Column = 6)]
-		public string OznakaText;
+		public string OznakaText; 
 
 		public ArtiklNode (Artikl a) {
 			Sifra = a.Sifra;
@@ -33,7 +33,7 @@ namespace NewRestoran {
 			Sastav = a.Sastav;
 			Cijena = a.Cijena.ToString("C");
 
-			OznakaPixbuf = Pixbuf.LoadFromResource("NewRestoran.images."+ a.Oznaka.ToString() +".png").ScaleSimple(20,20,InterpType.Bilinear);
+			OznakaPixbuf = Pixbuf.LoadFromResource("NewRestoran.images."+ a.Oznaka +".png").ScaleSimple(20,20,InterpType.Bilinear);
 			OznakaText = a.Oznaka.ToString();
 
 		}

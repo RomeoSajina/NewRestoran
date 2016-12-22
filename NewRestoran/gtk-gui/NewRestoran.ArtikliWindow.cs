@@ -354,7 +354,7 @@ namespace NewRestoran
 				this.Child.ShowAll();
 			}
 			this.DefaultWidth = 1165;
-			this.DefaultHeight = 267;
+			this.DefaultHeight = 362;
 			this.Show();
 			this.buttonSearch.Clicked += new global::System.EventHandler(this.OnButtonSearchClicked);
 		}

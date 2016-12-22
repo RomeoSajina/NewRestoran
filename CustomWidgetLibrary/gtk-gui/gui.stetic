@@ -35,7 +35,7 @@
       </source>
     </icon-set>
   </icon-factory>
-  <widget class="Gtk.Bin" id="CustomWidgetLibrary.FixedRestoranSheme" design-size="922 1000">
+  <widget class="Gtk.Bin" id="CustomWidgetLibrary.FixedRestoranSheme" design-size="922 1096">
     <property name="MemberName" />
     <child>
       <widget class="Gtk.VBox" id="vbox4">
@@ -52,8 +52,8 @@
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
                 <property name="Type">TextAndIcon</property>
-                <property name="Icon">stock:gtk-edit Menu</property>
-                <property name="Label" translatable="yes">Edit</property>
+                <property name="Icon">stock:gtk-ok Menu</property>
+                <property name="Label" translatable="yes">Finish</property>
                 <property name="UseUnderline">True</property>
                 <signal name="Clicked" handler="OnButtonEditClicked" />
               </widget>

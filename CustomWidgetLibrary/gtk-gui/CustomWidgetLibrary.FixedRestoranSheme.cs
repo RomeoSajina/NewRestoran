@@ -73,9 +73,9 @@ namespace CustomWidgetLibrary
 			this.buttonEdit.CanFocus = true;
 			this.buttonEdit.Name = "buttonEdit";
 			this.buttonEdit.UseUnderline = true;
-			this.buttonEdit.Label = global::Mono.Unix.Catalog.GetString("Edit");
+			this.buttonEdit.Label = global::Mono.Unix.Catalog.GetString("Finish");
 			global::Gtk.Image w1 = new global::Gtk.Image();
-			w1.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "gtk-edit", global::Gtk.IconSize.Menu);
+			w1.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "gtk-ok", global::Gtk.IconSize.Menu);
 			this.buttonEdit.Image = w1;
 			this.hbox2.Add(this.buttonEdit);
 			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.buttonEdit]));

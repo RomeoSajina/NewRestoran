@@ -47,9 +47,6 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
-    <Reference Include="CustomWidgetLibrary">
-      <HintPath>..\CustomWidgetLibrary\bin\Debug\CustomWidgetLibrary.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
@@ -70,14 +67,14 @@
     <EmbeddedResource Include="..\..\icons\logo.png">
       <Link>images\logo.png</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\Hrana.png">
-      <Link>images\Hrana.png</Link>
-    </EmbeddedResource>
     <EmbeddedResource Include="..\..\icons\Ostalo.png">
       <Link>images\Ostalo.png</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\icons\Pice.png">
       <Link>images\Pice.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\icons\Hrana.png">
+      <Link>images\Hrana.png</Link>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -95,12 +92,22 @@
     <Compile Include="gtk-gui\NewRestoran.ArtikliWindow.cs" />
     <Compile Include="View\MainWindow.cs" />
     <Compile Include="gtk-gui\NewRestoran.MainWindow.cs" />
+    <Compile Include="Presenter\NarudzbeNode.cs" />
+    <Compile Include="Presenter\NarudzbeNodeStore.cs" />
+    <Compile Include="Presenter\NarudzbaStavkaNode.cs" />
+    <Compile Include="Presenter\NarudzbaStavkaNodeStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
     <Folder Include="Presenter\" />
     <Folder Include="View\" />
     <Folder Include="images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CustomWidgetLibrary\CustomWidgetLibrary.csproj">
+      <Project>{AAD63DC2-627E-4E31-93F5-67133FB05C9C}</Project>
+      <Name>CustomWidgetLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
