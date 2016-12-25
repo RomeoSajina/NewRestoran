@@ -1,17 +1,18 @@
 ﻿using System;
 using Gtk;
-
+using Gdk;
 namespace NewRestoran {
 	public partial class ArtikliWindow : Gtk.Window {
-
+		
+		public ListStore dropdownOznakaListStore = new ListStore (typeof (Pixbuf), typeof (string));
 		ArtiklNodeStore artikliNodeStore = new ArtiklNodeStore();
 
 		public ArtikliWindow() : base (Gtk.WindowType.Toplevel) {
 			this.Build ();
 
-			artikliNodeStore.Add (new Artikl ("sifra", "naziv", "", 3.4f, "sastav", Artikl.OznakaArtikla.Pice));
-			artikliNodeStore.Add (new Artikl ("sifra1", "naziv1", "", 3.4f, "sastav1", Artikl.OznakaArtikla.Pice));
-			artikliNodeStore.Add (new Artikl ("sifra2", "naziv2", "", 3.4f, "sastav2", Artikl.OznakaArtikla.Pice));
+			dropdownOznakaListStore.AppendValues (Pixbuf.LoadFromResource ("NewRestoran.images.Hrana.png").ScaleSimple (20, 20, InterpType.Bilinear), "Hrana");
+			dropdownOznakaListStore.AppendValues (Pixbuf.LoadFromResource ("NewRestoran.images.Pice.png").ScaleSimple (20, 20, InterpType.Bilinear), "Piće");
+			dropdownOznakaListStore.AppendValues (Pixbuf.LoadFromResource ("NewRestoran.images.Ostalo.png").ScaleSimple (20, 20, InterpType.Bilinear), "Ostalo");
 
 			CellRendererText sifraCell = new CellRendererText ();
 			sifraCell.Xalign = 0;
@@ -54,11 +55,17 @@ namespace NewRestoran {
 
 			nodeviewArtikli.NodeStore = artikliNodeStore;
 
-			comboboxOznaka.Model = ArtiklNodeStore.dropdownOznakaListStore;
+			comboboxOznaka.Model = dropdownOznakaListStore;
 			comboboxOznaka.PackStart (oznakaPixbufCell, false);
 			comboboxOznaka.PackStart (oznakaTextCell, true);
 			comboboxOznaka.AddAttribute (oznakaPixbufCell, "pixbuf",0);
 			comboboxOznaka.AddAttribute (oznakaTextCell, "text", 1);
+
+
+			//Test podaci
+			artikliNodeStore.Add (new Artikl ("sifra", "naziv", "", 3.4f, "sastav", Artikl.OznakaArtikla.Pice));
+			artikliNodeStore.Add (new Artikl ("sifra1", "naziv1", "", 3.4f, "sastav1", Artikl.OznakaArtikla.Pice));
+			artikliNodeStore.Add (new Artikl ("sifra2", "naziv2", "", 3.4f, "sastav2", Artikl.OznakaArtikla.Pice));
 		
 		}
 

@@ -31,8 +31,8 @@ namespace NewRestoran {
 			ID = id;
 		}
 
-		public double Ukupno() {
-			double ukupno = 0;
+		public float Ukupno() {
+			float ukupno = 0;
 			Stavke.ForEach (s => ukupno += s.Kolicina * s.ArtiklNarudzbe.Cijena);
 			return ukupno;
 		}

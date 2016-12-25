@@ -16,5 +16,15 @@ namespace NewRestoran {
 			narudzbe.ForEach (n => this.AddNode (new NarudzbeNode(n)));
 		}
 
+		public void DodajNarudzbu() {
+			this.Add (new Narudzba ("1", DateTime.Now, Narudzba.OznakaNarudzbe.Nepotvrdeno));
+		}
+
+
+		public void IzbrisiNarudzbu(ITreeNode node) {
+			this.RemoveNode (node);
+			//Izbriši iz baze
+		}
+
 	}
 }

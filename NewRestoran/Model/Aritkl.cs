@@ -14,6 +14,8 @@ namespace NewRestoran {
 		public OznakaArtikla Oznaka { get; set; }
 
 		public Artikl (string sifra, string naziv, string duziNaziv, float cijena, string sastav, OznakaArtikla oznaka) {
+			if(sifra == null) throw new ArgumentException("Šifra artikla je obavezna.", nameof(sifra));
+
 			if (sifra.Equals ("") || naziv.Equals ("") || sastav.Equals ("") || oznaka.Equals (null))
 				throw new ArgumentException ("Polja šifra, naziv, sastav i oznaka su obavezni.");
 

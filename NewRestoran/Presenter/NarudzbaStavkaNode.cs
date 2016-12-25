@@ -1,6 +1,6 @@
 ﻿using System;
 using Gtk;
-
+using Gdk;
 namespace NewRestoran {
 
 	public class NarudzbaStavkaNode : TreeNode {
@@ -21,10 +21,15 @@ namespace NewRestoran {
 		public string Ukupno;
 
 		[Gtk.TreeNodeValue (Column = 5)]
-		public string Status;
+		public Pixbuf StatusPixbuf;
 
 		[Gtk.TreeNodeValue (Column = 6)]
+		public string StatusText;
+
+		[Gtk.TreeNodeValue (Column = 7)]
 		public string OznakaStola;
+
+		public int Id { get; set; }
 
 		public NarudzbaStavkaNode(NarudzbaStavka ns, string oznakaStola) {
 			Sifra = ns.ArtiklNarudzbe.Sifra;
@@ -32,9 +37,15 @@ namespace NewRestoran {
 			Cijena = ns.ArtiklNarudzbe.Cijena.ToString("C");
 			Kolicina = ns.Kolicina.ToString();
 			Ukupno = (ns.Kolicina * ns.ArtiklNarudzbe.Cijena).ToString ("C");
-			Status = ns.Status.ToString ();
+			SetStatus(ns.Status);
 			OznakaStola = oznakaStola;
+			Id = ns.Id;
 		}
-	
+
+		public void SetStatus(NarudzbaStavka.StatusStavke status) { 
+			StatusPixbuf = Pixbuf.LoadFromResource("NewRestoran.images." + status + ".png").ScaleSimple(20, 20, InterpType.Bilinear);
+			StatusText = status.ToString();
+		}
+
 	}
 }
