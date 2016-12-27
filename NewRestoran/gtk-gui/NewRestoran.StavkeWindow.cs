@@ -80,7 +80,7 @@ namespace NewRestoran
 
 		private global::Gtk.Image image250;
 
-		private global::Gtk.Label label2;
+		private global::Gtk.Label labelSpremljeno;
 
 		private global::Gtk.VBox vbox2;
 
@@ -109,6 +109,7 @@ namespace NewRestoran
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			// Container child NewRestoran.StavkeWindow.Gtk.Container+ContainerChild
 			this.hbox1 = new global::Gtk.HBox();
+			this.hbox1.Name = "hbox1";
 			this.hbox1.Spacing = 6;
 			this.hbox1.BorderWidth = ((uint)(12));
 			// Container child hbox1.Gtk.Box+BoxChild
@@ -488,11 +489,11 @@ namespace NewRestoran
 			w39.Expand = false;
 			w39.Fill = false;
 			// Container child hboxSpremljeno.Gtk.Box+BoxChild
-			this.label2 = new global::Gtk.Label();
-			this.label2.Name = "label2";
-			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString("Spremljeno");
-			this.hboxSpremljeno.Add(this.label2);
-			global::Gtk.Box.BoxChild w40 = ((global::Gtk.Box.BoxChild)(this.hboxSpremljeno[this.label2]));
+			this.labelSpremljeno = new global::Gtk.Label();
+			this.labelSpremljeno.Name = "labelSpremljeno";
+			this.labelSpremljeno.LabelProp = global::Mono.Unix.Catalog.GetString("Spremljeno");
+			this.hboxSpremljeno.Add(this.labelSpremljeno);
+			global::Gtk.Box.BoxChild w40 = ((global::Gtk.Box.BoxChild)(this.hboxSpremljeno[this.labelSpremljeno]));
 			w40.Position = 2;
 			w40.Expand = false;
 			w40.Fill = false;

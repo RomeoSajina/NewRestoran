@@ -1,7 +1,7 @@
 ﻿using System;
 using Gtk;
 using Gdk;
-
+using CustomWidgetLibrary;
 namespace NewRestoran {
 	public partial class MainWindow : Gtk.Window {
 
@@ -15,7 +15,7 @@ namespace NewRestoran {
 
 		public MainWindow() : base (Gtk.WindowType.Toplevel) {
 			this.Build ();
-			fixedrestoransheme2.HideToolbox ();
+			fixedrestoransheme.HideToolbox ();
 			notebookMain.CurrentPage = 0;
 			//nodeviewNarudzbe.SearchEntry = entrySearch;
 
@@ -93,8 +93,12 @@ namespace NewRestoran {
 
 
 			//Test podaci
-			narudzbeNodeStore.Add (new Narudzba ("1", DateTime.Now, Narudzba.OznakaNarudzbe.Nepotvrdeno));
-			narudzbeNodeStore.Add (new Narudzba ("2", DateTime.Now, Narudzba.OznakaNarudzbe.Nepotvrdeno));
+			Stol s = new Stol("T1", 4);
+			Stol s1 = new Stol("T2", 4);
+			Stol s2 = new Stol("T3", 4);
+
+			narudzbeNodeStore.Add (new Narudzba ("1", DateTime.Now, Narudzba.OznakaNarudzbe.Nepotvrdeno, s));
+			narudzbeNodeStore.Add (new Narudzba ("2", DateTime.Now, Narudzba.OznakaNarudzbe.Nepotvrdeno, s1));
 			narudzbeNodeStore.Add (new Narudzba ("3", DateTime.Now, Narudzba.OznakaNarudzbe.Nepotvrdeno));
 
 			TreePath tp = new TreePath ("0");
@@ -117,14 +121,21 @@ namespace NewRestoran {
 			nar.DodajStavku("sif3", 3, 3);
 			nar.DodajStavku("sif2", 2, 3);
 			//StavkeWindow sw = new StavkeWindow((narudzbeNodeStore.GetNode(tp) as NarudzbeNode));
-
+			fixedrestoransheme.AddComboBoxValue("");
+			fixedrestoransheme.AddComboBoxValue("T1");
+			fixedrestoransheme.AddComboBoxValue("T2");
+			fixedrestoransheme.AddComboBoxValue("T3");
 
 			OnComboboxStatusChanged(new object(), new EventArgs());
+			FixedRestoranSheme.TableSelected += FixedRestoranShemeTableSelected;
 		}
 
 		protected void NodeSelectionChanged(object sender, EventArgs e) {
 			if(!prikazStatusSve)
 				OnComboboxStatusChanged(sender, e);
+			
+			NarudzbeNode n = (nodeviewNarudzbe.NodeSelection.SelectedNode as NarudzbeNode);
+			if(n != null) fixedrestoransheme.SelectTable(n.OznakaStola);
 		}
 
 		protected void OnDeleteEvent(object sender, DeleteEventArgs a) {
@@ -243,5 +254,16 @@ namespace NewRestoran {
 			}
 			OnComboboxStatusChanged(sender, e);
 		}
+
+		protected void FixedRestoranShemeTableSelected(string name) {
+			foreach(NarudzbeNode n in narudzbeNodeStore) {
+				if(n.OznakaStola == name) {
+					nodeviewNarudzbe.NodeSelection.SelectNode(n);
+					nodeviewNarudzbe.GrabFocus();
+					return;
+				}
+			}
+		}
+
 	}
 }

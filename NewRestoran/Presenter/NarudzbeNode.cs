@@ -6,6 +6,7 @@ namespace NewRestoran {
 	public class NarudzbeNode : TreeNode{
 
 		public NarudzbaStavkaNodeStore stavkeNarudzbeNodeStore = new NarudzbaStavkaNodeStore();
+		private Narudzba narudzba;
 
 		[Gtk.TreeNodeValue (Column = 0)]
 		public string Broj;
@@ -27,17 +28,20 @@ namespace NewRestoran {
 			if (n.StolNarudzbe != null)
 				OznakaStola = n.StolNarudzbe.Oznaka;
 			else OznakaStola = "-";
+			narudzba = n;
 		}
 
 		private void UpdateUkupno() {
-			float u = 0;
+			Ukupno = narudzba.Ukupno().ToString("C");
+			/*float u = 0;
 			foreach(NarudzbaStavkaNode ns in stavkeNarudzbeNodeStore)
 				u += float.Parse(ns.Ukupno,System.Globalization.NumberStyles.Any);
 			
-			Ukupno = u.ToString("C");
+			Ukupno = u.ToString("C");*/
 		}
 
 		public void DodajStavku(NarudzbaStavka ns) {
+			narudzba.Stavke.Add(ns);
 			NarudzbaStavkaNode nsn = stavkeNarudzbeNodeStore.Add(ns, OznakaStola);
 			UpdateUkupno();
 			MainWindow.statusStore.AddNode(nsn);
@@ -46,7 +50,9 @@ namespace NewRestoran {
 		}
 
 		public void DodajStavku(string sifra, int kolicina, int status) {
-			NarudzbaStavkaNode nsn = stavkeNarudzbeNodeStore.Add(new NarudzbaStavka(ArtikliPresenter.GetArtikl(sifra), kolicina, NarudzbaStavka.GetStatus(status)), OznakaStola);
+			NarudzbaStavka ns = new NarudzbaStavka(ArtikliPresenter.GetArtikl(sifra), kolicina, NarudzbaStavka.GetStatus(status));
+			narudzba.Stavke.Add(ns);
+			NarudzbaStavkaNode nsn = stavkeNarudzbeNodeStore.Add(ns, OznakaStola);
 			UpdateUkupno();
 			MainWindow.statusStore.AddNode(nsn);
 			MainWindow.stavkeChanged();

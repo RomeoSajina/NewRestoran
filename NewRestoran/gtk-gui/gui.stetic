@@ -650,7 +650,7 @@
                 <property name="MemberName" />
                 <property name="Spacing">6</property>
                 <child>
-                  <widget class="CustomWidgetLibrary.FixedRestoranSheme" id="fixedrestoransheme2">
+                  <widget class="CustomWidgetLibrary.FixedRestoranSheme" id="fixedrestoransheme">
                     <property name="MemberName" />
                     <property name="Events">ButtonPressMask</property>
                     <property name="ToolboxShown">False</property>
@@ -1621,7 +1621,7 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.Label" id="label2">
+                  <widget class="Gtk.Label" id="labelSpremljeno">
                     <property name="MemberName" />
                     <property name="LabelProp" translatable="yes">Spremljeno</property>
                   </widget>

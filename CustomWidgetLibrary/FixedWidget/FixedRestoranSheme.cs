@@ -27,6 +27,8 @@ namespace CustomWidgetLibrary{
 		private int size;
 		private List<string> comboNamesList = new List<string> ();
 		public bool ToolboxShown { get; set; }
+		public delegate void TableSelection(string name);
+		public static TableSelection TableSelected;
 
 		public FixedRestoranSheme(){
 			this.Build();
@@ -141,6 +143,8 @@ namespace CustomWidgetLibrary{
 				});
 				(o as Button).Relief = ReliefStyle.Half;
 				labelOznaka.LabelProp = (o as Button).Name;
+				labelOznakaStola.LabelProp = (o as Button).Name;
+				TableSelected((o as Button).Name);
 			};
 
 			button.DragBegin += (o, args) => { (o as Button).Hide(); };
@@ -323,7 +327,6 @@ namespace CustomWidgetLibrary{
 			});
 		}
 
-
 		public void AddComboBoxValue(string s){
 			bool postoji = false;
 			fixedSheme.Foreach(b => {
@@ -337,12 +340,22 @@ namespace CustomWidgetLibrary{
 			comboboxName.AppendText(s);
 		}
 
+		public void SelectTable(string name) {
+			fixedSheme.Foreach(b => {
+				if(b is Button && b.Name == name) {
+					b.GrabFocus();
+					return;
+				} else if(b is Button) (b as Button).Relief = ReliefStyle.None;
+			});
+		}
+
 		public void ShowToolbox() {
 			hbox1.ShowAll();
 			hbox4.ShowAll();
 			vbox6.ShowAll();
 			buttonEdit.Label = "Finish";
 			buttonEdit.Image = new Gtk.Image (Stetic.IconLoader.LoadIcon (this, "gtk-ok", global::Gtk.IconSize.Menu));
+			hboxPrikazOznake.Hide();
 			ToolboxShown = true;
 		}
 
@@ -352,6 +365,7 @@ namespace CustomWidgetLibrary{
 			vbox6.Hide();
 			buttonEdit.Label = "Edit";
 			buttonEdit.Image = new Gtk.Image (Stetic.IconLoader.LoadIcon (this, "gtk-edit", global::Gtk.IconSize.Menu));
+			hboxPrikazOznake.Show();
 			ToolboxShown = false;
 		}
 

@@ -11,7 +11,7 @@ namespace NewRestoran {
 		private float cijena;
 		private string sastav;
 		public enum OznakaArtikla { Hrana, Pice, Ostalo }
-		private OznakaArtikla oznaka;
+		public OznakaArtikla Oznaka;
 
 		public string Sifra {
 			get { return sifra; }
@@ -45,13 +45,6 @@ namespace NewRestoran {
 			}
 		}
 
-		public OznakaArtikla Oznaka {
-			get {return oznaka;}
-			set {
-				if(oznaka.Equals(null) || oznaka.Equals("")) throw new ArgumentException("Oznaka je obavezna.", nameof(oznaka));
-				oznaka = value;
-			}
-		}
 
 		public Artikl (string sifra, string naziv, string duziNaziv, float cijena, string sastav, OznakaArtikla oznaka) {
 			Sifra = sifra;

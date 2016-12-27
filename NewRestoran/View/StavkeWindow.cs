@@ -52,19 +52,24 @@ namespace NewRestoran {
 
 			vboxFormView.Hide();
 			labelUkupno.LabelProp = narudzba.Ukupno;
-			comboboxSifraArtikla.AppendText("");
-		}
 
+
+			Color c = new Color();
+			Color.Parse("#00bd00", ref c);
+			labelSpremljeno.ModifyFg(StateType.Normal, c);
+			labelSpremljeno.ModifyFont(Pango.FontDescription.FromString("bold 16"));
+
+			ForAll<Label>(l => l.ModifyFont(Pango.FontDescription.FromString("bold")), new Container[]{ hbox4, hbox5, hbox6, hbox7, hbox8, hbox9});
+		}
+			                   
 		public void NodeSelectionChanged(object sender, EventArgs e) {
 			NarudzbaStavkaNode s = (nodeviewStavke.NodeSelection.SelectedNode as NarudzbaStavkaNode);
-
 			if(s != null) {
 				comboboxSifraArtikla.Active = ArtikliPresenter.GetIndex(s.Sifra);
 				labelNazivArtikla.LabelProp = s.Naziv;
 				labelCijenaArtikla.LabelProp = s.Cijena;
 				spinbuttonKolicina.Value = int.Parse(s.Kolicina);
-				labelUkupnoArtikla.LabelProp = (spinbuttonKolicina.ValueAsInt
-				                                * float.Parse(s.Cijena, System.Globalization.NumberStyles.Any)).ToString("C");
+				labelUkupnoArtikla.LabelProp = (spinbuttonKolicina.ValueAsInt * float.Parse(s.Cijena, System.Globalization.NumberStyles.Any)).ToString("C");
 				switch(s.StatusText) {
 					case "NaCekanju": comboboxStatus.Active = 0; break;
 					case "UObradi": comboboxStatus.Active = 1; break;
@@ -204,6 +209,17 @@ namespace NewRestoran {
 		protected void OnButtonZakljuciClicked(object sender, EventArgs e) {
 			narudzba.Zakljuci();
 			narudzbaStore.RemoveNode(narudzba);
+		}
+
+
+		protected void ForAll<T>(Callback action, Container[] parents) where T : Gtk.Widget {
+			foreach(Container parent in parents) {
+				foreach(Widget w in parent.AllChildren) {
+					if(w is T) {
+						action.Invoke(w);
+					}
+				}
+			}
 		}
 
 	}

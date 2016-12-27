@@ -32,7 +32,7 @@ namespace NewRestoran {
 
 		private global::Gtk.HBox hbox1;
 
-		private global::CustomWidgetLibrary.FixedRestoranSheme fixedrestoransheme2;
+		private global::CustomWidgetLibrary.FixedRestoranSheme fixedrestoransheme;
 
 		private global::Gtk.VBox vbox3;
 
@@ -169,12 +169,12 @@ namespace NewRestoran {
 			this.hbox1.Name = "hbox1";
 			this.hbox1.Spacing = 6;
 			// Container child hbox1.Gtk.Box+BoxChild
-			this.fixedrestoransheme2 = new global::CustomWidgetLibrary.FixedRestoranSheme();
-			this.fixedrestoransheme2.Events = ((global::Gdk.EventMask)(256));
-			this.fixedrestoransheme2.Name = "fixedrestoransheme2";
-			this.fixedrestoransheme2.ToolboxShown = false;
-			this.hbox1.Add(this.fixedrestoransheme2);
-			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.fixedrestoransheme2]));
+			this.fixedrestoransheme = new global::CustomWidgetLibrary.FixedRestoranSheme();
+			this.fixedrestoransheme.Events = ((global::Gdk.EventMask)(256));
+			this.fixedrestoransheme.Name = "fixedrestoransheme";
+			this.fixedrestoransheme.ToolboxShown = false;
+			this.hbox1.Add(this.fixedrestoransheme);
+			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.fixedrestoransheme]));
 			w4.Position = 0;
 			w4.Expand = false;
 			w4.Fill = false;

@@ -9,9 +9,9 @@ namespace NewRestoran {
 		private string password;
 		private DateTime datumZaposlenja;
 		public enum StatusZaposlenik { StalniRadnik, StalniSezonac, Sezonac }
-		private StatusZaposlenik status;
+		public StatusZaposlenik Status;
 		public enum UlogaZaposlenik { Konobar, Kuhar, Šef }
-		private UlogaZaposlenik uloga;
+		public UlogaZaposlenik Uloga;
 
 		public string Ime {
 			get {return ime;}
@@ -37,23 +37,9 @@ namespace NewRestoran {
 		public DateTime DatumZaposlenja {
 			get {return datumZaposlenja;}
 			set {
-				if(value.Equals("") || value.Equals(null)) throw new ArgumentException("Datum zaposlenja je obavezan.", nameof(datumZaposlenja));
+				if(value.Equals("")) throw new ArgumentException("Datum zaposlenja je obavezan.", nameof(datumZaposlenja));
 				if(value > DateTime.Now) throw new ArgumentException("Datum zaposlenja mora biti manji od trenutnog datuma.", nameof(datumZaposlenja));
 				datumZaposlenja = value;
-			}
-		}
-		public StatusZaposlenik Status {
-			get {return status;}
-			set {
-				if(value.Equals("") || value.Equals(null)) throw new ArgumentException("Status je obavezna.", nameof(status));
-				status = value;
-			}
-		}
-		public UlogaZaposlenik Uloga {
-			get {return uloga;}
-			set {
-				if(value.Equals("") || value.Equals(null)) throw new ArgumentException("Uloga je obavezna.", nameof(uloga));
-				uloga = value;
 			}
 		}
 
