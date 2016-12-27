@@ -7,6 +7,11 @@ namespace NewRestoran {
 
 		public NarudzbeNodeStore narudzbeNodeStore = new NarudzbeNodeStore();
 		public static NarudzbaStavkaNodeStore statusStore = new NarudzbaStavkaNodeStore();
+		public NarudzbaStavkaNodeStore current = new NarudzbaStavkaNodeStore(); 
+		private bool prikazStatusSve = true;
+
+		public delegate void StavkeChanged();
+		public static StavkeChanged stavkeChanged;
 
 		public MainWindow() : base (Gtk.WindowType.Toplevel) {
 			this.Build ();
@@ -80,6 +85,9 @@ namespace NewRestoran {
 			nodeviewNarudzbe.FocusOutEvent += (o, args) => {  vboxNarudzbeButtons.Hide (); };
 			nodeviewNarudzbeStatus.FocusInEvent += (o, args) => { vboxStatusButtons.Show (); };
 			nodeviewNarudzbeStatus.FocusOutEvent += (o, args) => { vboxStatusButtons.Hide (); };
+			nodeviewNarudzbe.Selection.Changed += NodeSelectionChanged;
+
+			stavkeChanged += () => OnComboboxStatusChanged(new object(), new EventArgs());
 
 			ArtikliPresenter.LoadFromDB();
 
@@ -90,20 +98,33 @@ namespace NewRestoran {
 			narudzbeNodeStore.Add (new Narudzba ("3", DateTime.Now, Narudzba.OznakaNarudzbe.Nepotvrdeno));
 
 			TreePath tp = new TreePath ("0");
-			nodeviewNarudzbeStatus.NodeStore = statusStore;
-			//nodeviewNarudzbeStatus.NodeStore = (narudzbeNodeStore.GetNode (tp) as NarudzbeNode).stavkeNarudzbeNodeStore;
-			(narudzbeNodeStore.GetNode (tp) as NarudzbeNode).DodajStavku (new NarudzbaStavka (new Artikl ("s", "n", "2", 22.2f, "2", Artikl.OznakaArtikla.Ostalo), 3, NarudzbaStavka.StatusStavke.Gotovo));
-			(narudzbeNodeStore.GetNode (tp) as NarudzbeNode).DodajStavku (new NarudzbaStavka (new Artikl ("s", "n", "2", 22.2f, "2", Artikl.OznakaArtikla.Ostalo), 3, NarudzbaStavka.StatusStavke.Dostavljeno));
-			(narudzbeNodeStore.GetNode (tp) as NarudzbeNode).DodajStavku (new NarudzbaStavka (new Artikl ("s", "n", "2", 22.2f, "2", Artikl.OznakaArtikla.Ostalo), 3, NarudzbaStavka.StatusStavke.NaCekanju));
-			(narudzbeNodeStore.GetNode (tp) as NarudzbeNode).DodajStavku (new NarudzbaStavka (new Artikl ("s", "n", "2", 22.2f, "2", Artikl.OznakaArtikla.Ostalo), 3, NarudzbaStavka.StatusStavke.UObradi));
 
-			ArtikliPresenter.AddArtikl(new Artikl("sif1", "na1", "ads", 2.3f, "svasta nesto", Artikl.OznakaArtikla.Ostalo));
-			ArtikliPresenter.AddArtikl(new Artikl("sif2", "na2", "ads", 290.3f, "svasta nesto", Artikl.OznakaArtikla.Ostalo));
-			ArtikliPresenter.AddArtikl(new Artikl("sif3", "na3", "ads", 29.3f, "svasta nesto", Artikl.OznakaArtikla.Ostalo));
-			ArtikliPresenter.AddArtikl(new Artikl("sifra", "na4", "ads", 29.3f, "svasta nesto", Artikl.OznakaArtikla.Ostalo));
-			ArtikliPresenter.AddArtikl(new Artikl("sifra2", "na5", "ads", 29.3f, "svasta nesto", Artikl.OznakaArtikla.Ostalo));
+			//nodeviewNarudzbeStatus.NodeStore = statusStore;
+			//nodeviewNarudzbeStatus.NodeStore = (narudzbeNodeStore.GetNode (tp) as NarudzbeNode).stavkeNarudzbeNodeStore;
+
+
+			ArtikliPresenter.AddArtikl(new Artikl("sif1", "na1", "ads", 1f, "svasta nesto", Artikl.OznakaArtikla.Ostalo));
+			ArtikliPresenter.AddArtikl(new Artikl("sif2", "na2", "ads", 40.3f, "svasta nesto", Artikl.OznakaArtikla.Ostalo));
+			ArtikliPresenter.AddArtikl(new Artikl("sif3", "na3", "ads", 50f, "svasta nesto", Artikl.OznakaArtikla.Ostalo));
+			ArtikliPresenter.AddArtikl(new Artikl("sifra", "na4", "ads", 21f, "svasta nesto", Artikl.OznakaArtikla.Ostalo));
+			ArtikliPresenter.AddArtikl(new Artikl("sifra2", "na5", "ads", 20f, "svasta nesto", Artikl.OznakaArtikla.Ostalo));
 			ArtikliPresenter.AddArtikl(new Artikl("s", "na6", "ads", 29.3f, "svasta nesto", Artikl.OznakaArtikla.Ostalo));
+
+			NarudzbeNode nar = (narudzbeNodeStore.GetNode(tp) as NarudzbeNode);
+			nar.DodajStavku("s", 5, 0);
+			nar.DodajStavku("sifra2", 3, 1);
+			nar.DodajStavku("sifra", 8, 2);
+			nar.DodajStavku("sif3", 3, 3);
+			nar.DodajStavku("sif2", 2, 3);
 			//StavkeWindow sw = new StavkeWindow((narudzbeNodeStore.GetNode(tp) as NarudzbeNode));
+
+
+			OnComboboxStatusChanged(new object(), new EventArgs());
+		}
+
+		protected void NodeSelectionChanged(object sender, EventArgs e) {
+			if(!prikazStatusSve)
+				OnComboboxStatusChanged(sender, e);
 		}
 
 		protected void OnDeleteEvent(object sender, DeleteEventArgs a) {
@@ -136,12 +157,91 @@ namespace NewRestoran {
 		}
 
 		protected void OnButtonStavkeClicked(object sender, EventArgs e) {
-			StavkeWindow sw = new StavkeWindow((nodeviewNarudzbe.NodeSelection.SelectedNode as NarudzbeNode));
+			StavkeWindow sw = new StavkeWindow((nodeviewNarudzbe.NodeSelection.SelectedNode as NarudzbeNode),narudzbeNodeStore);
 		}
 
 		protected void OnButtonZakljuciClicked(object sender, EventArgs e) {
-			(nodeviewNarudzbe.NodeSelection.SelectedNode as NarudzbeNode).Zakljuci();
+			NarudzbeNode n = (nodeviewNarudzbe.NodeSelection.SelectedNode as NarudzbeNode);
+			n.Zakljuci();
+			narudzbeNodeStore.RemoveNode(n);
+			this.Destroy();
 		}
 
+		protected void OnButtonNarudzbeChangeClicked(object sender, EventArgs e) {
+		}
+
+		protected void OnButtonTakeOrderClicked(object sender, EventArgs e) {
+			(nodeviewNarudzbeStatus.NodeSelection.SelectedNode as NarudzbaStavkaNode).SetStatus(NarudzbaStavka.StatusStavke.UObradi);
+			nodeviewNarudzbeStatus.GrabFocus();
+		}
+
+		protected void OnButtonFinishOrderClicked(object sender, EventArgs e) {
+			(nodeviewNarudzbeStatus.NodeSelection.SelectedNode as NarudzbaStavkaNode).SetStatus(NarudzbaStavka.StatusStavke.Gotovo);
+			nodeviewNarudzbeStatus.GrabFocus();
+		}
+
+		protected void OnButtonStatusUpClicked(object sender, EventArgs e) {
+		}
+
+		protected void OnButtonStatusDownClicked(object sender, EventArgs e) {
+		}
+
+		protected void OnButtonDeliverClicked(object sender, EventArgs e) {
+			(nodeviewNarudzbeStatus.NodeSelection.SelectedNode as NarudzbaStavkaNode).SetStatus(NarudzbaStavka.StatusStavke.Dostavljeno);
+			nodeviewNarudzbeStatus.GrabFocus();
+		}
+
+
+		protected void OnComboboxStatusChanged(object sender, EventArgs e) {
+			if(prikazStatusSve) {
+				switch(comboboxStatus.Active) {
+					case 0: PrikaziStatus(NarudzbaStavka.StatusStavke.Dostavljeno, statusStore, true); break;
+					case 1: PrikaziStatus(NarudzbaStavka.StatusStavke.NaCekanju, statusStore); break;
+					case 2: PrikaziStatus(NarudzbaStavka.StatusStavke.UObradi, statusStore); break;
+					case 3: PrikaziStatus(NarudzbaStavka.StatusStavke.Gotovo, statusStore); break;
+					case 4: PrikaziStatus(NarudzbaStavka.StatusStavke.Dostavljeno, statusStore); break;
+					case 5: nodeviewNarudzbeStatus.NodeStore = statusStore; break;
+				}
+			} 
+
+			NarudzbeNode n = (nodeviewNarudzbe.NodeSelection.SelectedNode as NarudzbeNode);
+			if(!prikazStatusSve && n != null) { 
+				switch(comboboxStatus.Active) {
+					case 0: PrikaziStatus(NarudzbaStavka.StatusStavke.Dostavljeno, n.stavkeNarudzbeNodeStore, true); break;
+					case 1: PrikaziStatus(NarudzbaStavka.StatusStavke.NaCekanju, n.stavkeNarudzbeNodeStore); break;
+					case 2: PrikaziStatus(NarudzbaStavka.StatusStavke.UObradi, n.stavkeNarudzbeNodeStore); break;
+					case 3: PrikaziStatus(NarudzbaStavka.StatusStavke.Gotovo, n.stavkeNarudzbeNodeStore); break;
+					case 4: PrikaziStatus(NarudzbaStavka.StatusStavke.Dostavljeno, n.stavkeNarudzbeNodeStore); break;
+					case 5: nodeviewNarudzbeStatus.NodeStore = n.stavkeNarudzbeNodeStore; break;
+				}
+			}
+		}
+ 		protected void PrikaziStatus(NarudzbaStavka.StatusStavke s, NarudzbaStavkaNodeStore nsns, bool prikaziOsimS = false) {
+			current.Clear();
+			if(!prikaziOsimS) {
+				foreach(NarudzbaStavkaNode n in nsns) {
+					if(n.Status == s) {
+						current.AddNode(n);
+						//n.Changed += OnComboboxStatusChanged;
+					}
+				}
+			} else { 
+				foreach(NarudzbaStavkaNode n in nsns) {
+					if(n.Status != s) {
+						current.AddNode(n);
+						//n.Changed += OnComboboxStatusChanged;
+					}
+				}
+			}
+			nodeviewNarudzbeStatus.NodeStore = current;
+		}
+
+		protected void OnComboboxSveTrenutnaChanged(object sender, EventArgs e) {
+			switch(comboboxSveTrenutna.Active) {
+				case 0: prikazStatusSve = true; break;
+				case 1: prikazStatusSve = false; break;
+			}
+			OnComboboxStatusChanged(sender, e);
+		}
 	}
 }

@@ -5,22 +5,55 @@ namespace NewRestoran {
 	public class Artikl {
 
 		private int ID { get; set; }
-		public string Sifra { get; set; }
-		public string Naziv { get; set; }
+		private string sifra;
+		private string naziv;
 		public string DuziNaziv { get; set; }
-		public float Cijena { get; set; }
-		public string Sastav { get; set; }
+		private float cijena;
+		private string sastav;
 		public enum OznakaArtikla { Hrana, Pice, Ostalo }
-		public OznakaArtikla Oznaka { get; set; }
+		private OznakaArtikla oznaka;
+
+		public string Sifra {
+			get { return sifra; }
+			set {
+				if(value.Equals("")) throw new ArgumentException("Šifra je obavezna.", nameof(sifra));
+				sifra = value;
+			}
+		}
+
+		public string Naziv {
+			get { return naziv; }
+			set {
+				if(value.Equals("")) throw new ArgumentException("Naziv je obavezan.", nameof(naziv));
+				naziv = value;
+			}
+		}
+
+		public float Cijena {
+			get {return cijena;}
+			set {
+				if(value <= 0) throw new ArgumentException("Cijena mora biti veća od nule", nameof(cijena));
+				cijena = value;
+			}
+		}
+
+		public string Sastav {
+			get {return sastav;}
+			set {
+				if(value.Equals("")) throw new ArgumentException("Sastav je obavezan.", nameof(sastav));
+				sastav = value;
+			}
+		}
+
+		public OznakaArtikla Oznaka {
+			get {return oznaka;}
+			set {
+				if(oznaka.Equals(null) || oznaka.Equals("")) throw new ArgumentException("Oznaka je obavezna.", nameof(oznaka));
+				oznaka = value;
+			}
+		}
 
 		public Artikl (string sifra, string naziv, string duziNaziv, float cijena, string sastav, OznakaArtikla oznaka) {
-			if(sifra == null) throw new ArgumentException("Šifra artikla je obavezna.", nameof(sifra));
-
-			if (sifra.Equals ("") || naziv.Equals ("") || sastav.Equals ("") || oznaka.Equals (null))
-				throw new ArgumentException ("Polja šifra, naziv, sastav i oznaka su obavezni.");
-
-			if (cijena <= 0) throw new ArgumentException ("Cijena mora biti veća od nule", nameof(cijena));
-
 			Sifra = sifra;
 			Naziv = naziv;
 			DuziNaziv = duziNaziv;

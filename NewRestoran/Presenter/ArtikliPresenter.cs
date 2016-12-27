@@ -34,14 +34,16 @@ namespace NewRestoran {
 			artikliListStore.Remove(ref iter);
 		}
 
-		public static void ArtiklDetails(string sifra, out string naziv, out string cijena) {
+		public static void ArtiklDetails(string sifra, int kolicina, out string naziv, out string cijena, out string ukupno) {
 			Artikl art = SviArtikli.Find(a => a.Sifra == sifra);
 			if(art != null) {
 				naziv = art.Naziv;
 				cijena = art.Cijena.ToString("C");
+				ukupno = (art.Cijena * kolicina).ToString("C");
 			} else {
 				naziv = "";
 				cijena = "";
+				ukupno = "0,00 kn";
 			}
 		}
 

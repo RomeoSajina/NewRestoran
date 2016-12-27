@@ -533,12 +533,20 @@ namespace NewRestoran {
 			this.DefaultHeight = 1087;
 			this.Show();
 			this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
+			this.comboboxSveTrenutna.Changed += new global::System.EventHandler(this.OnComboboxSveTrenutnaChanged);
+			this.comboboxStatus.Changed += new global::System.EventHandler(this.OnComboboxStatusChanged);
 			this.buttonDodaj.Clicked += new global::System.EventHandler(this.OnButtonDodajClicked);
 			this.buttonStavke.Clicked += new global::System.EventHandler(this.OnButtonStavkeClicked);
 			this.buttonNarudzbeUp.Clicked += new global::System.EventHandler(this.OnButtonNarudzbeUpClicked);
 			this.buttonNarudzbeDown.Clicked += new global::System.EventHandler(this.OnButtonNarudzbeDownClicked);
+			this.buttonNarudzbeChange.Clicked += new global::System.EventHandler(this.OnButtonNarudzbeChangeClicked);
 			this.buttonDeleteNarudzba.Clicked += new global::System.EventHandler(this.OnButtonDeleteNarudzbaClicked);
 			this.buttonZakljuci.Clicked += new global::System.EventHandler(this.OnButtonZakljuciClicked);
+			this.buttonTakeOrder.Clicked += new global::System.EventHandler(this.OnButtonTakeOrderClicked);
+			this.buttonFinishOrder.Clicked += new global::System.EventHandler(this.OnButtonFinishOrderClicked);
+			this.buttonStatusUp.Clicked += new global::System.EventHandler(this.OnButtonStatusUpClicked);
+			this.buttonStatusDown.Clicked += new global::System.EventHandler(this.OnButtonStatusDownClicked);
+			this.buttonDeliver.Clicked += new global::System.EventHandler(this.OnButtonDeliverClicked);
 		}
 	}
 }

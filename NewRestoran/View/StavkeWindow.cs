@@ -7,13 +7,15 @@ namespace NewRestoran {
 	public partial class StavkeWindow : Gtk.Window {
 
 		ListStore dropdownStatusListStore = new ListStore(typeof(Pixbuf), typeof(string));
-		NarudzbeNode narudzba;
+		private NarudzbeNode narudzba;
+		private NarudzbeNodeStore narudzbaStore;
 		private bool formPrikaz = false;
 
-		public StavkeWindow(NarudzbeNode n) : base(Gtk.WindowType.Toplevel) {
+		public StavkeWindow(NarudzbeNode n, NarudzbeNodeStore ns) : base(Gtk.WindowType.Toplevel) {
 			this.Build();
 
 			narudzba = n;
+			narudzbaStore = ns;
 			nodeviewStavke.NodeStore = n.stavkeNarudzbeNodeStore;
 
 			CellRendererText statusText = new CellRendererText();
@@ -50,6 +52,7 @@ namespace NewRestoran {
 
 			vboxFormView.Hide();
 			labelUkupno.LabelProp = narudzba.Ukupno;
+			comboboxSifraArtikla.AppendText("");
 		}
 
 		public void NodeSelectionChanged(object sender, EventArgs e) {
@@ -136,27 +139,35 @@ namespace NewRestoran {
 		}
 
 		protected void OnButtonSpremiClicked(object sender, EventArgs e) {
+			SpremiPromjene();
+		}
+
+		protected bool SpremiPromjene() { 
 			NarudzbaStavkaNode ns = (nodeviewStavke.NodeSelection.SelectedNode as NarudzbaStavkaNode);
 			try {
 				if(ns == null) { //Insert
 					narudzba.DodajStavku(comboboxSifraArtikla.ActiveText, spinbuttonKolicina.ValueAsInt, comboboxStatus.Active);
 					TreeIter iter;
-					nodeviewStavke.Model.IterNthChild(out iter, nodeviewStavke.Model.IterNChildren()-1);
+					nodeviewStavke.Model.IterNthChild(out iter, nodeviewStavke.Model.IterNChildren() - 1);
 					nodeviewStavke.Selection.SelectIter(iter);
 				} else { //Update
 					narudzba.UpdateStavku(ns, comboboxSifraArtikla.ActiveText, spinbuttonKolicina.ValueAsInt, comboboxStatus.Active);
 				}
 				labelUkupno.LabelProp = narudzba.Ukupno;
+				hboxSpremljeno.Show();
+				GLib.Timeout.Add(2000, () => { hboxSpremljeno.Hide(); return false;});
+				return true;
+			
 			} catch(ArgumentException ae) {
 				string msg;
 				switch(ae.ParamName) {
-					case "artikl": msg = "Šifra artikla mora biti odabrana"; break;
-					case "kolicina": msg = "Količina mora biti veća od 0"; break;
-					default: msg = ae.Message; break;
+				case "artikl": msg = "Šifra artikla mora biti odabrana"; break;
+				case "kolicina": msg = "Količina mora biti veća od 0"; break;
+				default: msg = ae.Message; break;
 				}
 				DialogBox.ShowError(this, msg);
+				return false;
 			}
-		
 		}
 
 		protected void OnButtonOdustaniClicked(object sender, EventArgs e) {
@@ -170,10 +181,11 @@ namespace NewRestoran {
 		}
 
 		protected void OnComboboxSifraArtiklaChanged(object sender, EventArgs e) {
-			string naziv, cijena;
-			ArtikliPresenter.ArtiklDetails(comboboxSifraArtikla.ActiveText, out naziv, out cijena);
+			string naziv, cijena, ukupno;
+			ArtikliPresenter.ArtiklDetails(comboboxSifraArtikla.ActiveText, spinbuttonKolicina.ValueAsInt, out naziv, out cijena, out ukupno);
 			labelNazivArtikla.LabelProp = naziv;
 			labelCijenaArtikla.LabelProp = cijena;
+			labelUkupnoArtikla.LabelProp = ukupno;
 		}
 
 		protected void OnButtonDeleteClicked(object sender, EventArgs e) {
@@ -183,11 +195,16 @@ namespace NewRestoran {
 		}
 
 		protected void OnButtonBackAndSaveClicked(object sender, EventArgs e) {
-			this.Destroy();
+			if((nodeviewStavke.NodeSelection.SelectedNode as NarudzbaStavkaNode) == null && comboboxSifraArtikla.Active > -1){
+				if(SpremiPromjene())
+					this.Destroy();
+			} else this.Destroy();
 		}
 
 		protected void OnButtonZakljuciClicked(object sender, EventArgs e) {
 			narudzba.Zakljuci();
+			narudzbaStore.RemoveNode(narudzba);
 		}
+
 	}
 }

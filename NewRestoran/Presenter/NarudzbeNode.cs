@@ -19,72 +19,84 @@ namespace NewRestoran {
 		[Gtk.TreeNodeValue (Column = 3)]
 		public string Ukupno;
 
-		private float Sveukupno;
-
 		public NarudzbeNode(Narudzba n) {
 			Broj = n.Broj;
 			Datum = n.Datum.ToString("g");
 			Ukupno = "0,00 kn";
-			Sveukupno = 0;
 
 			if (n.StolNarudzbe != null)
 				OznakaStola = n.StolNarudzbe.Oznaka;
 			else OznakaStola = "-";
 		}
 
-		private void SetUkupno(float cijena, int kolicina) { 
-			Sveukupno += (cijena * kolicina);
-			Ukupno = Sveukupno.ToString("C");
+		private void UpdateUkupno() {
+			float u = 0;
+			foreach(NarudzbaStavkaNode ns in stavkeNarudzbeNodeStore)
+				u += float.Parse(ns.Ukupno,System.Globalization.NumberStyles.Any);
+			
+			Ukupno = u.ToString("C");
 		}
 
 		public void DodajStavku(NarudzbaStavka ns) {
 			NarudzbaStavkaNode nsn = stavkeNarudzbeNodeStore.Add(ns, OznakaStola);
-			SetUkupno(ns.ArtiklNarudzbe.Cijena, ns.Kolicina);
-
+			UpdateUkupno();
 			MainWindow.statusStore.AddNode(nsn);
+			MainWindow.stavkeChanged();
+			//SetUkupno(ns.ArtiklNarudzbe.Cijena, ns.Kolicina);
 		}
 
 		public void DodajStavku(string sifra, int kolicina, int status) {
-			
-			Artikl artikl = ArtikliPresenter.GetArtikl(sifra);
-			if(artikl == null) throw new ArgumentException("Artikl mora biti odabran.", nameof(artikl));
+			NarudzbaStavkaNode nsn = stavkeNarudzbeNodeStore.Add(new NarudzbaStavka(ArtikliPresenter.GetArtikl(sifra), kolicina, NarudzbaStavka.GetStatus(status)), OznakaStola);
+			UpdateUkupno();
+			MainWindow.statusStore.AddNode(nsn);
+			MainWindow.stavkeChanged();
+
+			//	Artikl artikl = ArtikliPresenter.GetArtikl(sifra);
+			//	if(artikl == null) throw new ArgumentException("Artikl mora biti odabran.", nameof(artikl));
 
 			//Prvo insert u bazu pa onda vratit ID i dodati sa ID
-			NarudzbaStavkaNode nsn = stavkeNarudzbeNodeStore.Add(new NarudzbaStavka(artikl, kolicina, NarudzbaStavka.GetStatus(status)), OznakaStola);
-			SetUkupno(artikl.Cijena, kolicina);
-
-			MainWindow.statusStore.AddNode(nsn);                                                  
+			//	SetUkupno(artikl.Cijena, kolicina);
 		}
 
 		public void UpdateStavku(NarudzbaStavkaNode ns, string sifra, int kolicina, int status) {
-			Artikl a = ArtikliPresenter.GetArtikl(sifra);
-			if(a != null) {
-				SetUkupno(-ArtikliPresenter.GetArtikl(ns.Sifra).Cijena, kolicina);
-				MainWindow.statusStore.RemoveNode(ns);
+			ns.Sifra = sifra;
+			ns.Kolicina = kolicina.ToString();
+			ns.SetStatus(NarudzbaStavka.GetStatus(status));
+			UpdateUkupno();
+			MainWindow.stavkeChanged();
+		//	Artikl a = ArtikliPresenter.GetArtikl(sifra);
+		//	if(a != null) {
+			//	SetUkupno(-ArtikliPresenter.GetArtikl(ns.Sifra).Cijena, int.Parse(ns.Kolicina));
+			//	MainWindow.statusStore.RemoveNode(ns);
+			//	ns.Sifra = a.Sifra;
+			//	ns.Naziv = a.Naziv;
+		//		ns.Kolicina = kolicina.ToString();
+		//		ns.SetStatus(NarudzbaStavka.GetStatus(status));
+		//		ns.Ukupno = (a.Cijena * kolicina).ToString("C");
 
-				ns.Sifra = a.Sifra;
-				ns.Naziv = a.Naziv;
-				ns.Kolicina = kolicina.ToString();
-				ns.SetStatus(NarudzbaStavka.GetStatus(status));
-				ns.Ukupno = (a.Cijena * kolicina).ToString("C");
+				//SetUkupno(a.Cijena, kolicina);
+		//		MainWindow.statusStore.AddNode(ns);
+			//} 
 
-				SetUkupno(a.Cijena, kolicina);
-				MainWindow.statusStore.AddNode(ns);
-				//Update to db
-
-			}
-
+			//Update to db
 		}
 
 		public void IzbrisiStavku(NarudzbaStavkaNode ns) {
 			stavkeNarudzbeNodeStore.RemoveNode(ns);
-			SetUkupno(-ArtikliPresenter.GetArtikl(ns.Sifra).Cijena, int.Parse(ns.Kolicina));
+			UpdateUkupno();
 			MainWindow.statusStore.RemoveNode(ns);
+			MainWindow.stavkeChanged();
+			//	SetUkupno(-ArtikliPresenter.GetArtikl(ns.Sifra).Cijena, int.Parse(ns.Kolicina));
+
 			//Delete from db
 		}
 
 		public void Zakljuci() {
-			
+			foreach(NarudzbaStavkaNode ns in stavkeNarudzbeNodeStore) 
+				MainWindow.statusStore.RemoveNode(ns);
+
+			stavkeNarudzbeNodeStore.Clear();
+			MainWindow.stavkeChanged();
 			//DB zakljuci
 		}
 	}

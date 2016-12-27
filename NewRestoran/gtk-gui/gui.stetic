@@ -755,6 +755,7 @@
                             <property name="WidthRequest">180</property>
                             <property name="IsTextCombo">False</property>
                             <property name="Items" translatable="yes" />
+                            <signal name="Changed" handler="OnComboboxSveTrenutnaChanged" />
                           </widget>
                           <packing>
                             <property name="Position">0</property>
@@ -769,6 +770,7 @@
                             <property name="WidthRequest">180</property>
                             <property name="IsTextCombo">False</property>
                             <property name="Items" translatable="yes" />
+                            <signal name="Changed" handler="OnComboboxStatusChanged" />
                           </widget>
                           <packing>
                             <property name="PackType">End</property>
@@ -925,6 +927,7 @@
                         <property name="Label" translatable="yes" />
                         <property name="UseUnderline">True</property>
                         <property name="FocusOnClick">False</property>
+                        <signal name="Clicked" handler="OnButtonNarudzbeChangeClicked" />
                       </widget>
                       <packing>
                         <property name="Position">5</property>
@@ -991,6 +994,7 @@
                         <property name="Label" translatable="yes" />
                         <property name="UseUnderline">True</property>
                         <property name="FocusOnClick">False</property>
+                        <signal name="Clicked" handler="OnButtonDeliverClicked" />
                       </widget>
                       <packing>
                         <property name="PackType">End</property>
@@ -1009,6 +1013,7 @@
                         <property name="Label" translatable="yes" />
                         <property name="UseUnderline">True</property>
                         <property name="FocusOnClick">False</property>
+                        <signal name="Clicked" handler="OnButtonStatusDownClicked" />
                       </widget>
                       <packing>
                         <property name="PackType">End</property>
@@ -1027,6 +1032,7 @@
                         <property name="Label" translatable="yes" />
                         <property name="UseUnderline">True</property>
                         <property name="FocusOnClick">False</property>
+                        <signal name="Clicked" handler="OnButtonStatusUpClicked" />
                       </widget>
                       <packing>
                         <property name="PackType">End</property>
@@ -1045,6 +1051,7 @@
                         <property name="Label" translatable="yes" />
                         <property name="UseUnderline">True</property>
                         <property name="FocusOnClick">False</property>
+                        <signal name="Clicked" handler="OnButtonFinishOrderClicked" />
                       </widget>
                       <packing>
                         <property name="PackType">End</property>
@@ -1063,6 +1070,7 @@
                         <property name="Label" translatable="yes" />
                         <property name="UseUnderline">True</property>
                         <property name="FocusOnClick">False</property>
+                        <signal name="Clicked" handler="OnButtonTakeOrderClicked" />
                       </widget>
                       <packing>
                         <property name="PackType">End</property>
@@ -1114,7 +1122,7 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Window" id="NewRestoran.StavkeWindow" design-size="1605 687">
+  <widget class="Gtk.Window" id="NewRestoran.StavkeWindow" design-size="1785 714">
     <property name="MemberName" />
     <property name="Title" translatable="yes">StavkeWindow</property>
     <property name="WindowPosition">CenterOnParent</property>
@@ -1578,6 +1586,56 @@
               <packing>
                 <property name="Position">6</property>
                 <property name="AutoSize">True</property>
+                <property name="Expand">False</property>
+                <property name="Fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.HBox" id="hboxSpremljeno">
+                <property name="MemberName" />
+                <property name="WidthRequest">0</property>
+                <property name="Visible">False</property>
+                <property name="Spacing">6</property>
+                <child>
+                  <widget class="Gtk.Fixed" id="fixed2">
+                    <property name="MemberName" />
+                    <property name="WidthRequest">162</property>
+                    <property name="HasWindow">False</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">0</property>
+                    <property name="AutoSize">False</property>
+                    <property name="Expand">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gtk.Image" id="image250">
+                    <property name="MemberName" />
+                    <property name="Pixbuf">stock:Dostavljeno Dnd</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">1</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gtk.Label" id="label2">
+                    <property name="MemberName" />
+                    <property name="LabelProp" translatable="yes">Spremljeno</property>
+                  </widget>
+                  <packing>
+                    <property name="Position">2</property>
+                    <property name="AutoSize">True</property>
+                    <property name="Expand">False</property>
+                    <property name="Fill">False</property>
+                  </packing>
+                </child>
+              </widget>
+              <packing>
+                <property name="Position">7</property>
+                <property name="AutoSize">False</property>
                 <property name="Expand">False</property>
                 <property name="Fill">False</property>
               </packing>

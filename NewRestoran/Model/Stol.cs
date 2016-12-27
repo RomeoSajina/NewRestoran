@@ -4,16 +4,26 @@ namespace NewRestoran {
 	public class Stol {
 
 		public int ID { get; set; }
-		public string Oznaka { get; set; }
-		public int BrojStolica { get; set; }
+		private string oznaka;
+		private int brojStolica;
 
+		public string Oznaka {
+			get { return oznaka; }
+			set {
+				if(value.Equals("")) throw new ArgumentException("Oznaka je obavezna.", nameof(oznaka));
+				oznaka = value;
+			}
+		}
 
+		public int BrojStolica {
+			get {return brojStolica;}
+			set {
+				if(value <= 0) throw new ArgumentException("Broj stolica mora biti veći od 0.", nameof(brojStolica));
+				brojStolica = value;
+			}
+		}
 
 		public Stol (string oznaka, int brojStolica){
-			if (oznaka.Equals ("")) throw new ArgumentException ("Oznaka je obavezna.");
-
-			if (brojStolica < 1) throw new ArgumentException ("Broj stolica mora biti veći od 0.");
-
 			Oznaka = oznaka;
 			BrojStolica = brojStolica;
 		}
