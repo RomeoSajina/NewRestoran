@@ -2,13 +2,16 @@
 using Gtk;
 using Gdk;
 using CustomWidgetLibrary;
+using System.Collections.Generic;
 namespace NewRestoran {
 	public partial class MainWindow : Gtk.Window {
 
 		public NarudzbeNodeStore narudzbeNodeStore = new NarudzbeNodeStore();
 		public static NarudzbaStavkaNodeStore statusStore = new NarudzbaStavkaNodeStore();
-		public NarudzbaStavkaNodeStore current = new NarudzbaStavkaNodeStore(); 
+		public NarudzbaStavkaNodeStore current = new NarudzbaStavkaNodeStore();
+		public static List<string> OznakaStolList = new List<string>();
 		private bool prikazStatusSve = true;
+		private bool formPrikaz = false;
 
 		public delegate void StavkeChanged();
 		public static StavkeChanged stavkeChanged;
@@ -91,6 +94,13 @@ namespace NewRestoran {
 
 			ArtikliPresenter.LoadFromDB();
 
+			Color c = new Color();
+			Color.Parse("#00bd00", ref c);
+			labelSpremljeno.ModifyFg(StateType.Normal, c);
+			labelSpremljeno.ModifyFont(Pango.FontDescription.FromString("bold 16"));
+
+			ForAll<Label>(l => l.ModifyFont(Pango.FontDescription.FromString("bold 10")), new Container[] { hbox8, hbox9, hbox10, hbox11 });
+
 
 			//Test podaci
 			Stol s = new Stol("T1", 4);
@@ -102,10 +112,6 @@ namespace NewRestoran {
 			narudzbeNodeStore.Add (new Narudzba ("3", DateTime.Now, Narudzba.OznakaNarudzbe.Nepotvrdeno));
 
 			TreePath tp = new TreePath ("0");
-
-			//nodeviewNarudzbeStatus.NodeStore = statusStore;
-			//nodeviewNarudzbeStatus.NodeStore = (narudzbeNodeStore.GetNode (tp) as NarudzbeNode).stavkeNarudzbeNodeStore;
-
 
 			ArtikliPresenter.AddArtikl(new Artikl("sif1", "na1", "ads", 1f, "svasta nesto", Artikl.OznakaArtikla.Ostalo));
 			ArtikliPresenter.AddArtikl(new Artikl("sif2", "na2", "ads", 40.3f, "svasta nesto", Artikl.OznakaArtikla.Ostalo));
@@ -120,11 +126,17 @@ namespace NewRestoran {
 			nar.DodajStavku("sifra", 8, 2);
 			nar.DodajStavku("sif3", 3, 3);
 			nar.DodajStavku("sif2", 2, 3);
-			//StavkeWindow sw = new StavkeWindow((narudzbeNodeStore.GetNode(tp) as NarudzbeNode));
+
 			fixedrestoransheme.AddComboBoxValue("");
 			fixedrestoransheme.AddComboBoxValue("T1");
 			fixedrestoransheme.AddComboBoxValue("T2");
 			fixedrestoransheme.AddComboBoxValue("T3");
+
+			OznakaStolList.Add("-");
+			OznakaStolList.Add("T1");
+			OznakaStolList.Add("T2");
+			OznakaStolList.Add("T3");
+			OznakaStolList.ForEach(ozn => comboboxOznakaStola.AppendText(ozn));
 
 			OnComboboxStatusChanged(new object(), new EventArgs());
 			FixedRestoranSheme.TableSelected += FixedRestoranShemeTableSelected;
@@ -135,7 +147,13 @@ namespace NewRestoran {
 				OnComboboxStatusChanged(sender, e);
 			
 			NarudzbeNode n = (nodeviewNarudzbe.NodeSelection.SelectedNode as NarudzbeNode);
-			if(n != null) fixedrestoransheme.SelectTable(n.OznakaStola);
+			if(n != null) {
+				fixedrestoransheme.SelectTable(n.OznakaStola);
+				labelBroj.LabelProp = n.Broj;
+				labelDatum.LabelProp = n.Datum;
+				comboboxOznakaStola.Active = OznakaStolList.FindIndex(ozn => ozn == n.OznakaStola);
+				labelUkupno.LabelProp = n.Ukupno;
+			}
 		}
 
 		protected void OnDeleteEvent(object sender, DeleteEventArgs a) {
@@ -146,60 +164,125 @@ namespace NewRestoran {
 		//Button dodaj narudžbu 
 		protected void OnButtonDodajClicked(object sender, EventArgs e) {
 			narudzbeNodeStore.DodajNarudzbu ();
+			TreeIter iter;
+			nodeviewNarudzbe.Model.IterNthChild(out iter, nodeviewNarudzbe.Model.IterNChildren() - 1);
+			nodeviewNarudzbe.Selection.SelectIter(iter);
 		}
 
 		//Button scroll up
 		protected void OnButtonNarudzbeUpClicked(object sender, EventArgs e) {
-			GtkScrolledWindowNarudzbe.Vadjustment.Value -= 150;
+			if(formPrikaz) {
+				TreeIter iter, prev, temp;
+				nodeviewNarudzbe.Selection.GetSelected(out iter);
+				nodeviewNarudzbe.Model.GetIterFirst(out prev);
+
+				do {
+					temp = prev;
+					nodeviewNarudzbe.Model.IterNext(ref temp);
+					if(temp.Equals(iter)) {
+						nodeviewNarudzbe.Selection.SelectIter(prev);
+						break;
+					}
+				} while(nodeviewNarudzbe.Model.IterNext(ref prev));
+
+				nodeviewNarudzbe.Selection.SelectIter(prev);
+
+			} else GtkScrolledWindowNarudzbe.Vadjustment.Value -= 150;
 		}
 
 		//Button scroll down
 		protected void OnButtonNarudzbeDownClicked(object sender, EventArgs e) {
-			double max = GtkScrolledWindowNarudzbe.Vadjustment.Upper - GtkScrolledWindowNarudzbe.Vadjustment.PageSize;
+			if(formPrikaz) {
+				TreeIter iter;
+				nodeviewNarudzbe.Selection.GetSelected(out iter);
 
-			if (GtkScrolledWindowNarudzbe.Vadjustment.Value + 150 > max) 
-				GtkScrolledWindowNarudzbe.Vadjustment.Value = max;
-			else 
-				GtkScrolledWindowNarudzbe.Vadjustment.Value += 150;
+				if(!nodeviewNarudzbe.Model.IterNext(ref iter))
+					nodeviewNarudzbe.Model.GetIterFirst(out iter);
+
+				nodeviewNarudzbe.Selection.SelectIter(iter);
+			} else {
+				double max = GtkScrolledWindowNarudzbe.Vadjustment.Upper - GtkScrolledWindowNarudzbe.Vadjustment.PageSize;
+
+				if(GtkScrolledWindowNarudzbe.Vadjustment.Value + 150 > max)
+					GtkScrolledWindowNarudzbe.Vadjustment.Value = max;
+				else
+					GtkScrolledWindowNarudzbe.Vadjustment.Value += 150;
+			}
 		}
 
 		protected void OnButtonDeleteNarudzbaClicked(object sender, EventArgs e) {
 			narudzbeNodeStore.IzbrisiNarudzbu(nodeviewNarudzbe.NodeSelection.SelectedNode);
+			ClearForm();
 		}
 
 		protected void OnButtonStavkeClicked(object sender, EventArgs e) {
 			StavkeWindow sw = new StavkeWindow((nodeviewNarudzbe.NodeSelection.SelectedNode as NarudzbeNode),narudzbeNodeStore);
+			nodeviewNarudzbe.NodeSelection.SelectedNode.Changed += (o, a) => { labelUkupno.LabelProp = (o as NarudzbeNode).Ukupno; };
 		}
 
 		protected void OnButtonZakljuciClicked(object sender, EventArgs e) {
 			NarudzbeNode n = (nodeviewNarudzbe.NodeSelection.SelectedNode as NarudzbeNode);
 			n.Zakljuci();
 			narudzbeNodeStore.RemoveNode(n);
-			this.Destroy();
+			ClearForm();
 		}
 
 		protected void OnButtonNarudzbeChangeClicked(object sender, EventArgs e) {
+			if(formPrikaz) {
+				vboxNodeViewPrikaz.Show();
+				vboxFormPrikaz.Hide();
+				nodeviewNarudzbe.GrabFocus();
+				formPrikaz = false;
+			} else {
+				vboxNodeViewPrikaz.Hide();
+				vboxFormPrikaz.Show();
+				vboxNarudzbeButtons.Show();
+				formPrikaz = true;
+			}
+		}
+
+		private void ClearForm(){
+			labelBroj.LabelProp = "";
+			labelDatum.LabelProp = "";
+			comboboxOznakaStola.Active = 0;
+			labelUkupno.LabelProp = "";
 		}
 
 		protected void OnButtonTakeOrderClicked(object sender, EventArgs e) {
-			(nodeviewNarudzbeStatus.NodeSelection.SelectedNode as NarudzbaStavkaNode).SetStatus(NarudzbaStavka.StatusStavke.UObradi);
-			nodeviewNarudzbeStatus.GrabFocus();
+			NarudzbaStavkaNode ns = (nodeviewNarudzbeStatus.NodeSelection.SelectedNode as NarudzbaStavkaNode);
+			if(ns != null) {
+				ns.SetStatus(NarudzbaStavka.StatusStavke.UObradi);
+				nodeviewNarudzbeStatus.GrabFocus();
+			}
 		}
 
 		protected void OnButtonFinishOrderClicked(object sender, EventArgs e) {
-			(nodeviewNarudzbeStatus.NodeSelection.SelectedNode as NarudzbaStavkaNode).SetStatus(NarudzbaStavka.StatusStavke.Gotovo);
-			nodeviewNarudzbeStatus.GrabFocus();
+			NarudzbaStavkaNode ns = (nodeviewNarudzbeStatus.NodeSelection.SelectedNode as NarudzbaStavkaNode);
+			if(ns != null) {
+				ns.SetStatus(NarudzbaStavka.StatusStavke.Gotovo);
+				nodeviewNarudzbeStatus.GrabFocus();
+			}
 		}
 
 		protected void OnButtonStatusUpClicked(object sender, EventArgs e) {
+			GtkScrolledWindowStatusStavaka.Vadjustment.Value -= 150;
 		}
 
 		protected void OnButtonStatusDownClicked(object sender, EventArgs e) {
+			double max = GtkScrolledWindowStatusStavaka.Vadjustment.Upper - GtkScrolledWindowStatusStavaka.Vadjustment.PageSize;
+
+			if(GtkScrolledWindowStatusStavaka.Vadjustment.Value + 150 > max)
+				GtkScrolledWindowStatusStavaka.Vadjustment.Value = max;
+			else
+				GtkScrolledWindowStatusStavaka.Vadjustment.Value += 150;
 		}
 
 		protected void OnButtonDeliverClicked(object sender, EventArgs e) {
-			(nodeviewNarudzbeStatus.NodeSelection.SelectedNode as NarudzbaStavkaNode).SetStatus(NarudzbaStavka.StatusStavke.Dostavljeno);
-			nodeviewNarudzbeStatus.GrabFocus();
+			NarudzbaStavkaNode ns = (nodeviewNarudzbeStatus.NodeSelection.SelectedNode as NarudzbaStavkaNode);
+			if(ns != null) {
+				ns.SetStatus(NarudzbaStavka.StatusStavke.Dostavljeno);
+				nodeviewNarudzbeStatus.GrabFocus();
+			}
 		}
 
 
@@ -231,17 +314,11 @@ namespace NewRestoran {
 			current.Clear();
 			if(!prikaziOsimS) {
 				foreach(NarudzbaStavkaNode n in nsns) {
-					if(n.Status == s) {
-						current.AddNode(n);
-						//n.Changed += OnComboboxStatusChanged;
+					if(n.Status == s) current.AddNode(n);
 					}
-				}
 			} else { 
 				foreach(NarudzbaStavkaNode n in nsns) {
-					if(n.Status != s) {
-						current.AddNode(n);
-						//n.Changed += OnComboboxStatusChanged;
-					}
+					if(n.Status != s) current.AddNode(n);
 				}
 			}
 			nodeviewNarudzbeStatus.NodeStore = current;
@@ -261,6 +338,34 @@ namespace NewRestoran {
 					nodeviewNarudzbe.NodeSelection.SelectNode(n);
 					nodeviewNarudzbe.GrabFocus();
 					return;
+				}
+			}
+		}
+
+		protected void OnButtonOdustaniClicked(object sender, EventArgs e) {
+			NodeSelectionChanged(new object(), new EventArgs());
+			buttonNarudzbeChange.Click();
+		}
+
+		protected void OnButtonSpremiClicked(object sender, EventArgs e) {
+		 	NarudzbeNode n = (nodeviewNarudzbe.NodeSelection.SelectedNode as NarudzbeNode);
+			if(n != null) {
+				try {
+					n.Update(comboboxOznakaStola.ActiveText);
+				} catch(ArgumentException ae) {
+					DialogBox.ShowError(this, ae.Message);
+				}
+				hboxSpremljeno.Show();
+				GLib.Timeout.Add(2000, () => { hboxSpremljeno.Hide(); return false; });
+			}
+		}
+
+		protected void ForAll<T>(Callback action, Container[] parents) where T : Gtk.Widget {
+			foreach(Container parent in parents) {
+				foreach(Widget w in parent) {
+					if(w is T) {
+						action.Invoke(w);
+					}
 				}
 			}
 		}

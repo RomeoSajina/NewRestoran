@@ -59,7 +59,7 @@ namespace NewRestoran {
 			labelSpremljeno.ModifyFg(StateType.Normal, c);
 			labelSpremljeno.ModifyFont(Pango.FontDescription.FromString("bold 16"));
 
-			ForAll<Label>(l => l.ModifyFont(Pango.FontDescription.FromString("bold")), new Container[]{ hbox4, hbox5, hbox6, hbox7, hbox8, hbox9});
+			ForAll<Label>(l => l.ModifyFont(Pango.FontDescription.FromString("bold 10")), new Container[]{ hbox4, hbox5, hbox6, hbox7, hbox8, hbox9});
 		}
 			                   
 		public void NodeSelectionChanged(object sender, EventArgs e) {
@@ -141,6 +141,8 @@ namespace NewRestoran {
 			labelCijenaArtikla.LabelProp = "";
 			nodeviewStavke.Selection.UnselectAll();
 			if(!formPrikaz) buttonChange.Click();
+			comboboxSifraArtikla.Popup();
+
 		}
 
 		protected void OnButtonSpremiClicked(object sender, EventArgs e) {

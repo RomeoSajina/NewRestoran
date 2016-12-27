@@ -347,6 +347,8 @@ namespace CustomWidgetLibrary{
 					return;
 				} else if(b is Button) (b as Button).Relief = ReliefStyle.None;
 			});
+			labelOznaka.LabelProp = "";
+			labelOznakaStola.LabelProp = "";
 		}
 
 		public void ShowToolbox() {

@@ -83,6 +83,7 @@
                 <child>
                   <widget class="Gtk.Label" id="labelOznakaStola">
                     <property name="MemberName" />
+                    <property name="LabelProp" translatable="yes" />
                   </widget>
                   <packing>
                     <property name="Position">1</property>
@@ -203,6 +204,7 @@
                 <property name="MemberName" />
                 <property name="WidthRequest">118</property>
                 <property name="Xalign">0</property>
+                <property name="LabelProp" translatable="yes" />
               </widget>
               <packing>
                 <property name="Position">1</property>

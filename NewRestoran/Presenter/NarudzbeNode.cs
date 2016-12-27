@@ -31,13 +31,14 @@ namespace NewRestoran {
 			narudzba = n;
 		}
 
+		public void Update(string oznakaStola) {
+			narudzba.StolNarudzbe = new Stol(oznakaStola, 4);//TODO Referenca umjesto novog objekta
+			OznakaStola = oznakaStola;
+		}
+
 		private void UpdateUkupno() {
 			Ukupno = narudzba.Ukupno().ToString("C");
-			/*float u = 0;
-			foreach(NarudzbaStavkaNode ns in stavkeNarudzbeNodeStore)
-				u += float.Parse(ns.Ukupno,System.Globalization.NumberStyles.Any);
-			
-			Ukupno = u.ToString("C");*/
+			this.OnChanged();
 		}
 
 		public void DodajStavku(NarudzbaStavka ns) {
@@ -46,7 +47,8 @@ namespace NewRestoran {
 			UpdateUkupno();
 			MainWindow.statusStore.AddNode(nsn);
 			MainWindow.stavkeChanged();
-			//SetUkupno(ns.ArtiklNarudzbe.Cijena, ns.Kolicina);
+
+			//Insert u db i vrati ID
 		}
 
 		public void DodajStavku(string sifra, int kolicina, int status) {
@@ -57,11 +59,7 @@ namespace NewRestoran {
 			MainWindow.statusStore.AddNode(nsn);
 			MainWindow.stavkeChanged();
 
-			//	Artikl artikl = ArtikliPresenter.GetArtikl(sifra);
-			//	if(artikl == null) throw new ArgumentException("Artikl mora biti odabran.", nameof(artikl));
-
-			//Prvo insert u bazu pa onda vratit ID i dodati sa ID
-			//	SetUkupno(artikl.Cijena, kolicina);
+			//Insert u db i vrati ID
 		}
 
 		public void UpdateStavku(NarudzbaStavkaNode ns, string sifra, int kolicina, int status) {
@@ -70,20 +68,7 @@ namespace NewRestoran {
 			ns.SetStatus(NarudzbaStavka.GetStatus(status));
 			UpdateUkupno();
 			MainWindow.stavkeChanged();
-		//	Artikl a = ArtikliPresenter.GetArtikl(sifra);
-		//	if(a != null) {
-			//	SetUkupno(-ArtikliPresenter.GetArtikl(ns.Sifra).Cijena, int.Parse(ns.Kolicina));
-			//	MainWindow.statusStore.RemoveNode(ns);
-			//	ns.Sifra = a.Sifra;
-			//	ns.Naziv = a.Naziv;
-		//		ns.Kolicina = kolicina.ToString();
-		//		ns.SetStatus(NarudzbaStavka.GetStatus(status));
-		//		ns.Ukupno = (a.Cijena * kolicina).ToString("C");
-
-				//SetUkupno(a.Cijena, kolicina);
-		//		MainWindow.statusStore.AddNode(ns);
-			//} 
-
+	
 			//Update to db
 		}
 
@@ -92,8 +77,7 @@ namespace NewRestoran {
 			UpdateUkupno();
 			MainWindow.statusStore.RemoveNode(ns);
 			MainWindow.stavkeChanged();
-			//	SetUkupno(-ArtikliPresenter.GetArtikl(ns.Sifra).Cijena, int.Parse(ns.Kolicina));
-
+		
 			//Delete from db
 		}
 

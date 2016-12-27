@@ -104,6 +104,7 @@ namespace CustomWidgetLibrary
 			// Container child hboxPrikazOznake.Gtk.Box+BoxChild
 			this.labelOznakaStola = new global::Gtk.Label();
 			this.labelOznakaStola.Name = "labelOznakaStola";
+			this.labelOznakaStola.LabelProp = "";
 			this.hboxPrikazOznake.Add(this.labelOznakaStola);
 			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hboxPrikazOznake[this.labelOznakaStola]));
 			w4.Position = 1;
@@ -195,6 +196,7 @@ namespace CustomWidgetLibrary
 			this.labelOznaka.WidthRequest = 118;
 			this.labelOznaka.Name = "labelOznaka";
 			this.labelOznaka.Xalign = 0F;
+			this.labelOznaka.LabelProp = "";
 			this.hbox4.Add(this.labelOznaka);
 			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.labelOznaka]));
 			w15.Position = 1;
