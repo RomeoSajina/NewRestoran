@@ -214,13 +214,14 @@ namespace NewRestoran {
 
 		protected void ForAll<T>(Callback action, Container[] parents) where T : Gtk.Widget {
 			foreach(Container parent in parents) {
-				foreach(Widget w in parent.AllChildren) {
+				foreach(Widget w in parent) {
 					if(w is T) {
 						action.Invoke(w);
 					}
 				}
 			}
 		}
+	
 
 	}
 }
