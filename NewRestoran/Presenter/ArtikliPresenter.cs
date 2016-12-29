@@ -8,9 +8,12 @@ namespace NewRestoran {
 		private static List<Artikl> SviArtikli = new List<Artikl>();
 		private static ListStore artikliListStore = new ListStore(typeof(string));
 
+		public static List<Artikl> Artikli {
+			get { return SviArtikli; }
+		}
+
 		public static ListStore ArtikliListStore {
 			get {return artikliListStore;}
-			set {artikliListStore = value;}
 		}
 
 
@@ -24,14 +27,29 @@ namespace NewRestoran {
 		}
 
 		public static void DeleteArtikl(Artikl a) {
-			SviArtikli.Remove(a);
 			TreeIter iter;
-			artikliListStore.GetIterFirst(out iter);
-		
-			while(artikliListStore.GetValue(iter, 0).ToString() != a.Sifra) 
-				artikliListStore.IterNext(ref iter);
-
+			artikliListStore.IterNthChild(out iter, GetIndex(a.Sifra));
 			artikliListStore.Remove(ref iter);
+
+			SviArtikli.Remove(a);
+		}
+
+		public static void DeleteArtikl(string sifra) {
+			DeleteArtikl(GetArtikl(sifra));
+		}
+
+		public static void UpdateArtikl(string oldSifra, ArtiklNode an) {
+			int index = GetIndex(oldSifra);
+			SviArtikli[index].Sifra = an.Sifra;
+			SviArtikli[index].Naziv = an.Naziv;
+			SviArtikli[index].DuziNaziv = an.DuziNaziv;
+			SviArtikli[index].Sastav = an.Sastav;
+			SviArtikli[index].Cijena = float.Parse(an.Cijena, System.Globalization.NumberStyles.Any);
+			SviArtikli[index].Oznaka = an.Oznaka;
+
+			TreeIter iter;
+			artikliListStore.IterNthChild(out iter, index);
+			artikliListStore.SetValue(iter, 0, an.Sifra);
 		}
 
 		public static void ArtiklDetails(string sifra, int kolicina, out string naziv, out string cijena, out string ukupno) {

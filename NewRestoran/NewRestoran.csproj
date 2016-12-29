@@ -155,6 +155,10 @@
     <Compile Include="View\StavkeWindow.cs" />
     <Compile Include="gtk-gui\NewRestoran.StavkeWindow.cs" />
     <Compile Include="Presenter\ArtikliPresenter.cs" />
+    <Compile Include="Presenter\ZaposlenikNode.cs" />
+    <Compile Include="Presenter\ZaposlenikNodeStore.cs" />
+    <Compile Include="View\ZaposleniciWindow.cs" />
+    <Compile Include="gtk-gui\NewRestoran.ZaposleniciWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />

@@ -70,12 +70,13 @@ namespace NewRestoran {
 				labelCijenaArtikla.LabelProp = s.Cijena;
 				spinbuttonKolicina.Value = int.Parse(s.Kolicina);
 				labelUkupnoArtikla.LabelProp = (spinbuttonKolicina.ValueAsInt * float.Parse(s.Cijena, System.Globalization.NumberStyles.Any)).ToString("C");
-				switch(s.StatusText) {
+				comboboxStatus.Active = NarudzbaStavka.StatusGetIndex(s.Status);
+				/*switch(s.StatusText) {
 					case "NaCekanju": comboboxStatus.Active = 0; break;
 					case "UObradi": comboboxStatus.Active = 1; break;
 					case "Gotovo": comboboxStatus.Active = 2; break;
 					case "Dostavljeno": comboboxStatus.Active = 3; break;
-				}
+				}*/
 			}
 		}
 
@@ -168,9 +169,10 @@ namespace NewRestoran {
 			} catch(ArgumentException ae) {
 				string msg;
 				switch(ae.ParamName) {
-				case "artikl": msg = "Šifra artikla mora biti odabrana"; break;
-				case "kolicina": msg = "Količina mora biti veća od 0"; break;
-				default: msg = ae.Message; break;
+					case "artiklStavke":
+					case "artikl": msg = "Šifra artikla mora biti odabrana"; break;
+					case "kolicina": msg = "Količina mora biti veća od 0"; break;
+					default: msg = ae.Message; break;
 				}
 				DialogBox.ShowError(this, msg);
 				return false;
@@ -202,10 +204,13 @@ namespace NewRestoran {
 		}
 
 		protected void OnButtonBackAndSaveClicked(object sender, EventArgs e) {
-			if((nodeviewStavke.NodeSelection.SelectedNode as NarudzbaStavkaNode) == null && comboboxSifraArtikla.Active > -1){
+			if((nodeviewStavke.NodeSelection.SelectedNode as NarudzbaStavkaNode) == null && comboboxSifraArtikla.Active > -1) {
 				if(SpremiPromjene())
 					this.Destroy();
-			} else this.Destroy();
+
+			} else if(SpremiPromjene())
+						this.Destroy();
+			
 		}
 
 		protected void OnButtonZakljuciClicked(object sender, EventArgs e) {

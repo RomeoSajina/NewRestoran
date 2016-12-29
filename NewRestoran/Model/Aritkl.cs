@@ -60,6 +60,34 @@ namespace NewRestoran {
 		}
 
 
+		public string OznakaToString() {
+			string s;
+			switch(Oznaka) {
+				case OznakaArtikla.Hrana: s = "Hrana"; break;
+				case OznakaArtikla.Pice: s = "Piće"; break;
+				case OznakaArtikla.Ostalo: s = "Ostalo"; break;
+				default: s = "Ostalo"; break;
+			}
+			return s;
+		}
+
+		public static OznakaArtikla GetOznaka(int index) {
+			switch(index) {
+				case 0: return OznakaArtikla.Hrana;
+				case 1: return OznakaArtikla.Pice;
+				case 2: return OznakaArtikla.Ostalo;
+				default: return OznakaArtikla.Ostalo;
+			}
+		}
+
+		public static int OznakaGetIndex(OznakaArtikla oznaka) {
+			switch(oznaka) {
+				case OznakaArtikla.Hrana: return 0;
+				case OznakaArtikla.Pice: return 1;
+				case OznakaArtikla.Ostalo: return 2;
+				default: return 2;
+			}
+		}
 
 	}
 }

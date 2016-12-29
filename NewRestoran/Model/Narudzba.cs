@@ -44,7 +44,7 @@ namespace NewRestoran {
 
 		public float Ukupno() {
 			float ukupno = 0;
-			Stavke.ForEach (s => ukupno += s.Kolicina * s.ArtiklNarudzbe.Cijena);
+			Stavke.ForEach (s => ukupno += s.Kolicina * s.ArtiklStavke.Cijena);
 			return ukupno;
 		}
 

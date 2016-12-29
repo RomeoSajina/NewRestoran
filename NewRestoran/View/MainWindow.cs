@@ -251,7 +251,8 @@ namespace NewRestoran {
 		protected void OnButtonTakeOrderClicked(object sender, EventArgs e) {
 			NarudzbaStavkaNode ns = (nodeviewNarudzbeStatus.NodeSelection.SelectedNode as NarudzbaStavkaNode);
 			if(ns != null) {
-				ns.SetStatus(NarudzbaStavka.StatusStavke.UObradi);
+				//ns.SetStatus(NarudzbaStavka.StatusStavke.UObradi);
+				ns.Status = NarudzbaStavka.StatusStavke.UObradi;
 				nodeviewNarudzbeStatus.GrabFocus();
 			}
 		}
@@ -259,7 +260,8 @@ namespace NewRestoran {
 		protected void OnButtonFinishOrderClicked(object sender, EventArgs e) {
 			NarudzbaStavkaNode ns = (nodeviewNarudzbeStatus.NodeSelection.SelectedNode as NarudzbaStavkaNode);
 			if(ns != null) {
-				ns.SetStatus(NarudzbaStavka.StatusStavke.Gotovo);
+				//ns.SetStatus(NarudzbaStavka.StatusStavke.Gotovo);
+				ns.Status = NarudzbaStavka.StatusStavke.Gotovo;
 				nodeviewNarudzbeStatus.GrabFocus();
 			}
 		}
@@ -280,7 +282,8 @@ namespace NewRestoran {
 		protected void OnButtonDeliverClicked(object sender, EventArgs e) {
 			NarudzbaStavkaNode ns = (nodeviewNarudzbeStatus.NodeSelection.SelectedNode as NarudzbaStavkaNode);
 			if(ns != null) {
-				ns.SetStatus(NarudzbaStavka.StatusStavke.Dostavljeno);
+				//ns.SetStatus(NarudzbaStavka.StatusStavke.Dostavljeno);
+				ns.Status = NarudzbaStavka.StatusStavke.Dostavljeno;
 				nodeviewNarudzbeStatus.GrabFocus();
 			}
 		}
@@ -370,5 +373,19 @@ namespace NewRestoran {
 			}
 		}
 
+		protected void OnArtikliActionActivated(object sender, EventArgs e) {
+			if(!windowAction.Active && notebookMain.Page != 1) {
+				notebookMain.Page = 1;
+				ArtikliWindow aw = new ArtikliWindow(false);
+				aw.Destroyed += (o, args) => { notebookMain.Page = 0; };
+
+				boxArtikli.Foreach(box => boxArtikli.Remove(box));
+				boxArtikli.Add(aw.GetContent());
+			} else { 
+				notebookMain.Page = 0;
+				ArtikliWindow aw = new ArtikliWindow(true);
+			}
+
+		}
 	}
 }

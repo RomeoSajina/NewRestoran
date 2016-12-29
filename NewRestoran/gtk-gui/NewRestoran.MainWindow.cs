@@ -28,7 +28,7 @@ namespace NewRestoran
 
 		private global::Gtk.Action homeAction;
 
-		private global::Gtk.Action refreshAction;
+		private global::Gtk.ToggleAction windowAction;
 
 		private global::Gtk.Action PodaciAction1;
 
@@ -160,6 +160,8 @@ namespace NewRestoran
 
 		private global::Gtk.Label label2;
 
+		private global::Gtk.HBox boxArtikli;
+
 		private global::Gtk.Label label5;
 
 		protected virtual void Build()
@@ -201,9 +203,9 @@ namespace NewRestoran
 			this.homeAction = new global::Gtk.Action("homeAction", global::Mono.Unix.Catalog.GetString("Početna"), null, "gtk-home");
 			this.homeAction.ShortLabel = global::Mono.Unix.Catalog.GetString("Početna");
 			w1.Add(this.homeAction, null);
-			this.refreshAction = new global::Gtk.Action("refreshAction", global::Mono.Unix.Catalog.GetString("Refresh"), null, "gtk-refresh");
-			this.refreshAction.ShortLabel = global::Mono.Unix.Catalog.GetString("Refresh");
-			w1.Add(this.refreshAction, null);
+			this.windowAction = new global::Gtk.ToggleAction("windowAction", global::Mono.Unix.Catalog.GetString("Window"), null, "gtk-fullscreen");
+			this.windowAction.ShortLabel = global::Mono.Unix.Catalog.GetString("Window");
+			w1.Add(this.windowAction, null);
 			this.PodaciAction1 = new global::Gtk.Action("PodaciAction1", global::Mono.Unix.Catalog.GetString("Podaci"), null, null);
 			this.PodaciAction1.ShortLabel = global::Mono.Unix.Catalog.GetString("Podaci");
 			w1.Add(this.PodaciAction1, null);
@@ -229,6 +231,7 @@ namespace NewRestoran
 			this.WindowPosition = ((global::Gtk.WindowPosition)(4));
 			// Container child NewRestoran.MainWindow.Gtk.Container+ContainerChild
 			this.vbox1 = new global::Gtk.VBox();
+			this.vbox1.Name = "vbox1";
 			this.vbox1.Spacing = 6;
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.UIManager.AddUiFromString(@"<ui><menubar name='menubar1'><menu name='PodaciAction1' action='PodaciAction1'><menuitem name='ArtikliAction1' action='ArtikliAction1'/><menuitem name='StoloviAction1' action='StoloviAction1'/><menuitem name='ZaposleniciAction1' action='ZaposleniciAction1'/></menu><menuitem name='ZalihaAction' action='ZalihaAction'/><menuitem name='StatisikaAction' action='StatisikaAction'/></menubar></ui>");
@@ -241,8 +244,8 @@ namespace NewRestoran
 			w2.Fill = false;
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.UIManager.AddUiFromString("<ui><toolbar name=\'toolbar1\'><toolitem name=\'quitAction\' action=\'quitAction\'/><to" +
-					"olitem name=\'homeAction\' action=\'homeAction\'/><toolitem name=\'refreshAction\' act" +
-					"ion=\'refreshAction\'/></toolbar></ui>");
+					"olitem name=\'homeAction\' action=\'homeAction\'/><toolitem name=\'windowAction\' acti" +
+					"on=\'windowAction\'/></toolbar></ui>");
 			this.toolbar1 = ((global::Gtk.Toolbar)(this.UIManager.GetWidget("/toolbar1")));
 			this.toolbar1.Name = "toolbar1";
 			this.toolbar1.ShowArrow = false;
@@ -255,7 +258,7 @@ namespace NewRestoran
 			this.notebookMain = new global::Gtk.Notebook();
 			this.notebookMain.CanFocus = true;
 			this.notebookMain.Name = "notebookMain";
-			this.notebookMain.CurrentPage = 0;
+			this.notebookMain.CurrentPage = 1;
 			this.notebookMain.EnablePopup = true;
 			this.notebookMain.Scrollable = true;
 			// Container child notebookMain.Gtk.Notebook+NotebookChild
@@ -855,17 +858,22 @@ namespace NewRestoran
 			// Notebook tab
 			this.label2 = new global::Gtk.Label();
 			this.label2.Name = "label2";
-			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString("llll");
+			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString("Main");
 			this.notebookMain.SetTabLabel(this.hbox1, this.label2);
 			this.label2.ShowAll();
+			// Container child notebookMain.Gtk.Notebook+NotebookChild
+			this.boxArtikli = new global::Gtk.HBox();
+			this.boxArtikli.Name = "boxArtikli";
+			this.boxArtikli.Spacing = 6;
+			this.boxArtikli.BorderWidth = ((uint)(20));
+			this.notebookMain.Add(this.boxArtikli);
+			global::Gtk.Notebook.NotebookChild w74 = ((global::Gtk.Notebook.NotebookChild)(this.notebookMain[this.boxArtikli]));
+			w74.Position = 1;
 			// Notebook tab
-			global::Gtk.Label w74 = new global::Gtk.Label();
-			w74.Visible = true;
-			this.notebookMain.Add(w74);
 			this.label5 = new global::Gtk.Label();
 			this.label5.Name = "label5";
-			this.label5.LabelProp = global::Mono.Unix.Catalog.GetString("page2");
-			this.notebookMain.SetTabLabel(w74, this.label5);
+			this.label5.LabelProp = global::Mono.Unix.Catalog.GetString("Artikli");
+			this.notebookMain.SetTabLabel(this.boxArtikli, this.label5);
 			this.label5.ShowAll();
 			this.vbox1.Add(this.notebookMain);
 			global::Gtk.Box.BoxChild w75 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.notebookMain]));
@@ -882,6 +890,7 @@ namespace NewRestoran
 			this.vboxFormPrikaz.Hide();
 			this.Show();
 			this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);
+			this.ArtikliAction1.Activated += new global::System.EventHandler(this.OnArtikliActionActivated);
 			this.comboboxSveTrenutna.Changed += new global::System.EventHandler(this.OnComboboxSveTrenutnaChanged);
 			this.comboboxStatus.Changed += new global::System.EventHandler(this.OnComboboxStatusChanged);
 			this.buttonOdustani.Clicked += new global::System.EventHandler(this.OnButtonOdustaniClicked);

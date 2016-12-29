@@ -65,7 +65,8 @@ namespace NewRestoran {
 		public void UpdateStavku(NarudzbaStavkaNode ns, string sifra, int kolicina, int status) {
 			ns.Sifra = sifra;
 			ns.Kolicina = kolicina.ToString();
-			ns.SetStatus(NarudzbaStavka.GetStatus(status));
+			//ns.SetStatus(NarudzbaStavka.GetStatus(status));
+			ns.Status = NarudzbaStavka.GetStatus(status);
 			UpdateUkupno();
 			MainWindow.stavkeChanged();
 	

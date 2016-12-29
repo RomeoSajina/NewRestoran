@@ -4,7 +4,7 @@ namespace NewRestoran {
 	public class NarudzbaStavka {
 
 		public int Id { get; set; }
-		private Artikl artiklNarudzbe;
+		private Artikl artiklStavke;
 		private int kolicina;
 		public enum StatusStavke { NaCekanju, UObradi, Gotovo, Dostavljeno }
 		public StatusStavke Status { get; set; }
@@ -17,16 +17,16 @@ namespace NewRestoran {
 			}
 		}
 
-		public Artikl ArtiklNarudzbe {
-			get {return artiklNarudzbe;}
+		public Artikl ArtiklStavke {
+			get {return artiklStavke;}
 			set {
-				if(value == null) throw new ArgumentException("Nepostojeći artikl.", nameof(artiklNarudzbe));
-				artiklNarudzbe = value;
+				if(value == null) throw new ArgumentException("Nepostojeći artikl.", nameof(artiklStavke));
+				artiklStavke = value;
 			}
 		}
 
 		public NarudzbaStavka (Artikl artikl, int kolicina, StatusStavke status) {
-			ArtiklNarudzbe = artikl;
+			ArtiklStavke = artikl;
 			Kolicina = kolicina;
 			Status = status;
 		}
@@ -35,16 +35,39 @@ namespace NewRestoran {
 			Id = id;
 		}
 
-		public static StatusStavke GetStatus(int index) {
-			StatusStavke s;
-			switch(index) {
-				case 0: s = StatusStavke.NaCekanju; break;
-				case 1: s = StatusStavke.UObradi; break;
-				case 2: s = StatusStavke.Gotovo; break;
-				case 3: s = StatusStavke.Dostavljeno; break;
-				default: s = StatusStavke.NaCekanju; break;
+		public string StatusToString() {
+			string s;
+			switch(Status) {
+			case StatusStavke.NaCekanju: s = "Na čekanju"; break;
+			case StatusStavke.UObradi: s = "U obradi"; break;
+			case StatusStavke.Gotovo: s = "Gotovo"; break;
+			case StatusStavke.Dostavljeno: s = "Dostavljeno"; break;
+			default: s = "Na čekanju"; break;
 			}
 			return s;
 		}
+
+		public static StatusStavke GetStatus(int index) {
+			switch(index) {
+				case 0: return StatusStavke.NaCekanju;
+				case 1: return StatusStavke.UObradi; 
+				case 2: return StatusStavke.Gotovo; 
+				case 3: return StatusStavke.Dostavljeno;
+				default: return StatusStavke.NaCekanju; 
+			} 
+		}
+
+		public static int StatusGetIndex(StatusStavke s) { 
+			switch(s) {
+			case StatusStavke.NaCekanju: return 0;
+			case StatusStavke.UObradi: return 1;
+			case StatusStavke.Gotovo: return 2;
+			case StatusStavke.Dostavljeno: return 3;
+			default: return 0;
+			}
+			
+		}
+
+
 	}
 }

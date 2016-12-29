@@ -5,23 +5,23 @@ namespace NewRestoran {
 
 	public class NarudzbaStavkaNode : TreeNode {
 
+		public int Id { get; set; }
 		private string kolicina;
 		private string sifra;
+		private NarudzbaStavka.StatusStavke status;
+		private NarudzbaStavka stavka;
 
 		[Gtk.TreeNodeValue(Column = 0)]
 		public string Sifra {
 			get {return sifra;}
 			set {
-				if(stavka != null) {
-					stavka.ArtiklNarudzbe = ArtikliPresenter.GetArtikl(value);
-					MainWindow.statusStore.RemoveNode(this);
+				stavka.ArtiklStavke = ArtikliPresenter.GetArtikl(value);
+				MainWindow.statusStore.RemoveNode(this);
 
-					sifra = stavka.ArtiklNarudzbe.Sifra;
-					Naziv = stavka.ArtiklNarudzbe.Naziv;
-					Ukupno = (stavka.ArtiklNarudzbe.Cijena * stavka.Kolicina).ToString("C");
-
-					MainWindow.statusStore.AddNode(this);
-				}
+				sifra = stavka.ArtiklStavke.Sifra;
+				Naziv = stavka.ArtiklStavke.Naziv;
+				Ukupno = (stavka.ArtiklStavke.Cijena * stavka.Kolicina).ToString("C");
+				MainWindow.statusStore.AddNode(this);
 			}
 		}
 
@@ -35,9 +35,9 @@ namespace NewRestoran {
 		public string Kolicina {
 			get { return kolicina; }
 			set {
-				if(stavka != null) stavka.Kolicina = int.Parse(value);
+				stavka.Kolicina = int.Parse(value);
 				kolicina = value;
-				Ukupno = (stavka.ArtiklNarudzbe.Cijena * stavka.Kolicina).ToString("C");
+				Ukupno = (stavka.ArtiklStavke.Cijena * stavka.Kolicina).ToString("C");
 			}
 		}
 
@@ -53,32 +53,31 @@ namespace NewRestoran {
 		[Gtk.TreeNodeValue (Column = 7)]
 		public string OznakaStola;
 
-		public int Id { get; set; }
-		public NarudzbaStavka.StatusStavke Status { get; set;}
-		private NarudzbaStavka stavka;
+		public NarudzbaStavka.StatusStavke Status {
+			get {return status;}
+			set {
+				stavka.Status = value;
+				status = stavka.Status;
+				StatusPixbuf = Pixbuf.LoadFromResource("NewRestoran.images." + status + ".png").ScaleSimple(20, 20, InterpType.Bilinear);
+				StatusText = stavka.StatusToString();
+				MainWindow.stavkeChanged();
+			}
+		}
+
 
 
 
 		public NarudzbaStavkaNode(NarudzbaStavka ns, string oznakaStola) {
-			sifra = ns.ArtiklNarudzbe.Sifra;
-			Naziv = ns.ArtiklNarudzbe.Naziv;
-			Cijena = ns.ArtiklNarudzbe.Cijena.ToString("C");
+			stavka = ns;
+			sifra = ns.ArtiklStavke.Sifra;
+			Naziv = ns.ArtiklStavke.Naziv;
+			Cijena = ns.ArtiklStavke.Cijena.ToString("C");
 			kolicina = ns.Kolicina.ToString();
-			Ukupno = (ns.Kolicina * ns.ArtiklNarudzbe.Cijena).ToString ("C");
-			SetStatus(ns.Status);
+			Ukupno = (ns.Kolicina * ns.ArtiklStavke.Cijena).ToString ("C");
+			Status = ns.Status;
 			OznakaStola = oznakaStola;
 			Status = ns.Status;
 			Id = ns.Id;
-			stavka = ns;
-		}
-
-		public void SetStatus(NarudzbaStavka.StatusStavke status) { 
-			StatusPixbuf = Pixbuf.LoadFromResource("NewRestoran.images." + status + ".png").ScaleSimple(20, 20, InterpType.Bilinear);
-			StatusText = status.ToString();
-			Status = status;
-
-			MainWindow.stavkeChanged();
-
 		}
 
 

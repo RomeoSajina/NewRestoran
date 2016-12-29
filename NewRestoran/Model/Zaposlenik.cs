@@ -10,7 +10,7 @@ namespace NewRestoran {
 		private DateTime datumZaposlenja;
 		public enum StatusZaposlenik { StalniRadnik, StalniSezonac, Sezonac }
 		public StatusZaposlenik Status;
-		public enum UlogaZaposlenik { Konobar, Kuhar, Šef }
+		public enum UlogaZaposlenik { Konobar, Kuhar, Sef }
 		public UlogaZaposlenik Uloga;
 
 		public string Ime {
@@ -55,6 +55,28 @@ namespace NewRestoran {
 		public Zaposlenik (int id, string ime, string prezime, string password, DateTime datumZaposlenja, StatusZaposlenik status, UlogaZaposlenik uloga)
 			: this(ime, prezime, password, datumZaposlenja, status, uloga){
 			ID = id;
+		}
+
+		public string StatusToString() {
+			string s;
+			switch(Status) {
+				case StatusZaposlenik.Sezonac: s = "Sezonac"; break;
+				case StatusZaposlenik.StalniSezonac: s = "Stalni sezonac"; break;
+				case StatusZaposlenik.StalniRadnik: s = "Stalni radnik"; break;
+				default: s = "Sezonac"; break;
+			}
+			return s;
+		}
+
+		public string UlogaToString() { 
+			string u;
+			switch(Uloga) {
+				case UlogaZaposlenik.Konobar: u = "Konobar"; break;
+				case UlogaZaposlenik.Kuhar: u = "Kuhar"; break;
+				case UlogaZaposlenik.Sef: u = "Šef"; break;
+				default: u = "Sezonac"; break;
+			}
+			return u;
 		}
 
 	}

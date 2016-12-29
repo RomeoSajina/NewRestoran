@@ -40,11 +40,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="gtk-gui\generated.cs" />
     <Compile Include="gtk-gui\CustomWidgetLibrary.FixedRestoranSheme.cs" />
-    <Compile Include="FixedWidget\FixedRestoranSheme.cs" />
+    <Compile Include="Widgets\FixedRestoranSheme.cs" />
     <Compile Include="DialogBox\DialogBox.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="FixedWidget\" />
+    <Folder Include="Widgets\" />
     <Folder Include="images\" />
     <Folder Include="DialogBox\" />
   </ItemGroup>

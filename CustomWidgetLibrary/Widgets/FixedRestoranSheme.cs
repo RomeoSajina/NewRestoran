@@ -341,14 +341,18 @@ namespace CustomWidgetLibrary{
 		}
 
 		public void SelectTable(string name) {
+			bool postoji = false;
 			fixedSheme.Foreach(b => {
 				if(b is Button && b.Name == name) {
 					b.GrabFocus();
+					postoji = true;
 					return;
 				} else if(b is Button) (b as Button).Relief = ReliefStyle.None;
 			});
-			labelOznaka.LabelProp = "";
-			labelOznakaStola.LabelProp = "";
+			if(!postoji) {
+				labelOznaka.LabelProp = "";
+				labelOznakaStola.LabelProp = "";
+			} 
 		}
 
 		public void ShowToolbox() {
