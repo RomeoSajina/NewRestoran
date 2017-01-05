@@ -86,10 +86,9 @@ namespace NewRestoran {
 		public static Zaposlenik GetZaposlenik(string ime, string password) { 
 			SqliteCommand c = DB.con.CreateCommand();
 
-			c.CommandText = String.Format(@"SELECT * FROM Zaposlenik WHERE ime = '{0}' AExecuteReader '{1}' ", ime, password);
+			c.CommandText = String.Format(@"SELECT * FROM Zaposlenik WHERE ime = '{0}' AND password = '{1}' ", ime, password);
 
 			SqliteDataReader reader = c.ExecuteReader();
-
 			Zaposlenik z;
 
 			if(!reader.HasRows)

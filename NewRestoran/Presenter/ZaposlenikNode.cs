@@ -13,6 +13,11 @@ namespace NewRestoran {
 		private Zaposlenik.UlogaZaposlenik uloga;
 		public Zaposlenik zaposlenik { get; }
 
+		protected static Pixbuf SefPixbuf = Pixbuf.LoadFromResource("NewRestoran.images.Sef.png").ScaleSimple(20, 20, InterpType.Bilinear);
+		protected static Pixbuf KonobarPixbuf = Pixbuf.LoadFromResource("NewRestoran.images.Konobar.png").ScaleSimple(20, 20, InterpType.Bilinear);
+		protected static Pixbuf KuharPixbuf = Pixbuf.LoadFromResource("NewRestoran.images.Kuhar.png").ScaleSimple(20, 20, InterpType.Bilinear);
+
+
 		[TreeNodeValue(Column = 0)]
 		public string Ime { 
 			get { return ime;}
@@ -74,7 +79,11 @@ namespace NewRestoran {
 				zaposlenik.Uloga = value;
 				uloga = zaposlenik.Uloga;
 				UlogaText = zaposlenik.UlogaToString();
-				UlogaPixbuf = Pixbuf.LoadFromResource("NewRestoran.images." + uloga + ".png").ScaleSimple(20, 20, InterpType.Bilinear);
+				switch(Uloga) {
+					case Zaposlenik.UlogaZaposlenik.Sef: UlogaPixbuf = SefPixbuf; break;
+					case Zaposlenik.UlogaZaposlenik.Konobar: UlogaPixbuf = KonobarPixbuf; break;
+					case Zaposlenik.UlogaZaposlenik.Kuhar: UlogaPixbuf = KuharPixbuf; break;
+				}
 			}
 		}
 

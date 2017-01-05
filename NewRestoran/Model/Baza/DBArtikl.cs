@@ -17,7 +17,7 @@ namespace NewRestoran {
 					duzi_naziv nvarchar(40),
 					sastav nvarchar(60) NOT NULL,
 					cijena numeric NOT NULL,
-					oznaka nvarchar(10) NOT NULL CHECK(oznaka IN('Hrana', 'Pice', 'Ostalo')))";
+					oznaka nvarchar(10) NOT NULL CHECK(oznaka IN('Hrana', 'Pice', 'Desert', 'Ostalo')))";
 
 			com.ExecuteNonQuery();
 			com.Dispose();

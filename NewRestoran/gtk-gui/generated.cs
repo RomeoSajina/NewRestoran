@@ -76,6 +76,8 @@ namespace Stetic
 				w1.Add("shoutdown", w32);
 				global::Gtk.IconSet w33 = new global::Gtk.IconSet(global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.table4chairs.png"));
 				w1.Add("table4chairs", w33);
+				global::Gtk.IconSet w34 = new global::Gtk.IconSet(global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.Desert.png"));
+				w1.Add("Desert", w34);
 				w1.AddDefault();
 			}
 		}

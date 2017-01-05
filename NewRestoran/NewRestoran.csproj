@@ -175,6 +175,9 @@
     <EmbeddedResource Include="..\icons\SveAktivne.png">
       <Link>images\SveAktivne.png</Link>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\Desert.png">
+      <Link>images\Desert.png</Link>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />

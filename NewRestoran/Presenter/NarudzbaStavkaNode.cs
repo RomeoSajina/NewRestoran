@@ -10,6 +10,12 @@ namespace NewRestoran {
 		private NarudzbaStavka.StatusStavke status;
 		public NarudzbaStavka stavka { get; }
 
+		protected static Pixbuf NaCekanjuPixbuf = Pixbuf.LoadFromResource("NewRestoran.images.NaCekanju.png").ScaleSimple(20, 20, InterpType.Bilinear);
+		protected static Pixbuf UObradiPixbuf = Pixbuf.LoadFromResource("NewRestoran.images.UObradi.png").ScaleSimple(20, 20, InterpType.Bilinear);
+		protected static Pixbuf GotovoPixbuf = Pixbuf.LoadFromResource("NewRestoran.images.Gotovo.png").ScaleSimple(20, 20, InterpType.Bilinear);
+		protected static Pixbuf DostavljenoPixbuf = Pixbuf.LoadFromResource("NewRestoran.images.Dostavljeno.png").ScaleSimple(20, 20, InterpType.Bilinear);
+
+
 		[Gtk.TreeNodeValue(Column = 0)]
 		public string Sifra {
 			get {return sifra;}
@@ -54,8 +60,13 @@ namespace NewRestoran {
 			set {
 				stavka.Status = value;
 				status = stavka.Status;
-				StatusPixbuf = Pixbuf.LoadFromResource("NewRestoran.images." + status + ".png").ScaleSimple(20, 20, InterpType.Bilinear);
 				StatusText = stavka.StatusToString();
+				switch(Status) {
+					case NarudzbaStavka.StatusStavke.NaCekanju: StatusPixbuf = NaCekanjuPixbuf; break;
+					case NarudzbaStavka.StatusStavke.UObradi: StatusPixbuf = UObradiPixbuf; break;
+					case NarudzbaStavka.StatusStavke.Gotovo: StatusPixbuf = GotovoPixbuf; break;
+					case NarudzbaStavka.StatusStavke.Dostavljeno: StatusPixbuf = DostavljenoPixbuf; break;
+				}
 			}
 		}
 

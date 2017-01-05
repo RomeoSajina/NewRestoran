@@ -168,6 +168,11 @@
         <property name="Image">resource:NewRestoran.images.table4chairs.png</property>
       </source>
     </icon-set>
+    <icon-set id="Desert">
+      <source>
+        <property name="Image">resource:NewRestoran.images.Desert.png</property>
+      </source>
+    </icon-set>
   </icon-factory>
   <widget class="Gtk.Window" id="NewRestoran.ArtikliWindow" design-size="1738 717">
     <property name="MemberName" />

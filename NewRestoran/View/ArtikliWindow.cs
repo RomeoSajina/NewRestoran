@@ -34,6 +34,7 @@ namespace NewRestoran {
 			ListStore dropdownOznakaListStore = new ListStore(typeof(Pixbuf), typeof(string));
 			dropdownOznakaListStore.AppendValues(Pixbuf.LoadFromResource("NewRestoran.images.Hrana.png").ScaleSimple(20, 20, InterpType.Bilinear), "Hrana");
 			dropdownOznakaListStore.AppendValues(Pixbuf.LoadFromResource("NewRestoran.images.Pice.png").ScaleSimple(20, 20, InterpType.Bilinear), "Piće");
+			dropdownOznakaListStore.AppendValues(Pixbuf.LoadFromResource("NewRestoran.images.Desert.png").ScaleSimple(20, 20, InterpType.Bilinear), "Desert");
 			dropdownOznakaListStore.AppendValues(Pixbuf.LoadFromResource("NewRestoran.images.Ostalo.png").ScaleSimple(20, 20, InterpType.Bilinear), "Ostalo");
 
 			comboboxOznaka.Model = dropdownOznakaListStore;

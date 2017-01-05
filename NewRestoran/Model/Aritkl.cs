@@ -10,7 +10,7 @@ namespace NewRestoran {
 		public string DuziNaziv { get; set; }
 		private string sastav;
 		private float cijena;
-		public enum OznakaArtikla { Hrana, Pice, Ostalo }
+		public enum OznakaArtikla { Hrana, Pice, Desert, Ostalo }
 		public OznakaArtikla Oznaka;
 
 		public string Sifra {
@@ -65,6 +65,7 @@ namespace NewRestoran {
 			switch(Oznaka) {
 				case OznakaArtikla.Hrana: s = "Hrana"; break;
 				case OznakaArtikla.Pice: s = "Piće"; break;
+				case OznakaArtikla.Desert: s = "Desert"; break;
 				case OznakaArtikla.Ostalo: s = "Ostalo"; break;
 				default: s = "Ostalo"; break;
 			}
@@ -75,7 +76,8 @@ namespace NewRestoran {
 			switch(index) {
 				case 0: return OznakaArtikla.Hrana;
 				case 1: return OznakaArtikla.Pice;
-				case 2: return OznakaArtikla.Ostalo;
+				case 2: return OznakaArtikla.Desert;
+				case 3: return OznakaArtikla.Ostalo;
 				default: return OznakaArtikla.Ostalo;
 			}
 		}
@@ -84,7 +86,8 @@ namespace NewRestoran {
 			switch(oznaka) {
 				case OznakaArtikla.Hrana: return 0;
 				case OznakaArtikla.Pice: return 1;
-				case OznakaArtikla.Ostalo: return 2;
+				case OznakaArtikla.Desert: return 2;
+				case OznakaArtikla.Ostalo: return 3;
 				default: return 2;
 			}
 		}
@@ -94,6 +97,7 @@ namespace NewRestoran {
 			switch(oznaka) {
 			case "Hrana": o = OznakaArtikla.Hrana; break;
 			case "Pice": o = OznakaArtikla.Pice; break;
+			case "Desert": o = OznakaArtikla.Desert; break;
 			case "Ostalo": o = OznakaArtikla.Ostalo; break;
 			default: o = OznakaArtikla.Ostalo; break;
 			}

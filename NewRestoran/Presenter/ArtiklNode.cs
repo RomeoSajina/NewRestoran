@@ -14,6 +14,7 @@ namespace NewRestoran {
 
 		protected static Pixbuf HranaPixbuf = Pixbuf.LoadFromResource("NewRestoran.images.Hrana.png").ScaleSimple(20,20, InterpType.Bilinear);
 		protected static Pixbuf PicePixbuf = Pixbuf.LoadFromResource("NewRestoran.images.Pice.png").ScaleSimple(20, 20, InterpType.Bilinear);
+		protected static Pixbuf DesertPixbuf = Pixbuf.LoadFromResource("NewRestoran.images.Desert.png").ScaleSimple(20, 20, InterpType.Bilinear);
 		protected static Pixbuf OstaloPixbuf = Pixbuf.LoadFromResource("NewRestoran.images.Ostalo.png").ScaleSimple(20, 20, InterpType.Bilinear);
 
 
@@ -73,8 +74,13 @@ namespace NewRestoran {
 			set {
 				artikl.Oznaka = value;
 				oznaka = artikl.Oznaka;
-				OznakaPixbuf = Pixbuf.LoadFromResource("NewRestoran.images." + oznaka + ".png").ScaleSimple(20, 20, InterpType.Bilinear);
-				OznakaText = oznaka.ToString();
+				OznakaText = artikl.OznakaToString();
+				switch(oznaka) {
+					case Artikl.OznakaArtikla.Hrana: OznakaPixbuf = HranaPixbuf; break;
+					case Artikl.OznakaArtikla.Pice: OznakaPixbuf = PicePixbuf; break;
+					case Artikl.OznakaArtikla.Desert: OznakaPixbuf = DesertPixbuf; break;
+					case Artikl.OznakaArtikla.Ostalo: OznakaPixbuf = OstaloPixbuf; break;
+				}
 			}
 		}
 
@@ -85,12 +91,7 @@ namespace NewRestoran {
 			duziNaziv = a.DuziNaziv;
 			sastav = a.Sastav;
 			cijena = a.Cijena.ToString("C");
-			oznaka = a.Oznaka;
-
-			OznakaPixbuf = Pixbuf.LoadFromResource("NewRestoran.images."+ a.Oznaka +".png").ScaleSimple(20,20,InterpType.Bilinear);
-
-
-			OznakaText = a.Oznaka.ToString();
+			Oznaka = a.Oznaka;
 		}
 
 	}
