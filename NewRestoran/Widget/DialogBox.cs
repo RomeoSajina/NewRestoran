@@ -1,13 +1,13 @@
 ﻿using System;
 using Gtk;
-namespace CustomWidgetLibrary{
+namespace NewRestoran{
 	
 	public class DialogBox{
 	
 		public static void Show(Window window, MessageType msgType, string message){
 			Dialog d = new Gtk.MessageDialog(window, DialogFlags.Modal, msgType, ButtonsType.Ok, message);
 			d.SetPosition(WindowPosition.Center);
-			d.Icon = Gdk.Pixbuf.LoadFromResource("CustomWidgetLibrary.images.logo.png");
+			d.Icon = Gdk.Pixbuf.LoadFromResource("NewRestoran.images.logo.png");
 			d.Run();
 			d.Destroy();
 		}
@@ -19,11 +19,10 @@ namespace CustomWidgetLibrary{
 			d.AddButton ("Da", Gtk.ResponseType.Yes);
 			d.AddButton ("Ne", Gtk.ResponseType.No);
 			d.SetPosition (WindowPosition.Center);
-			d.Icon = Gdk.Pixbuf.LoadFromResource("CustomWidgetLibrary.images.logo.png");
+			d.Icon = Gdk.Pixbuf.LoadFromResource("NewRestoran.images.logo.png");
 
 			ResponseType rt = (ResponseType)d.Run ();
 			d.Destroy ();
-			w.Destroy ();
 			if (rt == ResponseType.Yes) return true;
 			return false;
 		}

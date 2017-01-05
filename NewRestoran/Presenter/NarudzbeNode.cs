@@ -6,7 +6,7 @@ namespace NewRestoran {
 	public class NarudzbeNode : TreeNode{
 
 		public NarudzbaStavkaNodeStore stavkeNarudzbeNodeStore = new NarudzbaStavkaNodeStore();
-		private Narudzba narudzba;
+		public Narudzba narudzba { get; }
 
 		[Gtk.TreeNodeValue (Column = 0)]
 		public string Broj;
@@ -23,17 +23,24 @@ namespace NewRestoran {
 		public NarudzbeNode(Narudzba n) {
 			Broj = n.Broj;
 			Datum = n.Datum.ToString("g");
-			Ukupno = "0,00 kn";
+			Ukupno = n.Ukupno().ToString("C");
 
 			if (n.StolNarudzbe != null)
 				OznakaStola = n.StolNarudzbe.Oznaka;
 			else OznakaStola = "-";
 			narudzba = n;
+
+			stavkeNarudzbeNodeStore.AddList(n.Stavke, OznakaStola);
 		}
 
 		public void Update(string oznakaStola) {
-			narudzba.StolNarudzbe = new Stol(oznakaStola, 4);//TODO Referenca umjesto novog objekta
+			narudzba.StolNarudzbe = StoloviPresenter.stoloviList.Find(s => s.Oznaka == oznakaStola);
 			OznakaStola = oznakaStola;
+
+			foreach(NarudzbaStavkaNode ns in stavkeNarudzbeNodeStore)
+				ns.OznakaStola = oznakaStola;
+			
+			DBNarudzba.UpdateNarudzba(narudzba);
 		}
 
 		private void UpdateUkupno() {
@@ -42,53 +49,51 @@ namespace NewRestoran {
 		}
 
 		public void DodajStavku(NarudzbaStavka ns) {
-			narudzba.Stavke.Add(ns);
-			NarudzbaStavkaNode nsn = stavkeNarudzbeNodeStore.Add(ns, OznakaStola);
+			narudzba.AddStavka(ns);//CheckUniqueArtikl u proceduri
+			stavkeNarudzbeNodeStore.Add(ns, OznakaStola);
 			UpdateUkupno();
-			MainWindow.statusStore.AddNode(nsn);
-			MainWindow.stavkeChanged();
 
-			//Insert u db i vrati ID
+			DBStavkeNarudzbe.SaveStavka(narudzba, ref ns);
+			MainWindow.stavkeChanged();
 		}
 
 		public void DodajStavku(string sifra, int kolicina, int status) {
-			NarudzbaStavka ns = new NarudzbaStavka(ArtikliPresenter.GetArtikl(sifra), kolicina, NarudzbaStavka.GetStatus(status));
-			narudzba.Stavke.Add(ns);
-			NarudzbaStavkaNode nsn = stavkeNarudzbeNodeStore.Add(ns, OznakaStola);
-			UpdateUkupno();
-			MainWindow.statusStore.AddNode(nsn);
-			MainWindow.stavkeChanged();
-
-			//Insert u db i vrati ID
+			DodajStavku(new NarudzbaStavka(ArtikliPresenter.GetArtikl(sifra), kolicina, NarudzbaStavka.GetStatus(status)));
 		}
 
 		public void UpdateStavku(NarudzbaStavkaNode ns, string sifra, int kolicina, int status) {
+			narudzba.CheckUniqueArtikl(ns.stavka, sifra);
 			ns.Sifra = sifra;
 			ns.Kolicina = kolicina.ToString();
-			//ns.SetStatus(NarudzbaStavka.GetStatus(status));
 			ns.Status = NarudzbaStavka.GetStatus(status);
 			UpdateUkupno();
+
+			DBStavkeNarudzbe.UpdateStavka(ns.stavka);
 			MainWindow.stavkeChanged();
-	
-			//Update to db
+
 		}
 
 		public void IzbrisiStavku(NarudzbaStavkaNode ns) {
 			stavkeNarudzbeNodeStore.RemoveNode(ns);
+			narudzba.Stavke.Remove(ns.stavka);
 			UpdateUkupno();
-			MainWindow.statusStore.RemoveNode(ns);
+
+			DBStavkeNarudzbe.DeleteStavka(ns.stavka);
 			MainWindow.stavkeChanged();
-		
-			//Delete from db
 		}
 
 		public void Zakljuci() {
-			foreach(NarudzbaStavkaNode ns in stavkeNarudzbeNodeStore) 
-				MainWindow.statusStore.RemoveNode(ns);
+			narudzba.Oznaka = Narudzba.OznakaPotvrde.Potvrdeno;
+			DBNarudzba.UpdateNarudzba(narudzba);
 
 			stavkeNarudzbeNodeStore.Clear();
 			MainWindow.stavkeChanged();
-			//DB zakljuci
 		}
+
+		public bool HasStavke() { 
+			if(narudzba.Stavke.Count > 0) return true;
+			return false;
+		}
+
 	}
 }

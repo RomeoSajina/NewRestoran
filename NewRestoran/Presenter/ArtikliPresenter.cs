@@ -8,6 +8,13 @@ namespace NewRestoran {
 		private static List<Artikl> SviArtikli = new List<Artikl>();
 		private static ListStore artikliListStore = new ListStore(typeof(string));
 
+		static ArtikliPresenter(){
+			DBArtikl.GetArtikle().ForEach(a => {
+				SviArtikli.Add(a);
+				artikliListStore.AppendValues(a.Sifra);
+			});
+		}
+
 		public static List<Artikl> Artikli {
 			get { return SviArtikli; }
 		}
@@ -20,10 +27,7 @@ namespace NewRestoran {
 		public static void AddArtikl(Artikl a) {
 			SviArtikli.Add(a);
 			artikliListStore.AppendValues(a.Sifra);
-		}
-
-		public static void LoadFromDB() { 
-		
+			DBArtikl.SaveArtikl(ref a);
 		}
 
 		public static void DeleteArtikl(Artikl a) {
@@ -32,10 +36,11 @@ namespace NewRestoran {
 			artikliListStore.Remove(ref iter);
 
 			SviArtikli.Remove(a);
+			DBArtikl.DeleteArtikl(a);
 		}
 
 		public static void DeleteArtikl(string sifra) {
-			DeleteArtikl(GetArtikl(sifra));
+			DeleteArtikl(GetArtikl(sifra)); //Poziva prethodnu funkciju
 		}
 
 		public static void UpdateArtikl(string oldSifra, ArtiklNode an) {
@@ -50,6 +55,8 @@ namespace NewRestoran {
 			TreeIter iter;
 			artikliListStore.IterNthChild(out iter, index);
 			artikliListStore.SetValue(iter, 0, an.Sifra);
+
+			DBArtikl.UpdateArtikl(an.artikl);
 		}
 
 		public static void ArtiklDetails(string sifra, int kolicina, out string naziv, out string cijena, out string ukupno) {
@@ -71,6 +78,15 @@ namespace NewRestoran {
 
 		public static Artikl GetArtikl(string sifra) {
 			return SviArtikli.Find(a => a.Sifra == sifra);
+		}
+
+		public static Artikl GetArtikl(long id) {
+			return SviArtikli.Find(a => a.ID == id);
+		}
+
+		public static void CheckUniqueSifra(Artikl art, string NewSifra) {
+			if(SviArtikli.Find(a => a.Sifra == NewSifra && a != art) != null)
+				throw new ArgumentException("Šifra artikla mora biti jedinstvena.", nameof(NewSifra));
 		}
 	}
 }

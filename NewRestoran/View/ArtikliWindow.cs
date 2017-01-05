@@ -1,7 +1,6 @@
 ﻿using System;
 using Gtk;
 using Gdk;
-using CustomWidgetLibrary;
 namespace NewRestoran {
 	public partial class ArtikliWindow : Gtk.Window {
 		
@@ -11,11 +10,6 @@ namespace NewRestoran {
 		public ArtikliWindow(bool visible) : base (Gtk.WindowType.Toplevel) {
 			this.Build ();
 			if(visible) Show();
-
-			ListStore dropdownOznakaListStore = new ListStore(typeof(Pixbuf), typeof(string));
-			dropdownOznakaListStore.AppendValues (Pixbuf.LoadFromResource ("NewRestoran.images.Hrana.png").ScaleSimple (20, 20, InterpType.Bilinear), "Hrana");
-			dropdownOznakaListStore.AppendValues (Pixbuf.LoadFromResource ("NewRestoran.images.Pice.png").ScaleSimple (20, 20, InterpType.Bilinear), "Piće");
-			dropdownOznakaListStore.AppendValues (Pixbuf.LoadFromResource ("NewRestoran.images.Ostalo.png").ScaleSimple (20, 20, InterpType.Bilinear), "Ostalo");
 
 			CellRendererPixbuf oznakaPixbufCell = new CellRendererPixbuf();
 			CellRendererText oznakaTextCell = new CellRendererText ();
@@ -37,6 +31,11 @@ namespace NewRestoran {
 
 			nodeviewArtikli.NodeStore = artikliNodeStore;
 
+			ListStore dropdownOznakaListStore = new ListStore(typeof(Pixbuf), typeof(string));
+			dropdownOznakaListStore.AppendValues(Pixbuf.LoadFromResource("NewRestoran.images.Hrana.png").ScaleSimple(20, 20, InterpType.Bilinear), "Hrana");
+			dropdownOznakaListStore.AppendValues(Pixbuf.LoadFromResource("NewRestoran.images.Pice.png").ScaleSimple(20, 20, InterpType.Bilinear), "Piće");
+			dropdownOznakaListStore.AppendValues(Pixbuf.LoadFromResource("NewRestoran.images.Ostalo.png").ScaleSimple(20, 20, InterpType.Bilinear), "Ostalo");
+
 			comboboxOznaka.Model = dropdownOznakaListStore;
 			comboboxOznaka.PackStart (oznakaPixbufCell, false);
 			comboboxOznaka.PackStart (oznakaTextCell, true);
@@ -46,17 +45,17 @@ namespace NewRestoran {
 			nodeviewArtikli.Selection.Changed += SelectedNodeChanged;
 
 			artikliNodeStore.AddList(ArtikliPresenter.Artikli);
-			//Test podaci
-		/*	artikliNodeStore.Add (new Artikl ("sifra", "naziv", "", 3.4f, "sastav", Artikl.OznakaArtikla.Pice));
-			artikliNodeStore.Add (new Artikl ("sifra1", "naziv1", "", 3.4f, "sastav1", Artikl.OznakaArtikla.Pice));
-			artikliNodeStore.Add (new Artikl ("sifra2", "naziv2", "", 3.4f, "sastav2", Artikl.OznakaArtikla.Ostalo));
-		*/
+			this.Resize(500, 500);
+
 			Color c = new Color();
 			Color.Parse("#00bd00", ref c);
 			labelSpremljeno.ModifyFg(StateType.Normal, c);
 			labelSpremljeno.ModifyFont(Pango.FontDescription.FromString("bold 16"));
 			ForAll<Label>(l => l.ModifyFont(Pango.FontDescription.FromString("bold 10")), new Container[] { hbox1, hbox3, hbox4, hbox5, hbox6, hbox7 });
 			nodeviewArtikli.GrabFocus();
+
+			entrySearch.Changed += (sender, e) =>  entrySearchForm.Text = entrySearch.Text; 
+			entrySearchForm.Changed += (sender, e) => entrySearch.Text = entrySearchForm.Text;
 		}
 
 		public Box GetContent() {
@@ -74,9 +73,6 @@ namespace NewRestoran {
 				spinbuttonCijena.Value = float.Parse(a.Cijena, System.Globalization.NumberStyles.Any);
 				comboboxOznaka.Active = Artikl.OznakaGetIndex(a.Oznaka);
 			}
-		}
-
-		protected void OnButtonSearchClicked(object sender, EventArgs e) {
 		}
 
 		protected void OnButtonDodajArtiklClicked(object sender, EventArgs e) {
@@ -147,8 +143,11 @@ namespace NewRestoran {
 		}
 
 		protected void OnButtonDeleteClicked(object sender, EventArgs e) {
-			artikliNodeStore.IzbrisiArtikl(nodeviewArtikli.NodeSelection.SelectedNode as ArtiklNode);
-			IsprazniFormu();
+			ArtiklNode an = nodeviewArtikli.NodeSelection.SelectedNode as ArtiklNode;
+			if(an != null) {
+				artikliNodeStore.IzbrisiArtikl(an);
+				IsprazniFormu();
+			}
 		}
 
 		protected void OnButtonBackAndSaveClicked(object sender, EventArgs e) {
@@ -156,7 +155,8 @@ namespace NewRestoran {
 				if(entrySifra.Text != "" || entryNaziv.Text != "" || entrySastav.Text != "") {
 					if(SpremiPromjene())
 						this.Destroy();
-				}
+				}else this.Destroy();
+
 			} else if(SpremiPromjene())
 						this.Destroy();
 		}
@@ -192,6 +192,7 @@ namespace NewRestoran {
 				case "naziv": msg = "Naziv artikla je obavezan."; break;
 				case "sastav": msg = "Sastav artikla je obavezan."; break;
 				case "cijena": msg = "Cijena artikla je obavezna."; break;
+				case "NewSifra": msg = "Šifra mora biti jedinstvena."; break;
 				default: msg = ae.Message; break;
 				}
 				DialogBox.ShowError(this, msg);
@@ -206,6 +207,21 @@ namespace NewRestoran {
 						action.Invoke(w);
 					}
 				}
+			}
+		}
+
+		protected void OnButtonSearchClicked(object sender, EventArgs e) {
+			if(entrySearch.Text == "") nodeviewArtikli.NodeStore = artikliNodeStore;
+			else {
+				ArtiklNodeStore ans = new ArtiklNodeStore();
+
+				foreach(ArtiklNode a in artikliNodeStore) {
+					if(a.Sifra.ToLower().Contains(entrySearch.Text.ToLower()) || a.Naziv.ToLower().Contains(entrySearch.Text.ToLower()))
+						ans.AddNode(a);
+				}
+
+				nodeviewArtikli.NodeStore = ans;
+				nodeviewArtikli.Selection.SelectPath(new TreePath("0"));
 			}
 		}
 

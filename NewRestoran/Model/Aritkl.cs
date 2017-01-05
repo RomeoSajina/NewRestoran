@@ -4,12 +4,12 @@ namespace NewRestoran {
 	
 	public class Artikl {
 
-		private int ID { get; set; }
+		public long ID { get; set; }
 		private string sifra;
 		private string naziv;
 		public string DuziNaziv { get; set; }
-		private float cijena;
 		private string sastav;
+		private float cijena;
 		public enum OznakaArtikla { Hrana, Pice, Ostalo }
 		public OznakaArtikla Oznaka;
 
@@ -55,7 +55,7 @@ namespace NewRestoran {
 			Oznaka = oznaka;		
 		}
 
-		public Artikl (int id, string sifra, string naziv, string duziNaziv, float cijena, string sastav, OznakaArtikla oznaka) : this(sifra, naziv, duziNaziv, cijena, sastav, oznaka) {
+		public Artikl (long id, string sifra, string naziv, string duziNaziv, float cijena, string sastav, OznakaArtikla oznaka) : this(sifra, naziv, duziNaziv, cijena, sastav, oznaka) {
 			ID = id;
 		}
 
@@ -88,6 +88,18 @@ namespace NewRestoran {
 				default: return 2;
 			}
 		}
+
+		public static OznakaArtikla OznakaFromString(string oznaka) { 
+			OznakaArtikla o;
+			switch(oznaka) {
+			case "Hrana": o = OznakaArtikla.Hrana; break;
+			case "Pice": o = OznakaArtikla.Pice; break;
+			case "Ostalo": o = OznakaArtikla.Ostalo; break;
+			default: o = OznakaArtikla.Ostalo; break;
+			}
+			return o;
+		}
+
 
 	}
 }

@@ -66,6 +66,16 @@ namespace Stetic
 				w1.Add("SveAktivne", w27);
 				global::Gtk.IconSet w28 = new global::Gtk.IconSet(global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.back-save.png"));
 				w1.Add("back-save", w28);
+				global::Gtk.IconSet w29 = new global::Gtk.IconSet(global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.Sef.png"));
+				w1.Add("Sef", w29);
+				global::Gtk.IconSet w30 = new global::Gtk.IconSet(global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.Kuhar.png"));
+				w1.Add("Kuhar", w30);
+				global::Gtk.IconSet w31 = new global::Gtk.IconSet(global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.Konobar.png"));
+				w1.Add("Konobar", w31);
+				global::Gtk.IconSet w32 = new global::Gtk.IconSet(global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.date.png"));
+				w1.Add("date", w32);
+				global::Gtk.IconSet w33 = new global::Gtk.IconSet(global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.shoutdown.png"));
+				w1.Add("shoutdown", w33);
 				w1.AddDefault();
 			}
 		}
@@ -111,6 +121,64 @@ namespace Stetic
 										- (sz / 4)));
 						return Gdk.Pixbuf.FromDrawable(pmap, pmap.Colormap, 0, 0, 0, 0, sz, sz);
 					}
+				}
+			}
+		}
+	}
+
+	internal class BinContainer
+	{
+		private Gtk.Widget child;
+
+		private Gtk.UIManager uimanager;
+
+		public static BinContainer Attach(Gtk.Bin bin)
+		{
+			BinContainer bc = new BinContainer();
+			bin.SizeRequested += new Gtk.SizeRequestedHandler(bc.OnSizeRequested);
+			bin.SizeAllocated += new Gtk.SizeAllocatedHandler(bc.OnSizeAllocated);
+			bin.Added += new Gtk.AddedHandler(bc.OnAdded);
+			return bc;
+		}
+
+		private void OnSizeRequested(object sender, Gtk.SizeRequestedArgs args)
+		{
+			if ((this.child != null))
+			{
+				args.Requisition = this.child.SizeRequest();
+			}
+		}
+
+		private void OnSizeAllocated(object sender, Gtk.SizeAllocatedArgs args)
+		{
+			if ((this.child != null))
+			{
+				this.child.Allocation = args.Allocation;
+			}
+		}
+
+		private void OnAdded(object sender, Gtk.AddedArgs args)
+		{
+			this.child = args.Widget;
+		}
+
+		public void SetUiManager(Gtk.UIManager uim)
+		{
+			this.uimanager = uim;
+			this.child.Realized += new System.EventHandler(this.OnRealized);
+		}
+
+		private void OnRealized(object sender, System.EventArgs args)
+		{
+			if ((this.uimanager != null))
+			{
+				Gtk.Widget w;
+				w = this.child.Toplevel;
+				if (((w != null)
+							&& typeof(Gtk.Window).IsInstanceOfType(w)))
+				{
+					((Gtk.Window)(w)).AddAccelGroup(this.uimanager.AccelGroup);
+					this.uimanager = null;
 				}
 			}
 		}

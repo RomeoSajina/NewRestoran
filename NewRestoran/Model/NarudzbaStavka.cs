@@ -3,7 +3,7 @@ namespace NewRestoran {
 	
 	public class NarudzbaStavka {
 
-		public int Id { get; set; }
+		public long ID { get; set; }
 		private Artikl artiklStavke;
 		private int kolicina;
 		public enum StatusStavke { NaCekanju, UObradi, Gotovo, Dostavljeno }
@@ -31,8 +31,8 @@ namespace NewRestoran {
 			Status = status;
 		}
 
-		public NarudzbaStavka(int id, Artikl a, int kolicina, StatusStavke status) : this(a, kolicina, status){
-			Id = id;
+		public NarudzbaStavka(long id, Artikl a, int kolicina, StatusStavke status) : this(a, kolicina, status){
+			ID = id;
 		}
 
 		public string StatusToString() {
@@ -66,6 +66,18 @@ namespace NewRestoran {
 			default: return 0;
 			}
 			
+		}
+
+		public static StatusStavke StatusFromString(string status) { 
+			StatusStavke s;
+			switch(status) {
+			case "NaCekanju": s = StatusStavke.NaCekanju; break;
+			case "UObradi": s = StatusStavke.UObradi; break;
+			case "Gotovo": s = StatusStavke.Gotovo; break;
+			case "Dostavljeno": s = StatusStavke.Dostavljeno; break;
+			default: s = StatusStavke.NaCekanju; break;
+			}
+			return s;		
 		}
 
 

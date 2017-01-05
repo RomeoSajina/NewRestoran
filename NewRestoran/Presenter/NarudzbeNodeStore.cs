@@ -5,7 +5,9 @@ namespace NewRestoran {
 	
 	public class NarudzbeNodeStore : NodeStore{
 	
-		public NarudzbeNodeStore() : base(typeof(NarudzbeNode)) {
+		public NarudzbeNodeStore(bool loadFromDB) : base(typeof(NarudzbeNode)) {
+			if(loadFromDB)
+				this.AddList(DBNarudzba.GetNarudzbe());
 		}
 
 		public void Add(Narudzba n) {
@@ -17,13 +19,16 @@ namespace NewRestoran {
 		}
 
 		public void DodajNarudzbu() {
-			this.Add (new Narudzba ("1", DateTime.Now, Narudzba.OznakaNarudzbe.Nepotvrdeno));
+			Narudzba n = new Narudzba("0", DateTime.Now, Narudzba.OznakaPotvrde.Nepotvrdeno);
+ 			DBNarudzba.SaveNarudzba(ref n);
+			this.Add(n);
 		}
 
 
-		public void IzbrisiNarudzbu(ITreeNode node) {
-			this.RemoveNode (node);
-			//Izbriši iz baze
+		public void IzbrisiNarudzbu(NarudzbeNode n) {
+			this.RemoveNode (n);
+			DBNarudzba.DeleteNarudzba(n.narudzba);
+			MainWindow.stavkeChanged();
 		}
 
 	}

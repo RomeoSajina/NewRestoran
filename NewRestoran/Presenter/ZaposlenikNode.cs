@@ -1,5 +1,6 @@
 ﻿using System;
 using Gtk;
+using Gdk;
 namespace NewRestoran {
 
 	public class ZaposlenikNode : TreeNode{
@@ -10,7 +11,7 @@ namespace NewRestoran {
 		private DateTime datumZaposlenja;
 		private Zaposlenik.StatusZaposlenik status;
 		private Zaposlenik.UlogaZaposlenik uloga;
-		private Zaposlenik zaposlenik;
+		public Zaposlenik zaposlenik { get; }
 
 		[TreeNodeValue(Column = 0)]
 		public string Ime { 
@@ -41,7 +42,7 @@ namespace NewRestoran {
 
 		[TreeNodeValue(Column = 3)]
 		public string DatumZaposlenja {
-			get { return datumZaposlenja.ToString("g"); }
+			get { return datumZaposlenja.ToString("d"); }
 			set {
 				zaposlenik.DatumZaposlenja = DateTime.Parse(value);
 				datumZaposlenja = zaposlenik.DatumZaposlenja;
@@ -51,7 +52,11 @@ namespace NewRestoran {
 		[TreeNodeValue(Column = 4)]
 		public string StatusText;
 
-		[TreeNodeValue(Column = 4)]
+
+		[TreeNodeValue(Column = 5)]
+		public Pixbuf UlogaPixbuf;
+
+		[TreeNodeValue(Column = 6)]
 		public string UlogaText;
 
 		public Zaposlenik.StatusZaposlenik Status {
@@ -69,19 +74,18 @@ namespace NewRestoran {
 				zaposlenik.Uloga = value;
 				uloga = zaposlenik.Uloga;
 				UlogaText = zaposlenik.UlogaToString();
+				UlogaPixbuf = Pixbuf.LoadFromResource("NewRestoran.images." + uloga + ".png").ScaleSimple(20, 20, InterpType.Bilinear);
 			}
 		}
 
-		
-
 		public ZaposlenikNode(Zaposlenik z){
+			zaposlenik = z;
 			ime = z.Ime;
 			prezime = z.Prezime;
 			password = z.Password;
 			datumZaposlenja = z.DatumZaposlenja;
 			Status = z.Status;
 			Uloga = z.Uloga;
-			zaposlenik = z;
 		}
 	
 	

@@ -1,7 +1,6 @@
 ﻿using System;
 using Gtk;
 using Gdk;
-using CustomWidgetLibrary;
 namespace NewRestoran {
 	
 	public partial class StavkeWindow : Gtk.Window {
@@ -11,8 +10,9 @@ namespace NewRestoran {
 		private NarudzbeNodeStore narudzbaStore;
 		private bool formPrikaz = false;
 
-		public StavkeWindow(NarudzbeNode n, NarudzbeNodeStore ns) : base(Gtk.WindowType.Toplevel) {
+		public StavkeWindow(NarudzbeNode n, NarudzbeNodeStore ns, bool prikazi) : base(Gtk.WindowType.Toplevel) {
 			this.Build();
+			if(prikazi) this.Show();
 
 			narudzba = n;
 			narudzbaStore = ns;
@@ -53,13 +53,23 @@ namespace NewRestoran {
 			vboxFormView.Hide();
 			labelUkupno.LabelProp = narudzba.Ukupno;
 
+			this.Resize(500, 500);
+			labelBrojNarudzbe.LabelProp = narudzba.Broj;
 
 			Color c = new Color();
 			Color.Parse("#00bd00", ref c);
 			labelSpremljeno.ModifyFg(StateType.Normal, c);
 			labelSpremljeno.ModifyFont(Pango.FontDescription.FromString("bold 16"));
 
-			ForAll<Label>(l => l.ModifyFont(Pango.FontDescription.FromString("bold 10")), new Container[]{ hbox4, hbox5, hbox6, hbox7, hbox8, hbox9});
+			ForAll<Label>(l => l.ModifyFont(Pango.FontDescription.FromString("bold 10")), new Container[]{hbox2, hbox4, hbox5, hbox6, hbox7, hbox8, hbox9});
+
+			entrySearch.Changed += (sender, e) => entrySearchForm.Text = entrySearch.Text;
+			entrySearchForm.Changed += (sender, e) => entrySearch.Text = entrySearchForm.Text;
+		}
+
+		public Box GetContent() {
+			this.Remove(hbox1);
+			return hbox1;
 		}
 			                   
 		public void NodeSelectionChanged(object sender, EventArgs e) {
@@ -71,12 +81,6 @@ namespace NewRestoran {
 				spinbuttonKolicina.Value = int.Parse(s.Kolicina);
 				labelUkupnoArtikla.LabelProp = (spinbuttonKolicina.ValueAsInt * float.Parse(s.Cijena, System.Globalization.NumberStyles.Any)).ToString("C");
 				comboboxStatus.Active = NarudzbaStavka.StatusGetIndex(s.Status);
-				/*switch(s.StatusText) {
-					case "NaCekanju": comboboxStatus.Active = 0; break;
-					case "UObradi": comboboxStatus.Active = 1; break;
-					case "Gotovo": comboboxStatus.Active = 2; break;
-					case "Dostavljeno": comboboxStatus.Active = 3; break;
-				}*/
 			}
 		}
 
@@ -163,16 +167,25 @@ namespace NewRestoran {
 				}
 				labelUkupno.LabelProp = narudzba.Ukupno;
 				hboxSpremljeno.Show();
-				GLib.Timeout.Add(2000, () => { hboxSpremljeno.Hide(); return false;});
+				GLib.Timeout.Add(2000, () => { hboxSpremljeno.Hide(); return false; });
 				return true;
-			
+
 			} catch(ArgumentException ae) {
 				string msg;
 				switch(ae.ParamName) {
-					case "artiklStavke":
-					case "artikl": msg = "Šifra artikla mora biti odabrana"; break;
-					case "kolicina": msg = "Količina mora biti veća od 0"; break;
-					default: msg = ae.Message; break;
+				case "artiklStavke":
+				case "artikl": msg = "Šifra artikla mora biti odabrana"; break;
+				case "kolicina": msg = "Količina mora biti veća od 0"; break;
+				case "sifra": msg = "Stavka sa odabranim artiklom već postoji."; break;
+				default: msg = ae.Message; break;
+				}
+				DialogBox.ShowError(this, msg);
+				return false;
+			} catch(System.Data.Common.DbException sqle) {
+				string msg;
+				switch(sqle.ErrorCode) {
+					case -2147467259: msg = "Stavka sa odabranim artiklom već postoji.Sql"; break;
+					default: msg = sqle.Message; break;
 				}
 				DialogBox.ShowError(this, msg);
 				return false;
@@ -204,9 +217,11 @@ namespace NewRestoran {
 		}
 
 		protected void OnButtonBackAndSaveClicked(object sender, EventArgs e) {
-			if((nodeviewStavke.NodeSelection.SelectedNode as NarudzbaStavkaNode) == null && comboboxSifraArtikla.Active > -1) {
-				if(SpremiPromjene())
-					this.Destroy();
+			if((nodeviewStavke.NodeSelection.SelectedNode as NarudzbaStavkaNode) == null) {
+				if(comboboxSifraArtikla.Active > -1) {
+					if(SpremiPromjene())
+						this.Destroy();
+				} else this.Destroy();
 
 			} else if(SpremiPromjene())
 						this.Destroy();
@@ -228,7 +243,22 @@ namespace NewRestoran {
 				}
 			}
 		}
-	
 
+		protected void OnButtonSearchClicked(object sender, EventArgs e) {
+			if(entrySearch.Text == "") nodeviewStavke.NodeStore = narudzba.stavkeNarudzbeNodeStore;
+			 else {
+				NarudzbaStavkaNodeStore nsns = new NarudzbaStavkaNodeStore();
+
+				foreach(NarudzbaStavkaNode nsn in narudzba.stavkeNarudzbeNodeStore) {
+					if(nsn.Sifra.ToLower().Contains(entrySearch.Text.ToLower()) || nsn.Naziv.ToLower().Contains(entrySearch.Text.ToLower()))
+						nsns.AddNode(nsn);
+				}
+
+				nodeviewStavke.NodeStore = nsns;
+				nodeviewStavke.Selection.SelectPath(new TreePath("0"));
+			}
+		}
+	
+	
 	}
 }

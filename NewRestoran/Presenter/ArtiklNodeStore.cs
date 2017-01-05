@@ -21,19 +21,19 @@ namespace NewRestoran {
 			if(a != null) { 
 				this.RemoveNode(a);
 				ArtikliPresenter.DeleteArtikl(a.Sifra);
-				//delete from db
 			}
 
 		}
 
 		public void DodajArtikl(string sifra, string naziv, string duziNaziv, string sastav, float cijena, int index) {
 			Artikl art = new Artikl(sifra, naziv, duziNaziv, cijena, sastav, Artikl.GetOznaka(index));
+			ArtikliPresenter.CheckUniqueSifra(art, sifra);
 			this.Add(art);
 			ArtikliPresenter.AddArtikl(art);
-			//Insert to db
 		}
 
 		public void UpdateArtikl(ArtiklNode art,string sifra, string naziv, string duziNaziv, string sastav, float cijena, int index) {
+			ArtikliPresenter.CheckUniqueSifra(art.artikl, sifra);
 			string oldSifra = art.Sifra;
 			art.Sifra = sifra;
 			art.Naziv = naziv;
@@ -43,7 +43,6 @@ namespace NewRestoran {
 			art.Oznaka = Artikl.GetOznaka(index);
 
 			ArtikliPresenter.UpdateArtikl(oldSifra, art);
-			//Update to db
 		}
 	}
 }

@@ -5,23 +5,19 @@ namespace NewRestoran {
 
 	public class NarudzbaStavkaNode : TreeNode {
 
-		public int Id { get; set; }
 		private string kolicina;
 		private string sifra;
 		private NarudzbaStavka.StatusStavke status;
-		private NarudzbaStavka stavka;
+		public NarudzbaStavka stavka { get; }
 
 		[Gtk.TreeNodeValue(Column = 0)]
 		public string Sifra {
 			get {return sifra;}
 			set {
 				stavka.ArtiklStavke = ArtikliPresenter.GetArtikl(value);
-				MainWindow.statusStore.RemoveNode(this);
-
 				sifra = stavka.ArtiklStavke.Sifra;
 				Naziv = stavka.ArtiklStavke.Naziv;
 				Ukupno = (stavka.ArtiklStavke.Cijena * stavka.Kolicina).ToString("C");
-				MainWindow.statusStore.AddNode(this);
 			}
 		}
 
@@ -36,7 +32,7 @@ namespace NewRestoran {
 			get { return kolicina; }
 			set {
 				stavka.Kolicina = int.Parse(value);
-				kolicina = value;
+				kolicina = stavka.Kolicina.ToString();
 				Ukupno = (stavka.ArtiklStavke.Cijena * stavka.Kolicina).ToString("C");
 			}
 		}
@@ -60,11 +56,8 @@ namespace NewRestoran {
 				status = stavka.Status;
 				StatusPixbuf = Pixbuf.LoadFromResource("NewRestoran.images." + status + ".png").ScaleSimple(20, 20, InterpType.Bilinear);
 				StatusText = stavka.StatusToString();
-				MainWindow.stavkeChanged();
 			}
 		}
-
-
 
 
 		public NarudzbaStavkaNode(NarudzbaStavka ns, string oznakaStola) {
@@ -74,12 +67,15 @@ namespace NewRestoran {
 			Cijena = ns.ArtiklStavke.Cijena.ToString("C");
 			kolicina = ns.Kolicina.ToString();
 			Ukupno = (ns.Kolicina * ns.ArtiklStavke.Cijena).ToString ("C");
-			Status = ns.Status;
 			OznakaStola = oznakaStola;
 			Status = ns.Status;
-			Id = ns.Id;
 		}
 
+
+		public void UpdateStatus(NarudzbaStavka.StatusStavke status) {
+			Status = status;
+			DBStavkeNarudzbe.UpdateStavka(stavka);
+		}
 
 	}
 }

@@ -10,9 +10,9 @@ namespace NewRestoran
 
 		private global::Gtk.HBox hbox10;
 
-		private global::Gtk.Button buttonSearchNode;
+		private global::Gtk.Button buttonSearch;
 
-		private global::Gtk.Entry entrySearchNode;
+		private global::Gtk.Entry entrySearch;
 
 		private global::Gtk.ScrolledWindow GtkScrolledWindowArtikli;
 
@@ -30,7 +30,7 @@ namespace NewRestoran
 
 		private global::Gtk.Entry entrySearchForm;
 
-		private global::Gtk.Button buttonSearch;
+		private global::Gtk.Button buttonSearchForm;
 
 		private global::Gtk.HBox hbox3;
 
@@ -106,6 +106,7 @@ namespace NewRestoran
 			// Widget NewRestoran.ArtikliWindow
 			this.Name = "NewRestoran.ArtikliWindow";
 			this.Title = global::Mono.Unix.Catalog.GetString("Artikli");
+			this.Icon = global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.logo.png");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(3));
 			this.Modal = true;
 			this.BorderWidth = ((uint)(13));
@@ -122,30 +123,30 @@ namespace NewRestoran
 			this.hbox10.Name = "hbox10";
 			this.hbox10.Spacing = 6;
 			// Container child hbox10.Gtk.Box+BoxChild
-			this.buttonSearchNode = new global::Gtk.Button();
-			this.buttonSearchNode.WidthRequest = 39;
-			this.buttonSearchNode.HeightRequest = 25;
-			this.buttonSearchNode.CanFocus = true;
-			this.buttonSearchNode.Name = "buttonSearchNode";
-			this.buttonSearchNode.UseUnderline = true;
+			this.buttonSearch = new global::Gtk.Button();
+			this.buttonSearch.WidthRequest = 39;
+			this.buttonSearch.HeightRequest = 25;
+			this.buttonSearch.CanFocus = true;
+			this.buttonSearch.Name = "buttonSearch";
+			this.buttonSearch.UseUnderline = true;
 			global::Gtk.Image w1 = new global::Gtk.Image();
 			w1.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "gtk-find", global::Gtk.IconSize.SmallToolbar);
-			this.buttonSearchNode.Image = w1;
-			this.hbox10.Add(this.buttonSearchNode);
-			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox10[this.buttonSearchNode]));
+			this.buttonSearch.Image = w1;
+			this.hbox10.Add(this.buttonSearch);
+			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox10[this.buttonSearch]));
 			w2.PackType = ((global::Gtk.PackType)(1));
 			w2.Position = 0;
 			w2.Expand = false;
 			w2.Fill = false;
 			// Container child hbox10.Gtk.Box+BoxChild
-			this.entrySearchNode = new global::Gtk.Entry();
-			this.entrySearchNode.WidthRequest = 100;
-			this.entrySearchNode.CanFocus = true;
-			this.entrySearchNode.Name = "entrySearchNode";
-			this.entrySearchNode.IsEditable = true;
-			this.entrySearchNode.InvisibleChar = '●';
-			this.hbox10.Add(this.entrySearchNode);
-			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox10[this.entrySearchNode]));
+			this.entrySearch = new global::Gtk.Entry();
+			this.entrySearch.WidthRequest = 100;
+			this.entrySearch.CanFocus = true;
+			this.entrySearch.Name = "entrySearch";
+			this.entrySearch.IsEditable = true;
+			this.entrySearch.InvisibleChar = '●';
+			this.hbox10.Add(this.entrySearch);
+			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox10[this.entrySearch]));
 			w3.PackType = ((global::Gtk.PackType)(1));
 			w3.Position = 1;
 			w3.Expand = false;
@@ -204,6 +205,7 @@ namespace NewRestoran
 			this.entrySifra.CanFocus = true;
 			this.entrySifra.Name = "entrySifra";
 			this.entrySifra.IsEditable = true;
+			this.entrySifra.MaxLength = 20;
 			this.entrySifra.InvisibleChar = '●';
 			this.hbox1.Add(this.entrySifra);
 			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.entrySifra]));
@@ -230,17 +232,17 @@ namespace NewRestoran
 			w11.Position = 3;
 			w11.Expand = false;
 			// Container child hbox1.Gtk.Box+BoxChild
-			this.buttonSearch = new global::Gtk.Button();
-			this.buttonSearch.WidthRequest = 39;
-			this.buttonSearch.HeightRequest = 25;
-			this.buttonSearch.CanFocus = true;
-			this.buttonSearch.Name = "buttonSearch";
-			this.buttonSearch.UseUnderline = true;
+			this.buttonSearchForm = new global::Gtk.Button();
+			this.buttonSearchForm.WidthRequest = 39;
+			this.buttonSearchForm.HeightRequest = 25;
+			this.buttonSearchForm.CanFocus = true;
+			this.buttonSearchForm.Name = "buttonSearchForm";
+			this.buttonSearchForm.UseUnderline = true;
 			global::Gtk.Image w12 = new global::Gtk.Image();
 			w12.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "gtk-find", global::Gtk.IconSize.SmallToolbar);
-			this.buttonSearch.Image = w12;
-			this.hbox1.Add(this.buttonSearch);
-			global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.buttonSearch]));
+			this.buttonSearchForm.Image = w12;
+			this.hbox1.Add(this.buttonSearchForm);
+			global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.buttonSearchForm]));
 			w13.Position = 4;
 			w13.Expand = false;
 			w13.Fill = false;
@@ -271,6 +273,7 @@ namespace NewRestoran
 			this.entryNaziv.CanFocus = true;
 			this.entryNaziv.Name = "entryNaziv";
 			this.entryNaziv.IsEditable = true;
+			this.entryNaziv.MaxLength = 20;
 			this.entryNaziv.InvisibleChar = '●';
 			this.hbox3.Add(this.entryNaziv);
 			global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.entryNaziv]));
@@ -303,6 +306,7 @@ namespace NewRestoran
 			this.entryDuziNaziv.CanFocus = true;
 			this.entryDuziNaziv.Name = "entryDuziNaziv";
 			this.entryDuziNaziv.IsEditable = true;
+			this.entryDuziNaziv.MaxLength = 40;
 			this.entryDuziNaziv.InvisibleChar = '●';
 			this.hbox4.Add(this.entryDuziNaziv);
 			global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.entryDuziNaziv]));
@@ -335,6 +339,7 @@ namespace NewRestoran
 			this.entrySastav.CanFocus = true;
 			this.entrySastav.Name = "entrySastav";
 			this.entrySastav.IsEditable = true;
+			this.entrySastav.MaxLength = 60;
 			this.entrySastav.InvisibleChar = '●';
 			this.hbox5.Add(this.entrySastav);
 			global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.hbox5[this.entrySastav]));
@@ -631,18 +636,19 @@ namespace NewRestoran
 			w57.Position = 2;
 			w57.Expand = false;
 			w57.Fill = false;
+			w57.Padding = ((uint)(30));
 			this.Add(this.hbox2);
 			if ((this.Child != null))
 			{
 				this.Child.ShowAll();
 			}
-			this.DefaultWidth = 1702;
+			this.DefaultWidth = 1738;
 			this.DefaultHeight = 717;
 			this.hboxSpremljeno.Hide();
 			this.vboxFormView.Hide();
 			this.Hide();
-			this.buttonSearchNode.Clicked += new global::System.EventHandler(this.OnButtonSearchClicked);
 			this.buttonSearch.Clicked += new global::System.EventHandler(this.OnButtonSearchClicked);
+			this.buttonSearchForm.Clicked += new global::System.EventHandler(this.OnButtonSearchClicked);
 			this.buttonOdustani.Clicked += new global::System.EventHandler(this.OnButtonOdustaniClicked);
 			this.buttonSpremi.Clicked += new global::System.EventHandler(this.OnButtonSpremiClicked);
 			this.buttonDodajArtikl.Clicked += new global::System.EventHandler(this.OnButtonDodajArtiklClicked);

@@ -6,13 +6,10 @@ namespace NewRestoran {
 
 	public class NarudzbaStavkaNodeStore : NodeStore{
 
-		public NarudzbaStavkaNodeStore() : base(typeof(NarudzbaStavkaNode)){
-		}
-	
-		public NarudzbaStavkaNode Add(NarudzbaStavka ns, string oznakaStola) {
-			NarudzbaStavkaNode nsn = new NarudzbaStavkaNode(ns, oznakaStola);
-			this.AddNode(nsn);
-			return nsn;
+		public NarudzbaStavkaNodeStore() : base(typeof(NarudzbaStavkaNode)){}
+
+		public void Add(NarudzbaStavka ns, string oznakaStola) {
+			this.AddNode(new NarudzbaStavkaNode(ns, oznakaStola));
 		}
 
 		public void AddList(List<NarudzbaStavka> stavkeNarudzbe, string oznakaStola) {

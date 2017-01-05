@@ -4,7 +4,7 @@ using Gtk;
 namespace NewRestoran {
 
 	public class ArtiklNode : TreeNode{
-		private Artikl artikl;
+		public Artikl artikl { get; }
 		private string sifra;
 		private string naziv;
 		private string duziNaziv;

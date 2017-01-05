@@ -3,7 +3,7 @@ namespace NewRestoran {
 	
 	public class Stol {
 
-		public int ID { get; set; }
+		public long ID { get; set; }
 		private string oznaka;
 		private int brojStolica;
 
@@ -28,7 +28,7 @@ namespace NewRestoran {
 			BrojStolica = brojStolica;
 		}
 
-		private Stol (int id, string oznaka, int brojStolica) : this(oznaka, brojStolica){
+		public Stol (long id, string oznaka, int brojStolica) : this(oznaka, brojStolica){
 			ID = id; 
 		}
 	
