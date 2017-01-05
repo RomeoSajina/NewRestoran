@@ -20,7 +20,7 @@ namespace NewRestoran {
 			this.Build ();
 			DB.OpenConnection();
 
-			//LoginWindow login = new LoginWindow(this);
+			LoginWindow login = new LoginWindow(this);
 
 			stavkeChanged += () => RefreshStatusNodeView();
 
