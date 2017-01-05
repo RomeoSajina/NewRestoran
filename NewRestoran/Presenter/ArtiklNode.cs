@@ -12,6 +12,11 @@ namespace NewRestoran {
 		private string cijena;
 		private Artikl.OznakaArtikla oznaka;
 
+		protected static Pixbuf HranaPixbuf = Pixbuf.LoadFromResource("NewRestoran.images.Hrana.png").ScaleSimple(20,20, InterpType.Bilinear);
+		protected static Pixbuf PicePixbuf = Pixbuf.LoadFromResource("NewRestoran.images.Pice.png").ScaleSimple(20, 20, InterpType.Bilinear);
+		protected static Pixbuf OstaloPixbuf = Pixbuf.LoadFromResource("NewRestoran.images.Ostalo.png").ScaleSimple(20, 20, InterpType.Bilinear);
+
+
 		[Gtk.TreeNodeValue(Column = 0)]
 		public string Sifra {
 			get { return sifra; }
@@ -83,6 +88,8 @@ namespace NewRestoran {
 			oznaka = a.Oznaka;
 
 			OznakaPixbuf = Pixbuf.LoadFromResource("NewRestoran.images."+ a.Oznaka +".png").ScaleSimple(20,20,InterpType.Bilinear);
+
+
 			OznakaText = a.Oznaka.ToString();
 		}
 

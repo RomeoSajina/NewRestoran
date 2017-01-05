@@ -79,101 +79,101 @@
     <EmbeddedResource Include="gtk-gui\gui.stetic">
       <LogicalName>gui.stetic</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\table2chairs.png">
-      <Link>images\table2chairs.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\table4chairs.png">
-      <Link>images\table4chairs.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\table6chairs.png">
-      <Link>images\table6chairs.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\table8chairs.png">
-      <Link>images\table8chairs.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\logo.png">
-      <Link>images\logo.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\Ostalo.png">
-      <Link>images\Ostalo.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\Pice.png">
-      <Link>images\Pice.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\Hrana.png">
+    <EmbeddedResource Include="..\icons\Hrana.png">
       <Link>images\Hrana.png</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\add.png">
+    <EmbeddedResource Include="..\icons\Ostalo.png">
+      <Link>images\Ostalo.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\Pice.png">
+      <Link>images\Pice.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\add.png">
       <Link>images\add.png</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\add-item.png">
+    <EmbeddedResource Include="..\icons\add-item.png">
       <Link>images\add-item.png</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\add-order.png">
-      <Link>images\add-order.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\delete.png">
-      <Link>images\delete.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\down.png">
+    <EmbeddedResource Include="..\icons\down.png">
       <Link>images\down.png</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\lock.png">
-      <Link>images\lock.png</Link>
+    <EmbeddedResource Include="..\icons\logo.png">
+      <Link>images\logo.png</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\up.png">
+    <EmbeddedResource Include="..\icons\table2chairs.png">
+      <Link>images\table2chairs.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\table4chairs.png">
+      <Link>images\table4chairs.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\table6chairs.png">
+      <Link>images\table6chairs.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\table8chairs.png">
+      <Link>images\table8chairs.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\up.png">
       <Link>images\up.png</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\change.png">
+    <EmbeddedResource Include="..\icons\add-order.png">
+      <Link>images\add-order.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\change.png">
       <Link>images\change.png</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\delivering.png">
+    <EmbeddedResource Include="..\icons\delete.png">
+      <Link>images\delete.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\delivering.png">
       <Link>images\delivering.png</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\order-ready.png">
-      <Link>images\order-ready.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\take-order.png">
-      <Link>images\take-order.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\Dostavljeno.png">
+    <EmbeddedResource Include="..\icons\Dostavljeno.png">
       <Link>images\Dostavljeno.png</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\Gotovo.png">
+    <EmbeddedResource Include="..\icons\Gotovo.png">
       <Link>images\Gotovo.png</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\NaCekanju.png">
+    <EmbeddedResource Include="..\icons\lock.png">
+      <Link>images\lock.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\NaCekanju.png">
       <Link>images\NaCekanju.png</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\UObradi.png">
+    <EmbeddedResource Include="..\icons\order-ready.png">
+      <Link>images\order-ready.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\take-order.png">
+      <Link>images\take-order.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\UObradi.png">
       <Link>images\UObradi.png</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\Sve.png">
-      <Link>images\Sve.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\Selected.png">
-      <Link>images\Selected.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\SveAktivne.png">
-      <Link>images\SveAktivne.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\back-save.png">
+    <EmbeddedResource Include="..\icons\back-save.png">
       <Link>images\back-save.png</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\Konobar.png">
-      <Link>images\Konobar.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\Kuhar.png">
-      <Link>images\Kuhar.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\Sef.png">
-      <Link>images\Sef.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\date.png">
+    <EmbeddedResource Include="..\icons\date.png">
       <Link>images\date.png</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\icons\shoutdown.png">
+    <EmbeddedResource Include="..\icons\Konobar.png">
+      <Link>images\Konobar.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\Kuhar.png">
+      <Link>images\Kuhar.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\Sef.png">
+      <Link>images\Sef.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\Selected.png">
+      <Link>images\Selected.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\shoutdown.png">
       <Link>images\shoutdown.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\Sve.png">
+      <Link>images\Sve.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\SveAktivne.png">
+      <Link>images\SveAktivne.png</Link>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
