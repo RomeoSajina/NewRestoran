@@ -124,13 +124,13 @@ namespace NewRestoran
 
 		private global::Gtk.Button buttonSpremi;
 
-		private global::Gtk.HBox hboxSpremljeno;
+		private global::Gtk.HBox hboxSpremljen;
 
 		private global::Gtk.Fixed fixed4;
 
-		private global::Gtk.Image image250;
+		private global::Gtk.Image image251;
 
-		private global::Gtk.Label labelSpremljeno;
+		private global::Gtk.Label labelSpremljen;
 
 		private global::Gtk.VBox vboxNarudzbeButtons;
 
@@ -544,7 +544,7 @@ namespace NewRestoran
 			w30.Fill = false;
 			w30.Padding = ((uint)(15));
 			// Container child hbox10.Gtk.Box+BoxChild
-			this.comboboxOznakaStola = global::Gtk.ComboBox.NewText();
+			this.comboboxOznakaStola = new global::Gtk.ComboBox();
 			this.comboboxOznakaStola.WidthRequest = 140;
 			this.comboboxOznakaStola.Name = "comboboxOznakaStola";
 			this.hbox10.Add(this.comboboxOznakaStola);
@@ -638,40 +638,40 @@ namespace NewRestoran
 			w41.Expand = false;
 			w41.Fill = false;
 			// Container child vboxFormPrikaz.Gtk.Box+BoxChild
-			this.hboxSpremljeno = new global::Gtk.HBox();
-			this.hboxSpremljeno.WidthRequest = 0;
-			this.hboxSpremljeno.Name = "hboxSpremljeno";
-			this.hboxSpremljeno.Spacing = 6;
-			this.hboxSpremljeno.BorderWidth = ((uint)(17));
-			// Container child hboxSpremljeno.Gtk.Box+BoxChild
+			this.hboxSpremljen = new global::Gtk.HBox();
+			this.hboxSpremljen.WidthRequest = 0;
+			this.hboxSpremljen.Name = "hboxSpremljen";
+			this.hboxSpremljen.Spacing = 6;
+			this.hboxSpremljen.BorderWidth = ((uint)(17));
+			// Container child hboxSpremljen.Gtk.Box+BoxChild
 			this.fixed4 = new global::Gtk.Fixed();
 			this.fixed4.WidthRequest = 145;
 			this.fixed4.Name = "fixed4";
 			this.fixed4.HasWindow = false;
-			this.hboxSpremljeno.Add(this.fixed4);
-			global::Gtk.Box.BoxChild w42 = ((global::Gtk.Box.BoxChild)(this.hboxSpremljeno[this.fixed4]));
+			this.hboxSpremljen.Add(this.fixed4);
+			global::Gtk.Box.BoxChild w42 = ((global::Gtk.Box.BoxChild)(this.hboxSpremljen[this.fixed4]));
 			w42.Position = 0;
 			w42.Expand = false;
-			// Container child hboxSpremljeno.Gtk.Box+BoxChild
-			this.image250 = new global::Gtk.Image();
-			this.image250.Name = "image250";
-			this.image250.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "Dostavljeno", global::Gtk.IconSize.Dnd);
-			this.hboxSpremljeno.Add(this.image250);
-			global::Gtk.Box.BoxChild w43 = ((global::Gtk.Box.BoxChild)(this.hboxSpremljeno[this.image250]));
+			// Container child hboxSpremljen.Gtk.Box+BoxChild
+			this.image251 = new global::Gtk.Image();
+			this.image251.Name = "image251";
+			this.image251.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "Dostavljeno", global::Gtk.IconSize.Dnd);
+			this.hboxSpremljen.Add(this.image251);
+			global::Gtk.Box.BoxChild w43 = ((global::Gtk.Box.BoxChild)(this.hboxSpremljen[this.image251]));
 			w43.Position = 1;
 			w43.Expand = false;
 			w43.Fill = false;
-			// Container child hboxSpremljeno.Gtk.Box+BoxChild
-			this.labelSpremljeno = new global::Gtk.Label();
-			this.labelSpremljeno.Name = "labelSpremljeno";
-			this.labelSpremljeno.LabelProp = global::Mono.Unix.Catalog.GetString("Spremljeno");
-			this.hboxSpremljeno.Add(this.labelSpremljeno);
-			global::Gtk.Box.BoxChild w44 = ((global::Gtk.Box.BoxChild)(this.hboxSpremljeno[this.labelSpremljeno]));
+			// Container child hboxSpremljen.Gtk.Box+BoxChild
+			this.labelSpremljen = new global::Gtk.Label();
+			this.labelSpremljen.Name = "labelSpremljen";
+			this.labelSpremljen.LabelProp = global::Mono.Unix.Catalog.GetString("Spremljeno");
+			this.hboxSpremljen.Add(this.labelSpremljen);
+			global::Gtk.Box.BoxChild w44 = ((global::Gtk.Box.BoxChild)(this.hboxSpremljen[this.labelSpremljen]));
 			w44.Position = 2;
 			w44.Expand = false;
 			w44.Fill = false;
-			this.vboxFormPrikaz.Add(this.hboxSpremljeno);
-			global::Gtk.Box.BoxChild w45 = ((global::Gtk.Box.BoxChild)(this.vboxFormPrikaz[this.hboxSpremljeno]));
+			this.vboxFormPrikaz.Add(this.hboxSpremljen);
+			global::Gtk.Box.BoxChild w45 = ((global::Gtk.Box.BoxChild)(this.vboxFormPrikaz[this.hboxSpremljen]));
 			w45.Position = 5;
 			w45.Expand = false;
 			w45.Fill = false;
@@ -959,7 +959,7 @@ namespace NewRestoran
 			}
 			this.DefaultWidth = 2161;
 			this.DefaultHeight = 1104;
-			this.hboxSpremljeno.Hide();
+			this.hboxSpremljen.Hide();
 			this.vboxFormPrikaz.Hide();
 			this.Show();
 			this.DeleteEvent += new global::Gtk.DeleteEventHandler(this.OnDeleteEvent);

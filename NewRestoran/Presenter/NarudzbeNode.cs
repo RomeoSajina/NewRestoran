@@ -33,12 +33,12 @@ namespace NewRestoran {
 			stavkeNarudzbeNodeStore.AddList(n.Stavke, OznakaStola);
 		}
 
-		public void Update(string oznakaStola) {
-			narudzba.StolNarudzbe = StoloviPresenter.stoloviList.Find(s => s.Oznaka == oznakaStola);
-			OznakaStola = oznakaStola;
+		public void Update(int stol) {
+			narudzba.StolNarudzbe = StoloviPresenter.stoloviList[stol];
+			OznakaStola = narudzba.StolNarudzbe.Oznaka;
 
 			foreach(NarudzbaStavkaNode ns in stavkeNarudzbeNodeStore)
-				ns.OznakaStola = oznakaStola;
+				ns.OznakaStola = narudzba.StolNarudzbe.Oznaka;
 			
 			DBNarudzba.UpdateNarudzba(narudzba);
 		}

@@ -47,7 +47,7 @@ namespace NewRestoran
 			this.tittleLabel = new global::Gtk.Label();
 			this.tittleLabel.HeightRequest = 42;
 			this.tittleLabel.Name = "tittleLabel";
-			this.tittleLabel.LabelProp = global::Mono.Unix.Catalog.GetString("Login");
+			this.tittleLabel.LabelProp = global::Mono.Unix.Catalog.GetString("Prijava");
 			this.vbox1.Add(this.tittleLabel);
 			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.tittleLabel]));
 			w1.Position = 0;
@@ -59,7 +59,7 @@ namespace NewRestoran
 			this.hbox1.Spacing = 6;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.usernameLabel = new global::Gtk.Label();
-			this.usernameLabel.WidthRequest = 55;
+			this.usernameLabel.WidthRequest = 65;
 			this.usernameLabel.Name = "usernameLabel";
 			this.usernameLabel.Xalign = 1F;
 			this.usernameLabel.LabelProp = global::Mono.Unix.Catalog.GetString("Ime:");
@@ -89,7 +89,7 @@ namespace NewRestoran
 			this.hbox2.Spacing = 6;
 			// Container child hbox2.Gtk.Box+BoxChild
 			this.passwordLabel = new global::Gtk.Label();
-			this.passwordLabel.WidthRequest = 55;
+			this.passwordLabel.WidthRequest = 65;
 			this.passwordLabel.Name = "passwordLabel";
 			this.passwordLabel.Xalign = 1F;
 			this.passwordLabel.LabelProp = global::Mono.Unix.Catalog.GetString("Lozinka:");
@@ -118,6 +118,7 @@ namespace NewRestoran
 			this.hbuttonbox2 = new global::Gtk.HButtonBox();
 			this.hbuttonbox2.Name = "hbuttonbox2";
 			this.hbuttonbox2.Homogeneous = true;
+			this.hbuttonbox2.Spacing = 3;
 			// Container child hbuttonbox2.Gtk.ButtonBox+ButtonBoxChild
 			this.cancelLoginButton = new global::Gtk.Button();
 			this.cancelLoginButton.WidthRequest = 134;
@@ -160,7 +161,7 @@ namespace NewRestoran
 			{
 				this.Child.ShowAll();
 			}
-			this.DefaultWidth = 366;
+			this.DefaultWidth = 378;
 			this.DefaultHeight = 288;
 			this.Show();
 			this.cancelLoginButton.Clicked += new global::System.EventHandler(this.OnCancelLoginButtonClicked);

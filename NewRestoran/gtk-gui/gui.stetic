@@ -1378,7 +1378,7 @@
                                   <widget class="Gtk.ComboBox" id="comboboxOznakaStola">
                                     <property name="MemberName" />
                                     <property name="WidthRequest">140</property>
-                                    <property name="IsTextCombo">True</property>
+                                    <property name="IsTextCombo">False</property>
                                     <property name="Items" translatable="yes" />
                                   </widget>
                                   <packing>
@@ -1498,7 +1498,7 @@
                               </packing>
                             </child>
                             <child>
-                              <widget class="Gtk.HBox" id="hboxSpremljeno">
+                              <widget class="Gtk.HBox" id="hboxSpremljen">
                                 <property name="MemberName" />
                                 <property name="WidthRequest">0</property>
                                 <property name="Visible">False</property>
@@ -1517,7 +1517,7 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <widget class="Gtk.Image" id="image250">
+                                  <widget class="Gtk.Image" id="image251">
                                     <property name="MemberName" />
                                     <property name="Pixbuf">stock:Dostavljeno Dnd</property>
                                   </widget>
@@ -1529,7 +1529,7 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <widget class="Gtk.Label" id="labelSpremljeno">
+                                  <widget class="Gtk.Label" id="labelSpremljen">
                                     <property name="MemberName" />
                                     <property name="LabelProp" translatable="yes">Spremljeno</property>
                                   </widget>
@@ -3847,7 +3847,7 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Window" id="NewRestoran.LoginWindow" design-size="366 288">
+  <widget class="Gtk.Window" id="NewRestoran.LoginWindow" design-size="378 288">
     <property name="MemberName" />
     <property name="Title" translatable="yes">Login</property>
     <property name="Icon">resource:NewRestoran.images.logo.png</property>
@@ -3865,7 +3865,7 @@
           <widget class="Gtk.Label" id="tittleLabel">
             <property name="MemberName" />
             <property name="HeightRequest">42</property>
-            <property name="LabelProp" translatable="yes">Login</property>
+            <property name="LabelProp" translatable="yes">Prijava</property>
           </widget>
           <packing>
             <property name="Position">0</property>
@@ -3881,7 +3881,7 @@
             <child>
               <widget class="Gtk.Label" id="usernameLabel">
                 <property name="MemberName" />
-                <property name="WidthRequest">55</property>
+                <property name="WidthRequest">65</property>
                 <property name="Xalign">1</property>
                 <property name="LabelProp" translatable="yes">Ime:</property>
               </widget>
@@ -3920,7 +3920,7 @@
             <child>
               <widget class="Gtk.Label" id="passwordLabel">
                 <property name="MemberName" />
-                <property name="WidthRequest">55</property>
+                <property name="WidthRequest">65</property>
                 <property name="Xalign">1</property>
                 <property name="LabelProp" translatable="yes">Lozinka:</property>
               </widget>
@@ -3957,6 +3957,7 @@
           <widget class="Gtk.HButtonBox" id="hbuttonbox2">
             <property name="MemberName" />
             <property name="Homogeneous">True</property>
+            <property name="Spacing">3</property>
             <property name="Size">2</property>
             <child>
               <widget class="Gtk.Button" id="cancelLoginButton">
@@ -4177,7 +4178,8 @@
               <widget class="Gtk.SpinButton" id="spinbuttonSize">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
-                <property name="Upper">100</property>
+                <property name="Lower">10</property>
+                <property name="Upper">150</property>
                 <property name="PageIncrement">10</property>
                 <property name="StepIncrement">1</property>
                 <property name="ClimbRate">1</property>

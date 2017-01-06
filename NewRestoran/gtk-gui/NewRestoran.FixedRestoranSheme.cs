@@ -139,7 +139,7 @@ namespace NewRestoran
 			w7.Expand = false;
 			w7.Fill = false;
 			// Container child hbox1.Gtk.Box+BoxChild
-			this.spinbuttonSize = new global::Gtk.SpinButton(0D, 100D, 1D);
+			this.spinbuttonSize = new global::Gtk.SpinButton(10D, 150D, 1D);
 			this.spinbuttonSize.CanFocus = true;
 			this.spinbuttonSize.Name = "spinbuttonSize";
 			this.spinbuttonSize.Adjustment.PageIncrement = 10D;

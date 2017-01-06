@@ -20,7 +20,7 @@ namespace NewRestoran {
 			this.Build ();
 			DB.OpenConnection();
 
-			//LoginWindow login = new LoginWindow(this);
+			LoginWindow login = new LoginWindow(this);
 
 			stavkeChanged += () => RefreshStatusNodeView();
 
@@ -89,6 +89,17 @@ namespace NewRestoran {
 			comboboxSveTrenutna.AddAttribute (sveTrenutnoText, "text", 1);
 			comboboxSveTrenutna.Active = 0;
 
+			CellRendererText stolText = new CellRendererText();
+			CellRendererPixbuf stolPixbuf = new CellRendererPixbuf();
+			comboboxOznakaStola.PackStart(stolPixbuf, false);
+			comboboxOznakaStola.PackStart(stolText, true);
+			comboboxOznakaStola.AddAttribute(stolPixbuf, "pixbuf", 0);
+			comboboxOznakaStola.AddAttribute(stolText, "text", 1);
+			Pixbuf table2chairs = Pixbuf.LoadFromResource("NewRestoran.images.table2chairs.png").ScaleSimple(20, 20, InterpType.Bilinear);
+			Pixbuf table4chairs = Pixbuf.LoadFromResource("NewRestoran.images.table4chairs.png").ScaleSimple(20, 20, InterpType.Bilinear);
+			Pixbuf table6chairs = Pixbuf.LoadFromResource("NewRestoran.images.table6chairs.png").ScaleSimple(20, 20, InterpType.Bilinear);
+			Pixbuf table8chairs = Pixbuf.LoadFromResource("NewRestoran.images.table8chairs.png").ScaleSimple(20, 20, InterpType.Bilinear);
+
 
 			//Prikazivanje ili sakrivanje gumbova ovisno o fokusu
 			vboxStatusButtons.Hide ();
@@ -100,22 +111,30 @@ namespace NewRestoran {
 			nodeviewNarudzbe.Selection.Changed += NodeSelectionChanged;
 
 
-
+			this.Resize(1400, 970);
 			Color c = new Color();
 			Color.Parse("#00bd00", ref c);
-			labelSpremljeno.ModifyFg(StateType.Normal, c);
-			labelSpremljeno.ModifyFont(Pango.FontDescription.FromString("bold 16"));
+			labelSpremljen.ModifyFg(StateType.Normal, c);
+			labelSpremljen.ModifyFont(Pango.FontDescription.FromString("bold 16"));
 
 			ForAll<Label>(l => l.ModifyFont(Pango.FontDescription.FromString("bold 10")), new Container[] { hbox8, hbox9, hbox10, hbox11 });
 			notebookMain.ShowTabs = false;
-					
-			stolChanged += () => {
-				ListStore stolOznaka = new ListStore(typeof(string));
-				List<string> oznake = StoloviPresenter.GetOznake();
 
-				oznake.ForEach(ozn => stolOznaka.AppendValues(ozn));
+			
+			stolChanged += () => {
+				ListStore stolOznaka = new ListStore(typeof(Pixbuf), typeof(string));
+				StoloviPresenter.stoloviList.ForEach(s => {
+					switch(s.BrojStolica) {
+						case 2: stolOznaka.AppendValues(table2chairs, s.Oznaka); break;
+						case 4: stolOznaka.AppendValues(table4chairs, s.Oznaka); break;
+						case 6: stolOznaka.AppendValues(table6chairs, s.Oznaka); break;
+						case 8: stolOznaka.AppendValues(table8chairs, s.Oznaka); break;
+						default: stolOznaka.AppendValues(null, s.Oznaka); break;
+					}
+				});	
 				comboboxOznakaStola.Model = stolOznaka;
-				fixedrestoransheme.RefreshComboBox(oznake);
+
+				fixedrestoransheme.RefreshComboBox(StoloviPresenter.GetOznake());
 			};
 			stolChanged();
 
@@ -384,12 +403,12 @@ namespace NewRestoran {
 		 	NarudzbeNode n = (nodeviewNarudzbe.NodeSelection.SelectedNode as NarudzbeNode);
 			if(n != null) {
 				try {
-					n.Update(comboboxOznakaStola.ActiveText);
+					n.Update(comboboxOznakaStola.Active);
 				} catch(ArgumentException ae) {
 					DialogBox.ShowError(this, ae.Message);
 				}
-				hboxSpremljeno.Show();
-				GLib.Timeout.Add(2000, () => { hboxSpremljeno.Hide(); return false; });
+				hboxSpremljen.Show();
+				GLib.Timeout.Add(2000, () => { hboxSpremljen.Hide(); return false; });
 			}
 		}
 
