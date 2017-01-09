@@ -29,7 +29,7 @@ namespace NewRestoran {
 			if(z == null){
 				DialogBox.ShowWarning(this, "Pogrešno ime ili lozinka.");
 			}else {
-				mainWin.zaposlenik = z;
+				mainWin.Zaposlenik = z;
 				this.Destroyed -= OnCancelLoginButtonClicked;
 				this.Destroy();
 			}

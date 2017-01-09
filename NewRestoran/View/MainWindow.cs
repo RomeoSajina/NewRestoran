@@ -481,7 +481,7 @@ namespace NewRestoran {
 		}
 
 		protected void OnSingOutActionActivated(object sender, EventArgs e) {
-			zaposlenik = null;
+			Zaposlenik = null;
 			LoginWindow l = new LoginWindow(this);
 		}
 
