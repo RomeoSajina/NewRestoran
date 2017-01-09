@@ -314,7 +314,6 @@ namespace NewRestoran
 			// Container child vbox5.Gtk.Box+BoxChild
 			this.fixedSheme = new global::Gtk.Fixed();
 			this.fixedSheme.WidthRequest = 600;
-			this.fixedSheme.HeightRequest = 800;
 			this.fixedSheme.Name = "fixedSheme";
 			this.fixedSheme.HasWindow = false;
 			this.vbox5.Add(this.fixedSheme);

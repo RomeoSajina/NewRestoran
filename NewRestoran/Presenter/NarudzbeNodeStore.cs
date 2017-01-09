@@ -18,8 +18,8 @@ namespace NewRestoran {
 			narudzbe.ForEach (n => this.AddNode (new NarudzbeNode(n)));
 		}
 
-		public void DodajNarudzbu() {
-			Narudzba n = new Narudzba("0", DateTime.Now, Narudzba.OznakaPotvrde.Nepotvrdeno);
+		public void DodajNarudzbu(string oznakaStola) {
+			Narudzba n = new Narudzba("0", DateTime.Now, Narudzba.OznakaPotvrde.Nepotvrdeno, StoloviPresenter.stoloviList.Find(s => s.Oznaka == oznakaStola));
  			DBNarudzba.SaveNarudzba(ref n);
 			this.Add(n);
 		}

@@ -19,7 +19,7 @@ namespace NewRestoran {
 			this.Build ();
 			DB.OpenConnection();
 
-			LoginWindow login = new LoginWindow(this);
+			//LoginWindow login = new LoginWindow(this);
 
 			stavkeChanged += () => RefreshStatusNodeView();
 
@@ -28,9 +28,6 @@ namespace NewRestoran {
 
 			fixedrestoransheme.HideToolbox ();
 			notebookMain.CurrentPage = 0;
-
-			entrySearch.Changed += (sender, e) => entrySearchForm.Text = entrySearch.Text;
-			entrySearchForm.Changed += (sender, e) => entrySearch.Text = entrySearchForm.Text;
 
 			//NodeView za prikaz narudžbi
 			nodeviewNarudzbe.AppendColumn("Broj narudžbe", new CellRendererText(), "text", 0).MinWidth = 200;
@@ -99,14 +96,16 @@ namespace NewRestoran {
 			Pixbuf table6chairs = Pixbuf.LoadFromResource("NewRestoran.images.table6chairs.png").ScaleSimple(20, 20, InterpType.Bilinear);
 			Pixbuf table8chairs = Pixbuf.LoadFromResource("NewRestoran.images.table8chairs.png").ScaleSimple(20, 20, InterpType.Bilinear);
 
+			nodeviewNarudzbe.HeightRequest = nodeviewNarudzbeStatus.HeightRequest = GtkScrolledWindowNarudzbe.HeightRequest = 
+			GtkScrolledWindowStatusStavaka.HeightRequest = Gdk.Screen.Default.Height / 3;
 
 			//Prikazivanje ili sakrivanje gumbova ovisno o fokusu
 			vboxStatusButtons.Hide ();
-			vboxNarudzbeButtons.Hide ();
-			nodeviewNarudzbe.FocusInEvent += (o, args) => { vboxNarudzbeButtons.Show ();};
-			nodeviewNarudzbe.FocusOutEvent += (o, args) => {  vboxNarudzbeButtons.Hide (); };
-			nodeviewNarudzbeStatus.FocusInEvent += (o, args) => { vboxStatusButtons.Show (); };
-			nodeviewNarudzbeStatus.FocusOutEvent += (o, args) => { vboxStatusButtons.Hide (); };
+			//vboxNarudzbeButtons.Hide ();
+			//nodeviewNarudzbe.FocusInEvent += (o, args) => { vboxNarudzbeButtons.Show ();};
+			//nodeviewNarudzbe.FocusOutEvent += (o, args) => {  vboxNarudzbeButtons.Hide (); };
+			nodeviewNarudzbeStatus.FocusInEvent += (o, args) => { vboxStatusButtons.Show (); vboxNarudzbeButtons.Hide();};
+			nodeviewNarudzbeStatus.FocusOutEvent += (o, args) => { vboxStatusButtons.Hide (); vboxNarudzbeButtons.Show();};
 			nodeviewNarudzbe.Selection.Changed += NodeSelectionChanged;
 
 
@@ -166,10 +165,11 @@ namespace NewRestoran {
 
 		//Button dodaj narudžbu 
 		protected void OnButtonDodajClicked(object sender, EventArgs e) {
-			narudzbeNodeStore.DodajNarudzbu ();
+			narudzbeNodeStore.DodajNarudzbu (fixedrestoransheme.GetSelected());
 			TreeIter iter;
 			nodeviewNarudzbe.Model.IterNthChild(out iter, nodeviewNarudzbe.Model.IterNChildren() - 1);
 			nodeviewNarudzbe.Selection.SelectIter(iter);
+			buttonStavke.Click();
 		}
 
 		//Button scroll up

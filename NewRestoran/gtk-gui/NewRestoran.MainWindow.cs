@@ -66,11 +66,19 @@ namespace NewRestoran
 
 		private global::Gtk.Entry entrySearch;
 
+		private global::Gtk.Label label13;
+
 		private global::Gtk.ScrolledWindow GtkScrolledWindowNarudzbe;
 
 		private global::Gtk.NodeView nodeviewNarudzbe;
 
 		private global::Gtk.HSeparator hseparator1;
+
+		private global::Gtk.HBox hbox13;
+
+		private global::Gtk.Label label15;
+
+		private global::Gtk.Label label14;
 
 		private global::Gtk.HBox hbox7;
 
@@ -91,12 +99,6 @@ namespace NewRestoran
 		private global::Gtk.Label label6;
 
 		private global::Gtk.Label labelBroj;
-
-		private global::Gtk.VSeparator vseparator1;
-
-		private global::Gtk.Entry entrySearchForm;
-
-		private global::Gtk.Button buttonSearchForm;
 
 		private global::Gtk.HBox hbox9;
 
@@ -248,7 +250,7 @@ namespace NewRestoran
 			this.Name = "NewRestoran.MainWindow";
 			this.Title = global::Mono.Unix.Catalog.GetString("NewRestoran");
 			this.Icon = global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.logo.png");
-			this.WindowPosition = ((global::Gtk.WindowPosition)(3));
+			this.WindowPosition = ((global::Gtk.WindowPosition)(1));
 			// Container child NewRestoran.MainWindow.Gtk.Container+ContainerChild
 			this.vbox1 = new global::Gtk.VBox();
 			this.vbox1.Name = "vbox1";
@@ -330,7 +332,7 @@ namespace NewRestoran
 			w7.Fill = false;
 			// Container child hbox6.Gtk.Box+BoxChild
 			this.entrySearch = new global::Gtk.Entry();
-			this.entrySearch.WidthRequest = 180;
+			this.entrySearch.WidthRequest = 130;
 			this.entrySearch.CanFocus = true;
 			this.entrySearch.Name = "entrySearch";
 			this.entrySearch.IsEditable = true;
@@ -340,13 +342,24 @@ namespace NewRestoran
 			w8.PackType = ((global::Gtk.PackType)(1));
 			w8.Position = 1;
 			w8.Expand = false;
-			this.vboxNodeViewPrikaz.Add(this.hbox6);
-			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vboxNodeViewPrikaz[this.hbox6]));
-			w9.Position = 0;
+			// Container child hbox6.Gtk.Box+BoxChild
+			this.label13 = new global::Gtk.Label();
+			this.label13.Name = "label13";
+			this.label13.LabelProp = global::Mono.Unix.Catalog.GetString("Filtriraj narudžbe: ");
+			this.hbox6.Add(this.label13);
+			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.label13]));
+			w9.PackType = ((global::Gtk.PackType)(1));
+			w9.Position = 2;
 			w9.Expand = false;
 			w9.Fill = false;
+			this.vboxNodeViewPrikaz.Add(this.hbox6);
+			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vboxNodeViewPrikaz[this.hbox6]));
+			w10.Position = 0;
+			w10.Expand = false;
+			w10.Fill = false;
 			// Container child vboxNodeViewPrikaz.Gtk.Box+BoxChild
 			this.GtkScrolledWindowNarudzbe = new global::Gtk.ScrolledWindow();
+			this.GtkScrolledWindowNarudzbe.HeightRequest = 300;
 			this.GtkScrolledWindowNarudzbe.Name = "GtkScrolledWindowNarudzbe";
 			this.GtkScrolledWindowNarudzbe.ShadowType = ((global::Gtk.ShadowType)(1));
 			// Container child GtkScrolledWindowNarudzbe.Gtk.Container+ContainerChild
@@ -359,17 +372,48 @@ namespace NewRestoran
 			this.nodeviewNarudzbe.SearchColumn = 0;
 			this.GtkScrolledWindowNarudzbe.Add(this.nodeviewNarudzbe);
 			this.vboxNodeViewPrikaz.Add(this.GtkScrolledWindowNarudzbe);
-			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.vboxNodeViewPrikaz[this.GtkScrolledWindowNarudzbe]));
-			w11.Position = 1;
+			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.vboxNodeViewPrikaz[this.GtkScrolledWindowNarudzbe]));
+			w12.Position = 1;
+			w12.Expand = false;
 			// Container child vboxNodeViewPrikaz.Gtk.Box+BoxChild
 			this.hseparator1 = new global::Gtk.HSeparator();
 			this.hseparator1.HeightRequest = 12;
 			this.hseparator1.Name = "hseparator1";
 			this.vboxNodeViewPrikaz.Add(this.hseparator1);
-			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.vboxNodeViewPrikaz[this.hseparator1]));
-			w12.Position = 2;
-			w12.Expand = false;
-			w12.Fill = false;
+			global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.vboxNodeViewPrikaz[this.hseparator1]));
+			w13.Position = 2;
+			w13.Expand = false;
+			w13.Fill = false;
+			// Container child vboxNodeViewPrikaz.Gtk.Box+BoxChild
+			this.hbox13 = new global::Gtk.HBox();
+			this.hbox13.Name = "hbox13";
+			this.hbox13.Spacing = 6;
+			// Container child hbox13.Gtk.Box+BoxChild
+			this.label15 = new global::Gtk.Label();
+			this.label15.Name = "label15";
+			this.label15.LabelProp = global::Mono.Unix.Catalog.GetString("Prikaz stavaka trenutne ili svih narudžba:");
+			this.hbox13.Add(this.label15);
+			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hbox13[this.label15]));
+			w14.Position = 0;
+			w14.Expand = false;
+			w14.Fill = false;
+			// Container child hbox13.Gtk.Box+BoxChild
+			this.label14 = new global::Gtk.Label();
+			this.label14.WidthRequest = 180;
+			this.label14.Name = "label14";
+			this.label14.Xalign = 0F;
+			this.label14.LabelProp = global::Mono.Unix.Catalog.GetString("Prikaz stavaka prema statusu:");
+			this.hbox13.Add(this.label14);
+			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.hbox13[this.label14]));
+			w15.PackType = ((global::Gtk.PackType)(1));
+			w15.Position = 1;
+			w15.Expand = false;
+			w15.Fill = false;
+			this.vboxNodeViewPrikaz.Add(this.hbox13);
+			global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.vboxNodeViewPrikaz[this.hbox13]));
+			w16.Position = 3;
+			w16.Expand = false;
+			w16.Fill = false;
 			// Container child vboxNodeViewPrikaz.Gtk.Box+BoxChild
 			this.hbox7 = new global::Gtk.HBox();
 			this.hbox7.Name = "hbox7";
@@ -379,36 +423,37 @@ namespace NewRestoran
 			this.comboboxSveTrenutna.WidthRequest = 180;
 			this.comboboxSveTrenutna.Name = "comboboxSveTrenutna";
 			this.hbox7.Add(this.comboboxSveTrenutna);
-			global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.comboboxSveTrenutna]));
-			w13.Position = 0;
-			w13.Expand = false;
-			w13.Fill = false;
+			global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.comboboxSveTrenutna]));
+			w17.Position = 0;
+			w17.Expand = false;
+			w17.Fill = false;
 			// Container child hbox7.Gtk.Box+BoxChild
 			this.comboboxStatus = new global::Gtk.ComboBox();
 			this.comboboxStatus.WidthRequest = 180;
 			this.comboboxStatus.Name = "comboboxStatus";
 			this.hbox7.Add(this.comboboxStatus);
-			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.comboboxStatus]));
-			w14.PackType = ((global::Gtk.PackType)(1));
-			w14.Position = 1;
-			w14.Expand = false;
-			w14.Fill = false;
+			global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.comboboxStatus]));
+			w18.PackType = ((global::Gtk.PackType)(1));
+			w18.Position = 1;
+			w18.Expand = false;
+			w18.Fill = false;
 			this.vboxNodeViewPrikaz.Add(this.hbox7);
-			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.vboxNodeViewPrikaz[this.hbox7]));
-			w15.Position = 3;
-			w15.Expand = false;
-			w15.Fill = false;
+			global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.vboxNodeViewPrikaz[this.hbox7]));
+			w19.Position = 4;
+			w19.Expand = false;
+			w19.Fill = false;
 			// Container child vboxNodeViewPrikaz.Gtk.Box+BoxChild
 			this.hseparator2 = new global::Gtk.HSeparator();
 			this.hseparator2.HeightRequest = 12;
 			this.hseparator2.Name = "hseparator2";
 			this.vboxNodeViewPrikaz.Add(this.hseparator2);
-			global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.vboxNodeViewPrikaz[this.hseparator2]));
-			w16.Position = 4;
-			w16.Expand = false;
-			w16.Fill = false;
+			global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.vboxNodeViewPrikaz[this.hseparator2]));
+			w20.Position = 5;
+			w20.Expand = false;
+			w20.Fill = false;
 			// Container child vboxNodeViewPrikaz.Gtk.Box+BoxChild
 			this.GtkScrolledWindowStatusStavaka = new global::Gtk.ScrolledWindow();
+			this.GtkScrolledWindowStatusStavaka.HeightRequest = 300;
 			this.GtkScrolledWindowStatusStavaka.Name = "GtkScrolledWindowStatusStavaka";
 			this.GtkScrolledWindowStatusStavaka.ShadowType = ((global::Gtk.ShadowType)(1));
 			// Container child GtkScrolledWindowStatusStavaka.Gtk.Container+ContainerChild
@@ -421,13 +466,14 @@ namespace NewRestoran
 			this.nodeviewNarudzbeStatus.SearchColumn = 0;
 			this.GtkScrolledWindowStatusStavaka.Add(this.nodeviewNarudzbeStatus);
 			this.vboxNodeViewPrikaz.Add(this.GtkScrolledWindowStatusStavaka);
-			global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.vboxNodeViewPrikaz[this.GtkScrolledWindowStatusStavaka]));
-			w18.Position = 5;
+			global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.vboxNodeViewPrikaz[this.GtkScrolledWindowStatusStavaka]));
+			w22.Position = 6;
+			w22.Expand = false;
 			this.hbox1.Add(this.vboxNodeViewPrikaz);
-			global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.vboxNodeViewPrikaz]));
-			w19.Position = 1;
-			w19.Expand = false;
-			w19.Fill = false;
+			global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.vboxNodeViewPrikaz]));
+			w23.Position = 1;
+			w23.Expand = false;
+			w23.Fill = false;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.vboxFormPrikaz = new global::Gtk.VBox();
 			this.vboxFormPrikaz.Name = "vboxFormPrikaz";
@@ -444,53 +490,19 @@ namespace NewRestoran
 			this.label6.Xalign = 1F;
 			this.label6.LabelProp = global::Mono.Unix.Catalog.GetString("Broj:");
 			this.hbox8.Add(this.label6);
-			global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.hbox8[this.label6]));
-			w20.Position = 0;
-			w20.Expand = false;
-			w20.Fill = false;
-			w20.Padding = ((uint)(15));
+			global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(this.hbox8[this.label6]));
+			w24.Position = 0;
+			w24.Expand = false;
+			w24.Fill = false;
+			w24.Padding = ((uint)(15));
 			// Container child hbox8.Gtk.Box+BoxChild
 			this.labelBroj = new global::Gtk.Label();
 			this.labelBroj.WidthRequest = 140;
 			this.labelBroj.Name = "labelBroj";
 			this.labelBroj.Xalign = 0F;
 			this.hbox8.Add(this.labelBroj);
-			global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.hbox8[this.labelBroj]));
-			w21.Position = 1;
-			w21.Expand = false;
-			w21.Fill = false;
-			// Container child hbox8.Gtk.Box+BoxChild
-			this.vseparator1 = new global::Gtk.VSeparator();
-			this.vseparator1.WidthRequest = 13;
-			this.vseparator1.Name = "vseparator1";
-			this.hbox8.Add(this.vseparator1);
-			global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.hbox8[this.vseparator1]));
-			w22.Position = 2;
-			w22.Expand = false;
-			w22.Fill = false;
-			// Container child hbox8.Gtk.Box+BoxChild
-			this.entrySearchForm = new global::Gtk.Entry();
-			this.entrySearchForm.WidthRequest = 120;
-			this.entrySearchForm.CanFocus = true;
-			this.entrySearchForm.Name = "entrySearchForm";
-			this.entrySearchForm.IsEditable = true;
-			this.entrySearchForm.InvisibleChar = '●';
-			this.hbox8.Add(this.entrySearchForm);
-			global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.hbox8[this.entrySearchForm]));
-			w23.Position = 3;
-			// Container child hbox8.Gtk.Box+BoxChild
-			this.buttonSearchForm = new global::Gtk.Button();
-			this.buttonSearchForm.WidthRequest = 30;
-			this.buttonSearchForm.HeightRequest = 25;
-			this.buttonSearchForm.CanFocus = true;
-			this.buttonSearchForm.Name = "buttonSearchForm";
-			this.buttonSearchForm.UseUnderline = true;
-			global::Gtk.Image w24 = new global::Gtk.Image();
-			w24.Pixbuf = global::Stetic.IconLoader.LoadIcon(this, "gtk-find", global::Gtk.IconSize.Button);
-			this.buttonSearchForm.Image = w24;
-			this.hbox8.Add(this.buttonSearchForm);
-			global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.hbox8[this.buttonSearchForm]));
-			w25.Position = 4;
+			global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.hbox8[this.labelBroj]));
+			w25.Position = 1;
 			w25.Expand = false;
 			w25.Fill = false;
 			this.vboxFormPrikaz.Add(this.hbox8);
@@ -516,6 +528,7 @@ namespace NewRestoran
 			w27.Padding = ((uint)(15));
 			// Container child hbox9.Gtk.Box+BoxChild
 			this.labelDatum = new global::Gtk.Label();
+			this.labelDatum.WidthRequest = 140;
 			this.labelDatum.Name = "labelDatum";
 			this.hbox9.Add(this.labelDatum);
 			global::Gtk.Box.BoxChild w28 = ((global::Gtk.Box.BoxChild)(this.hbox9[this.labelDatum]));
@@ -972,7 +985,6 @@ namespace NewRestoran
 			this.buttonSearch.Clicked += new global::System.EventHandler(this.OnButtonSearchClicked);
 			this.comboboxSveTrenutna.Changed += new global::System.EventHandler(this.OnComboboxSveTrenutnaChanged);
 			this.comboboxStatus.Changed += new global::System.EventHandler(this.OnComboboxStatusChanged);
-			this.buttonSearchForm.Clicked += new global::System.EventHandler(this.OnButtonSearchClicked);
 			this.buttonOdustani.Clicked += new global::System.EventHandler(this.OnButtonOdustaniClicked);
 			this.buttonSpremi.Clicked += new global::System.EventHandler(this.OnButtonSpremiClicked);
 			this.buttonDodaj.Clicked += new global::System.EventHandler(this.OnButtonDodajClicked);

@@ -114,7 +114,7 @@ namespace NewRestoran
 			w2.Fill = false;
 			// Container child hbox10.Gtk.Box+BoxChild
 			this.entrySearch = new global::Gtk.Entry();
-			this.entrySearch.WidthRequest = 100;
+			this.entrySearch.WidthRequest = 130;
 			this.entrySearch.CanFocus = true;
 			this.entrySearch.Name = "entrySearch";
 			this.entrySearch.IsEditable = true;

@@ -51,10 +51,11 @@ namespace NewRestoran {
 			comboboxSifraArtikla.Model = ArtikliPresenter.ArtikliListStore;
 
 			vboxFormView.Hide();
-			labelUkupno.LabelProp = narudzba.Ukupno;
 
 			this.Resize(500, 500);
 			labelBrojNarudzbe.LabelProp = narudzba.Broj;
+			labelUkupno.LabelProp = narudzba.Ukupno;
+			if(!narudzba.HasStavke()) buttonDodajStavku.Click();
 
 			Color c = new Color();
 			Color.Parse("#00bd00", ref c);
@@ -62,9 +63,6 @@ namespace NewRestoran {
 			labelSpremljeno.ModifyFont(Pango.FontDescription.FromString("bold 16"));
 
 			ForAll<Label>(l => l.ModifyFont(Pango.FontDescription.FromString("bold 10")), new Container[]{hbox2, hbox4, hbox5, hbox6, hbox7, hbox8, hbox9});
-
-			entrySearch.Changed += (sender, e) => entrySearchForm.Text = entrySearch.Text;
-			entrySearchForm.Changed += (sender, e) => entrySearch.Text = entrySearchForm.Text;
 		}
 
 		public Box GetContent() {
@@ -139,7 +137,7 @@ namespace NewRestoran {
 
 		protected void OnButtonDodajStavkuClicked(object sender, EventArgs e) {
 			comboboxSifraArtikla.Active = -1;
-			spinbuttonKolicina.Value = 0;
+			spinbuttonKolicina.Value = 1;
 			comboboxStatus.Active = 0;
 			labelUkupnoArtikla.LabelProp = "0,00 kn";
 			labelNazivArtikla.LabelProp = "";

@@ -63,7 +63,11 @@ namespace NewRestoran {
 			Table8Chair.DragDataGet += Data_Get;
 			Table8Chair.DragBegin += Drag_Begin;
 
+			fixedSheme.HeightRequest = (int)(Gdk.Screen.Default.Height / 1.35);
+			fixedSheme.WidthRequest = (int)(fixedSheme.HeightRequest / 1.35);
+
 			LoadFromXml();
+
 
 			Color c = new Color();
 			Color.Parse("#00bd00", ref c);
@@ -372,6 +376,13 @@ namespace NewRestoran {
 				labelOznaka.LabelProp = "";
 				labelOznakaStola.LabelProp = "";
 			}
+		}
+
+		public string GetSelected() {
+			foreach(Widget w in fixedSheme) {
+				if(w is Button && (w as Button).Relief == ReliefStyle.Half) return w.Name;
+			}
+			return "-";
 		}
 
 		public void ShowToolbox() {

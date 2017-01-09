@@ -56,9 +56,6 @@ namespace NewRestoran {
 			labelSpremljeno.ModifyFont(Pango.FontDescription.FromString("bold 16"));
 			ForAll<Label>(l => l.ModifyFont(Pango.FontDescription.FromString("bold 10")), new Container[] { hbox1, hbox3, hbox4, hbox5, hbox6, hbox7 });
 			nodeviewZaposlenici.GrabFocus();
-
-			entrySearch.Changed += (sender, e) => entrySearchForm.Text = entrySearch.Text;
-			entrySearchForm.Changed += (sender, e) => entrySearch.Text = entrySearchForm.Text;
 		}
 
 		public Box GetContent() {
