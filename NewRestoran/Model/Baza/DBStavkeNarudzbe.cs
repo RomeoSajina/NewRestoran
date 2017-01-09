@@ -23,7 +23,7 @@ namespace NewRestoran {
 			com.Dispose();
 		}
 
-		public static void SaveStavka(Narudzba n, ref NarudzbaStavka ns) {
+		public static void SaveStavka(Narudzba n, ref StavkaNarudzbe ns) {
 			SqliteCommand com = DB.con.CreateCommand();
 
 			com.CommandText = String.Format(@"INSERT INTO Stavka_Narudzbe (id_narudzba, id_artikl, kolicina, status)
@@ -38,7 +38,7 @@ namespace NewRestoran {
 			com.Dispose();
 		}
 
-		public static void UpdateStavka(NarudzbaStavka ns) {
+		public static void UpdateStavka(StavkaNarudzbe ns) {
 			SqliteCommand com = DB.con.CreateCommand();
 
 			com.CommandText = String.Format(@"UPDATE Stavka_Narudzbe SET id_artikl = {0}, kolicina = {1}, status = '{2}' WHERE id = {3} ",
@@ -48,7 +48,7 @@ namespace NewRestoran {
 			com.Dispose();
 		}
 
-		public static void DeleteStavka(NarudzbaStavka ns) {
+		public static void DeleteStavka(StavkaNarudzbe ns) {
 			SqliteCommand com = DB.con.CreateCommand();
 
 			com.CommandText = String.Format(@"DELETE FROM Stavka_Narudzbe WHERE id = {0}", ns.ID);
@@ -74,8 +74,8 @@ namespace NewRestoran {
 			SqliteDataReader reader = c.ExecuteReader();
 
 			while(reader.Read()) {
-				NarudzbaStavka ns = new NarudzbaStavka((long)reader["id"], ArtikliPresenter.GetArtikl((long)reader["id_artikl"]), 
-				                                       (int)reader.GetInt64(3), NarudzbaStavka.StatusFromString((string)reader["status"]));
+				StavkaNarudzbe ns = new StavkaNarudzbe((long)reader["id"], ArtikliPresenter.GetArtikl((long)reader["id_artikl"]), 
+				                                       (int)reader.GetInt64(3), StavkaNarudzbe.StatusFromString((string)reader["status"]));
 				n.Stavke.Add(ns);
 			}
 			c.Dispose();

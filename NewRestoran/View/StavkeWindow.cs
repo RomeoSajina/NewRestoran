@@ -73,14 +73,14 @@ namespace NewRestoran {
 		}
 			                   
 		public void NodeSelectionChanged(object sender, EventArgs e) {
-			NarudzbaStavkaNode s = (nodeviewStavke.NodeSelection.SelectedNode as NarudzbaStavkaNode);
+			StavkaNarudzbeNode s = (nodeviewStavke.NodeSelection.SelectedNode as StavkaNarudzbeNode);
 			if(s != null) {
 				comboboxSifraArtikla.Active = ArtikliPresenter.GetIndex(s.Sifra);
 				labelNazivArtikla.LabelProp = s.Naziv;
 				labelCijenaArtikla.LabelProp = s.Cijena;
 				spinbuttonKolicina.Value = int.Parse(s.Kolicina);
 				labelUkupnoArtikla.LabelProp = (spinbuttonKolicina.ValueAsInt * float.Parse(s.Cijena, System.Globalization.NumberStyles.Any)).ToString("C");
-				comboboxStatus.Active = NarudzbaStavka.StatusGetIndex(s.Status);
+				comboboxStatus.Active = StavkaNarudzbe.StatusGetIndex(s.Status);
 			}
 		}
 
@@ -155,7 +155,7 @@ namespace NewRestoran {
 		}
 
 		protected bool SpremiPromjene() { 
-			NarudzbaStavkaNode ns = (nodeviewStavke.NodeSelection.SelectedNode as NarudzbaStavkaNode);
+			StavkaNarudzbeNode ns = (nodeviewStavke.NodeSelection.SelectedNode as StavkaNarudzbeNode);
 			try {
 				if(ns == null) { //Insert
 					narudzba.DodajStavku(comboboxSifraArtikla.ActiveText, spinbuttonKolicina.ValueAsInt, comboboxStatus.Active);
@@ -211,13 +211,13 @@ namespace NewRestoran {
 		}
 
 		protected void OnButtonDeleteClicked(object sender, EventArgs e) {
-			NarudzbaStavkaNode ns = (nodeviewStavke.NodeSelection.SelectedNode as NarudzbaStavkaNode);
+			StavkaNarudzbeNode ns = (nodeviewStavke.NodeSelection.SelectedNode as StavkaNarudzbeNode);
 			if(ns != null)
 				narudzba.IzbrisiStavku(ns);
 		}
 
 		protected void OnButtonBackAndSaveClicked(object sender, EventArgs e) {
-			if((nodeviewStavke.NodeSelection.SelectedNode as NarudzbaStavkaNode) == null) {
+			if((nodeviewStavke.NodeSelection.SelectedNode as StavkaNarudzbeNode) == null) {
 				if(comboboxSifraArtikla.Active > -1) {
 					if(SpremiPromjene())
 						this.Destroy();
@@ -247,9 +247,9 @@ namespace NewRestoran {
 		protected void OnButtonSearchClicked(object sender, EventArgs e) {
 			if(entrySearch.Text == "") nodeviewStavke.NodeStore = narudzba.stavkeNarudzbeNodeStore;
 			 else {
-				NarudzbaStavkaNodeStore nsns = new NarudzbaStavkaNodeStore();
+				StavkaNarudzbeNodeStore nsns = new StavkaNarudzbeNodeStore();
 
-				foreach(NarudzbaStavkaNode nsn in narudzba.stavkeNarudzbeNodeStore) {
+				foreach(StavkaNarudzbeNode nsn in narudzba.stavkeNarudzbeNodeStore) {
 					if(nsn.Sifra.ToLower().Contains(entrySearch.Text.ToLower()) || nsn.Naziv.ToLower().Contains(entrySearch.Text.ToLower()))
 						nsns.AddNode(nsn);
 				}

@@ -12,7 +12,7 @@ namespace NewRestoran {
 		public OznakaPotvrde Oznaka { get; set; }
 		public Stol StolNarudzbe { get; set; }
 
-		public List<NarudzbaStavka> Stavke { get; set; }
+		public List<StavkaNarudzbe> Stavke { get; set; }
 
 		public string Broj {
 			get {
@@ -36,14 +36,14 @@ namespace NewRestoran {
 			Datum = datum;
 			Oznaka = oznaka;
 			StolNarudzbe = stol;
-			Stavke = new List<NarudzbaStavka>();
+			Stavke = new List<StavkaNarudzbe>();
 		}
 
 		public Narudzba(long id, string broj, DateTime datum, OznakaPotvrde oznaka, Stol stol = null) : this(broj, datum, oznaka, stol) {
 			ID = id;
 		}
 
-		public void AddStavka(NarudzbaStavka ns) {
+		public void AddStavka(StavkaNarudzbe ns) {
 			CheckUniqueArtikl(ns, ns.ArtiklStavke.Sifra);
 			Stavke.Add(ns);
 		}
@@ -54,7 +54,7 @@ namespace NewRestoran {
 			return ukupno;
 		}
 
-		public void CheckUniqueArtikl(NarudzbaStavka ns, string sifra) {
+		public void CheckUniqueArtikl(StavkaNarudzbe ns, string sifra) {
 			if(Stavke.Find(s => s.ArtiklStavke.Sifra == sifra && s != ns) != null)
 				 throw new ArgumentException("Stavka sa odabranim artiklom već postoji.", nameof(sifra));			
 		}

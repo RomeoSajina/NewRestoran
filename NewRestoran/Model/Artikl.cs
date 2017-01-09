@@ -11,7 +11,7 @@ namespace NewRestoran {
 		private string sastav;
 		private float cijena;
 		public enum OznakaArtikla { Hrana, Pice, Desert, Ostalo }
-		public OznakaArtikla Oznaka;
+		public OznakaArtikla Oznaka { get; set; }
 
 		public string Sifra {
 			get { return sifra; }

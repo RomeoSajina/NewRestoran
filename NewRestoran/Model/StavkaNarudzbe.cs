@@ -1,7 +1,7 @@
 ﻿using System;
 namespace NewRestoran {
 	
-	public class NarudzbaStavka {
+	public class StavkaNarudzbe {
 
 		public long ID { get; set; }
 		private Artikl artiklStavke;
@@ -25,13 +25,13 @@ namespace NewRestoran {
 			}
 		}
 
-		public NarudzbaStavka (Artikl artikl, int kolicina, StatusStavke status) {
+		public StavkaNarudzbe (Artikl artikl, int kolicina, StatusStavke status) {
 			ArtiklStavke = artikl;
 			Kolicina = kolicina;
 			Status = status;
 		}
 
-		public NarudzbaStavka(long id, Artikl a, int kolicina, StatusStavke status) : this(a, kolicina, status){
+		public StavkaNarudzbe(long id, Artikl a, int kolicina, StatusStavke status) : this(a, kolicina, status){
 			ID = id;
 		}
 

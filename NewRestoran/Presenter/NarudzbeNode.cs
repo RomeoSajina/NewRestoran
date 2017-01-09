@@ -5,7 +5,7 @@ namespace NewRestoran {
 
 	public class NarudzbeNode : TreeNode{
 
-		public NarudzbaStavkaNodeStore stavkeNarudzbeNodeStore = new NarudzbaStavkaNodeStore();
+		public StavkaNarudzbeNodeStore stavkeNarudzbeNodeStore = new StavkaNarudzbeNodeStore();
 		public Narudzba narudzba { get; }
 
 		[Gtk.TreeNodeValue (Column = 0)]
@@ -37,7 +37,7 @@ namespace NewRestoran {
 			narudzba.StolNarudzbe = StoloviPresenter.stoloviList[stol];
 			OznakaStola = narudzba.StolNarudzbe.Oznaka;
 
-			foreach(NarudzbaStavkaNode ns in stavkeNarudzbeNodeStore)
+			foreach(StavkaNarudzbeNode ns in stavkeNarudzbeNodeStore)
 				ns.OznakaStola = narudzba.StolNarudzbe.Oznaka;
 			
 			DBNarudzba.UpdateNarudzba(narudzba);
@@ -48,7 +48,7 @@ namespace NewRestoran {
 			this.OnChanged();
 		}
 
-		public void DodajStavku(NarudzbaStavka ns) {
+		public void DodajStavku(StavkaNarudzbe ns) {
 			narudzba.AddStavka(ns);//CheckUniqueArtikl u proceduri
 			stavkeNarudzbeNodeStore.Add(ns, OznakaStola);
 			UpdateUkupno();
@@ -58,14 +58,14 @@ namespace NewRestoran {
 		}
 
 		public void DodajStavku(string sifra, int kolicina, int status) {
-			DodajStavku(new NarudzbaStavka(ArtikliPresenter.GetArtikl(sifra), kolicina, NarudzbaStavka.GetStatus(status)));
+			DodajStavku(new StavkaNarudzbe(ArtikliPresenter.GetArtikl(sifra), kolicina, StavkaNarudzbe.GetStatus(status)));
 		}
 
-		public void UpdateStavku(NarudzbaStavkaNode ns, string sifra, int kolicina, int status) {
+		public void UpdateStavku(StavkaNarudzbeNode ns, string sifra, int kolicina, int status) {
 			narudzba.CheckUniqueArtikl(ns.stavka, sifra);
 			ns.Sifra = sifra;
 			ns.Kolicina = kolicina.ToString();
-			ns.Status = NarudzbaStavka.GetStatus(status);
+			ns.Status = StavkaNarudzbe.GetStatus(status);
 			UpdateUkupno();
 
 			DBStavkeNarudzbe.UpdateStavka(ns.stavka);
@@ -73,7 +73,7 @@ namespace NewRestoran {
 
 		}
 
-		public void IzbrisiStavku(NarudzbaStavkaNode ns) {
+		public void IzbrisiStavku(StavkaNarudzbeNode ns) {
 			stavkeNarudzbeNodeStore.RemoveNode(ns);
 			narudzba.Stavke.Remove(ns.stavka);
 			UpdateUkupno();

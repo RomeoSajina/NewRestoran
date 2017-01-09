@@ -6,15 +6,14 @@ namespace NewRestoran {
 	public partial class MainWindow : Gtk.Window {
 
 		public NarudzbeNodeStore narudzbeNodeStore;
-		public NarudzbaStavkaNodeStore current;
+		public StavkaNarudzbeNodeStore current;
 		private bool prikazStatusSve = true;
 		private bool formPrikaz = false;
-		public Zaposlenik zaposlenik;
+		public Zaposlenik Zaposlenik { get; set; }
 
 		public delegate void Changed();
 		public static Changed stavkeChanged;
 		public static Changed stolChanged;
-
 
 		public MainWindow() : base (Gtk.WindowType.Toplevel) {
 			this.Build ();
@@ -25,7 +24,7 @@ namespace NewRestoran {
 			stavkeChanged += () => RefreshStatusNodeView();
 
 			narudzbeNodeStore = new NarudzbeNodeStore(true);
-			current = new NarudzbaStavkaNodeStore();
+			current = new StavkaNarudzbeNodeStore();
 
 			fixedrestoransheme.HideToolbox ();
 			notebookMain.CurrentPage = 0;
@@ -288,16 +287,16 @@ namespace NewRestoran {
 		}
 
 		protected void OnButtonUpdateStatusClicked(object sender, EventArgs e) {
-			NarudzbaStavkaNode ns = (nodeviewNarudzbeStatus.NodeSelection.SelectedNode as NarudzbaStavkaNode);
+			StavkaNarudzbeNode ns = (nodeviewNarudzbeStatus.NodeSelection.SelectedNode as StavkaNarudzbeNode);
 			if(ns != null) {
 				switch((sender as Button).Name) {
-					case "buttonTakeOrder": ns.UpdateStatus(NarudzbaStavka.StatusStavke.UObradi); break;
-					case "buttonFinishOrder": ns.UpdateStatus(NarudzbaStavka.StatusStavke.Gotovo); break;
-					case "buttonDeliver": ns.UpdateStatus(NarudzbaStavka.StatusStavke.Dostavljeno); break;
+					case "buttonTakeOrder": ns.UpdateStatus(StavkaNarudzbe.StatusStavke.UObradi); break;
+					case "buttonFinishOrder": ns.UpdateStatus(StavkaNarudzbe.StatusStavke.Gotovo); break;
+					case "buttonDeliver": ns.UpdateStatus(StavkaNarudzbe.StatusStavke.Dostavljeno); break;
 				}
 				RefreshStatusNodeView();
 				nodeviewNarudzbeStatus.GrabFocus();
-				foreach(NarudzbaStavkaNode nsn in nodeviewNarudzbeStatus.NodeStore) {
+				foreach(StavkaNarudzbeNode nsn in nodeviewNarudzbeStatus.NodeStore) {
 					if(nsn == ns) {
 						nodeviewNarudzbeStatus.NodeSelection.SelectNode(ns);
 						break;
@@ -311,11 +310,11 @@ namespace NewRestoran {
 		protected void RefreshStatusNodeView() { 
 			if(prikazStatusSve) {
 				switch(comboboxStatus.Active) {
-				case 0: PrikaziStatus(NarudzbaStavka.StatusStavke.Dostavljeno, true); break;
-				case 1: PrikaziStatus(NarudzbaStavka.StatusStavke.NaCekanju); break;
-				case 2: PrikaziStatus(NarudzbaStavka.StatusStavke.UObradi); break;
-				case 3: PrikaziStatus(NarudzbaStavka.StatusStavke.Gotovo); break;
-				case 4: PrikaziStatus(NarudzbaStavka.StatusStavke.Dostavljeno); break;
+				case 0: PrikaziStatus(StavkaNarudzbe.StatusStavke.Dostavljeno, true); break;
+				case 1: PrikaziStatus(StavkaNarudzbe.StatusStavke.NaCekanju); break;
+				case 2: PrikaziStatus(StavkaNarudzbe.StatusStavke.UObradi); break;
+				case 3: PrikaziStatus(StavkaNarudzbe.StatusStavke.Gotovo); break;
+				case 4: PrikaziStatus(StavkaNarudzbe.StatusStavke.Dostavljeno); break;
 				case 5: PrikaziStatus(); break;
 				}
 			}
@@ -323,11 +322,11 @@ namespace NewRestoran {
 			NarudzbeNode n = (nodeviewNarudzbe.NodeSelection.SelectedNode as NarudzbeNode);
 			if(!prikazStatusSve && n != null) {
 				switch(comboboxStatus.Active) {
-				case 0: PrikaziStatus(NarudzbaStavka.StatusStavke.Dostavljeno, n.stavkeNarudzbeNodeStore, true); break;
-				case 1: PrikaziStatus(NarudzbaStavka.StatusStavke.NaCekanju); break;
-				case 2: PrikaziStatus(NarudzbaStavka.StatusStavke.UObradi); break;
-				case 3: PrikaziStatus(NarudzbaStavka.StatusStavke.Gotovo); break;
-				case 4: PrikaziStatus(NarudzbaStavka.StatusStavke.Dostavljeno); break;
+				case 0: PrikaziStatus(StavkaNarudzbe.StatusStavke.Dostavljeno, n.stavkeNarudzbeNodeStore, true); break;
+				case 1: PrikaziStatus(StavkaNarudzbe.StatusStavke.NaCekanju); break;
+				case 2: PrikaziStatus(StavkaNarudzbe.StatusStavke.UObradi); break;
+				case 3: PrikaziStatus(StavkaNarudzbe.StatusStavke.Gotovo); break;
+				case 4: PrikaziStatus(StavkaNarudzbe.StatusStavke.Dostavljeno); break;
 				case 5: nodeviewNarudzbeStatus.NodeStore = n.stavkeNarudzbeNodeStore; break;
 				}
 			}
@@ -336,39 +335,39 @@ namespace NewRestoran {
 		protected void PrikaziStatus() { 
 			current.Clear();
 			foreach(NarudzbeNode n in nodeviewNarudzbe.NodeStore) {
-				foreach(NarudzbaStavkaNode ns in n.stavkeNarudzbeNodeStore) {
+				foreach(StavkaNarudzbeNode ns in n.stavkeNarudzbeNodeStore) {
 					current.AddNode(ns);
 				}
 			}
 			nodeviewNarudzbeStatus.NodeStore = current;
 		}
 
-		protected void PrikaziStatus(NarudzbaStavka.StatusStavke s, NarudzbaStavkaNodeStore nsns, bool prikaziOsimS = false) { 
+		protected void PrikaziStatus(StavkaNarudzbe.StatusStavke s, StavkaNarudzbeNodeStore nsns, bool prikaziOsimS = false) { 
 			current.Clear();
 			if(!prikaziOsimS) {
-				foreach(NarudzbaStavkaNode ns in nsns) {
+				foreach(StavkaNarudzbeNode ns in nsns) {
 					if(ns.Status == s) current.AddNode(ns);
 				}
 
 			} else {
-				foreach(NarudzbaStavkaNode ns in nsns) {
+				foreach(StavkaNarudzbeNode ns in nsns) {
 					if(ns.Status != s) current.AddNode(ns);
 				}
 			}
 			nodeviewNarudzbeStatus.NodeStore = current;
 		}
 
- 		protected void PrikaziStatus(NarudzbaStavka.StatusStavke s, bool prikaziOsimS = false) {
+ 		protected void PrikaziStatus(StavkaNarudzbe.StatusStavke s, bool prikaziOsimS = false) {
 			current.Clear();
 			if(!prikaziOsimS) {
 				foreach(NarudzbeNode n in nodeviewNarudzbe.NodeStore) {
-					foreach(NarudzbaStavkaNode ns in n.stavkeNarudzbeNodeStore) {
+					foreach(StavkaNarudzbeNode ns in n.stavkeNarudzbeNodeStore) {
 						if(ns.Status == s) current.AddNode(ns);
 					}
 				}
 			} else { 
 				foreach(NarudzbeNode n in nodeviewNarudzbe.NodeStore) {
-					foreach(NarudzbaStavkaNode ns in n.stavkeNarudzbeNodeStore) {
+					foreach(StavkaNarudzbeNode ns in n.stavkeNarudzbeNodeStore) {
 						if(ns.Status != s) current.AddNode(ns);
 					}
 				}
@@ -463,6 +462,7 @@ namespace NewRestoran {
 		}
 
 		protected void OnZaposleniciActionActivated(object sender, EventArgs e) {
+			if(Zaposlenik.Uloga != Zaposlenik.UlogaZaposlenik.Sef) return;
 			switch(Open(3)) {
 				case 0: 
 					ZaposleniciWindow zw = new ZaposleniciWindow(false);

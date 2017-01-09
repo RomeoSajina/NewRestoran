@@ -183,9 +183,9 @@
     <Compile Include="gtk-gui\generated.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Model\Aritkl.cs" />
+    <Compile Include="Model\Artikl.cs" />
     <Compile Include="Model\Narudzba.cs" />
-    <Compile Include="Model\NarudzbaStavka.cs" />
+    <Compile Include="Model\StavkaNarudzbe.cs" />
     <Compile Include="Model\Stol.cs" />
     <Compile Include="Model\Zaposlenik.cs" />
     <Compile Include="Presenter\ArtiklNode.cs" />
@@ -196,8 +196,8 @@
     <Compile Include="gtk-gui\NewRestoran.MainWindow.cs" />
     <Compile Include="Presenter\NarudzbeNode.cs" />
     <Compile Include="Presenter\NarudzbeNodeStore.cs" />
-    <Compile Include="Presenter\NarudzbaStavkaNode.cs" />
-    <Compile Include="Presenter\NarudzbaStavkaNodeStore.cs" />
+    <Compile Include="Presenter\StavkaNarudzbeNode.cs" />
+    <Compile Include="Presenter\StavkaNarudzbeNodeStore.cs" />
     <Compile Include="View\StavkeWindow.cs" />
     <Compile Include="gtk-gui\NewRestoran.StavkeWindow.cs" />
     <Compile Include="Presenter\ArtikliPresenter.cs" />

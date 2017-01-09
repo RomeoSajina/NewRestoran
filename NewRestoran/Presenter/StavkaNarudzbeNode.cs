@@ -3,12 +3,12 @@ using Gtk;
 using Gdk;
 namespace NewRestoran {
 
-	public class NarudzbaStavkaNode : TreeNode {
+	public class StavkaNarudzbeNode : TreeNode {
 
 		private string kolicina;
 		private string sifra;
-		private NarudzbaStavka.StatusStavke status;
-		public NarudzbaStavka stavka { get; }
+		private StavkaNarudzbe.StatusStavke status;
+		public StavkaNarudzbe stavka { get; }
 
 		protected static Pixbuf NaCekanjuPixbuf = Pixbuf.LoadFromResource("NewRestoran.images.NaCekanju.png").ScaleSimple(20, 20, InterpType.Bilinear);
 		protected static Pixbuf UObradiPixbuf = Pixbuf.LoadFromResource("NewRestoran.images.UObradi.png").ScaleSimple(20, 20, InterpType.Bilinear);
@@ -55,23 +55,23 @@ namespace NewRestoran {
 		[Gtk.TreeNodeValue (Column = 7)]
 		public string OznakaStola;
 
-		public NarudzbaStavka.StatusStavke Status {
+		public StavkaNarudzbe.StatusStavke Status {
 			get {return status;}
 			set {
 				stavka.Status = value;
 				status = stavka.Status;
 				StatusText = stavka.StatusToString();
 				switch(Status) {
-					case NarudzbaStavka.StatusStavke.NaCekanju: StatusPixbuf = NaCekanjuPixbuf; break;
-					case NarudzbaStavka.StatusStavke.UObradi: StatusPixbuf = UObradiPixbuf; break;
-					case NarudzbaStavka.StatusStavke.Gotovo: StatusPixbuf = GotovoPixbuf; break;
-					case NarudzbaStavka.StatusStavke.Dostavljeno: StatusPixbuf = DostavljenoPixbuf; break;
+					case StavkaNarudzbe.StatusStavke.NaCekanju: StatusPixbuf = NaCekanjuPixbuf; break;
+					case StavkaNarudzbe.StatusStavke.UObradi: StatusPixbuf = UObradiPixbuf; break;
+					case StavkaNarudzbe.StatusStavke.Gotovo: StatusPixbuf = GotovoPixbuf; break;
+					case StavkaNarudzbe.StatusStavke.Dostavljeno: StatusPixbuf = DostavljenoPixbuf; break;
 				}
 			}
 		}
 
 
-		public NarudzbaStavkaNode(NarudzbaStavka ns, string oznakaStola) {
+		public StavkaNarudzbeNode(StavkaNarudzbe ns, string oznakaStola) {
 			stavka = ns;
 			sifra = ns.ArtiklStavke.Sifra;
 			Naziv = ns.ArtiklStavke.Naziv;
@@ -83,7 +83,7 @@ namespace NewRestoran {
 		}
 
 
-		public void UpdateStatus(NarudzbaStavka.StatusStavke status) {
+		public void UpdateStatus(StavkaNarudzbe.StatusStavke status) {
 			Status = status;
 			DBStavkeNarudzbe.UpdateStavka(stavka);
 		}
