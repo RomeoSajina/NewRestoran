@@ -81,6 +81,44 @@ namespace NewRestoran {
 			return artikli;
 		}
 
+		public static List<Artikl> GetArtikleReadOnly(Artikl.OznakaArtikla oznaka) {
+			List<Artikl> artikli = new List<Artikl>();
+			SqliteCommand c = DB.con.CreateCommand();
+
+			c.CommandText = String.Format(@"SELECT * FROM Artikl WHERE oznaka = '{0}'", oznaka);
+			
+			SqliteDataReader reader = c.ExecuteReader();
+
+			while(reader.Read()) {
+				Artikl a = new Artikl((long)reader["ID"], (string)reader["sifra"], (string)reader["naziv"],
+									  (string)reader["duzi_naziv"], (float)reader.GetDecimal(5), (string)reader["sastav"],
+									  Artikl.OznakaFromString((string)reader["oznaka"]));
+				artikli.Add(a);
+			}
+			c.Dispose();
+			return artikli;
+		}
+
+		public static List<Artikl> GetArtikleReadOnly() {
+			List<Artikl> artikli = new List<Artikl>();
+			SqliteCommand c = DB.con.CreateCommand();
+
+			c.CommandText = String.Format(@"SELECT * FROM Artikl a 
+											ORDER BY (SELECT COUNT(*) FROM Stavka_Narudzbe WHERE id_artikl = a.id) DESC");
+			
+			SqliteDataReader reader = c.ExecuteReader();
+
+			while(reader.Read()) {
+				Artikl a = new Artikl((long)reader["ID"], (string)reader["sifra"], (string)reader["naziv"],
+									  (string)reader["duzi_naziv"], (float)reader.GetDecimal(5), (string)reader["sastav"],
+									  Artikl.OznakaFromString((string)reader["oznaka"]));
+				artikli.Add(a);
+			}
+			c.Dispose();
+			return artikli;
+		}
+
+
 		/*
 		public static List<Artikl> DohvatiSve() {
 			var lista = new List<Artikl>();

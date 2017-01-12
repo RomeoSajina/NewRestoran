@@ -9,6 +9,7 @@ namespace NewRestoran {
 		private NarudzbeNode narudzba;
 		private NarudzbeNodeStore narudzbaStore;
 		private bool formPrikaz = false;
+		private ArtiklButtonList artikliButtonList = new ArtiklButtonList();
 
 		public StavkeWindow(NarudzbeNode n, NarudzbeNodeStore ns, bool prikazi) : base(Gtk.WindowType.Toplevel) {
 			this.Build();
@@ -55,14 +56,23 @@ namespace NewRestoran {
 			this.Resize(500, 500);
 			labelBrojNarudzbe.LabelProp = narudzba.Broj;
 			labelUkupno.LabelProp = narudzba.Ukupno;
-			if(!narudzba.HasStavke()) buttonDodajStavku.Click();
+			buttonNajcesce.Click();
+
+			spinbuttonKolicina.Changed += (sender, e) => spinbuttonKolicina1.Value = spinbuttonKolicina.Value;
+			spinbuttonKolicina1.Changed += (sender, e) => spinbuttonKolicina.Value = spinbuttonKolicina1.Value;
 
 			Color c = new Color();
 			Color.Parse("#00bd00", ref c);
 			labelSpremljeno.ModifyFg(StateType.Normal, c);
 			labelSpremljeno.ModifyFont(Pango.FontDescription.FromString("bold 16"));
+			labelSpremljeno1.ModifyFg(StateType.Normal, c);
+			labelSpremljeno1.ModifyFont(Pango.FontDescription.FromString("bold 16"));
 
-			ForAll<Label>(l => l.ModifyFont(Pango.FontDescription.FromString("bold 10")), new Container[]{hbox2, hbox4, hbox5, hbox6, hbox7, hbox8, hbox9});
+			ForAll<Label>(l => l.ModifyFont(Pango.FontDescription.FromString("bold 10")), new Container[]{hbox2, hbox4, hbox5, hbox6, hbox7, hbox8, hbox9, hbox15});
+			spinbuttonKolicina1.ModifyFont(Pango.FontDescription.FromString("bold 10"));
+
+			nodeviewStavke.Selection.SelectPath(new TreePath("0"));
+			nodeviewStavke.GrabFocus();
 		}
 
 		public Box GetContent() {
@@ -85,10 +95,12 @@ namespace NewRestoran {
 		protected void OnButtonChangeClicked(object sender, EventArgs e) {
 			if(formPrikaz) {
 				vboxNodeView.Show();
+				vboxQickAdd.Show();
 				vboxFormView.Hide();
 				formPrikaz = false;
 			} else {
 				vboxNodeView.Hide();
+				vboxQickAdd.Hide();
 				vboxFormView.Show();
 				formPrikaz = true;
 			}
@@ -165,7 +177,8 @@ namespace NewRestoran {
 				}
 				labelUkupno.LabelProp = narudzba.Ukupno;
 				hboxSpremljeno.Show();
-				GLib.Timeout.Add(2000, () => { hboxSpremljeno.Hide(); return false; });
+				hboxSpremljeno1.Show();
+				GLib.Timeout.Add(2000, () => { hboxSpremljeno.Hide(); hboxSpremljeno1.Hide(); return false; });
 				return true;
 
 			} catch(ArgumentException ae) {
@@ -179,20 +192,13 @@ namespace NewRestoran {
 				}
 				DialogBox.ShowError(this, msg);
 				return false;
-			} catch(System.Data.Common.DbException sqle) {
-				string msg;
-				switch(sqle.ErrorCode) {
-					case -2147467259: msg = "Stavka sa odabranim artiklom već postoji.Sql"; break;
-					default: msg = sqle.Message; break;
-				}
-				DialogBox.ShowError(this, msg);
-				return false;
-			}
+			} 
 		}
 
 		protected void OnButtonOdustaniClicked(object sender, EventArgs e) {
 			buttonDodajStavku.Click();
 			buttonChange.Click();
+			comboboxSifraArtikla.Popdown();
 		}
 
 		protected void OnSpinbuttonKolicinaValueChanged(object sender, EventArgs e) {
@@ -202,7 +208,8 @@ namespace NewRestoran {
 
 		protected void OnComboboxSifraArtiklaChanged(object sender, EventArgs e) {
 			string naziv, cijena, ukupno;
-			ArtikliPresenter.ArtiklDetails(comboboxSifraArtikla.ActiveText, spinbuttonKolicina.ValueAsInt, out naziv, out cijena, out ukupno);
+			ArtikliPresenter.ArtiklDetails(comboboxSifraArtikla.ActiveText, spinbuttonKolicina.ValueAsInt, 
+			                               out naziv, out cijena, out ukupno);
 			labelNazivArtikla.LabelProp = naziv;
 			labelCijenaArtikla.LabelProp = cijena;
 			labelUkupnoArtikla.LabelProp = ukupno;
@@ -257,6 +264,69 @@ namespace NewRestoran {
 			}
 		}
 	
-	
+		protected void OnButtonShowArtikleClicked(object sender, EventArgs e) {
+			switch((sender as Button).Name) {
+				case "buttonNajcesce": artikliButtonList.RefreshWithCommon(); break;
+				case "buttonHrana": artikliButtonList.RefreshWithHrana(); break;
+				case "buttonPica": artikliButtonList.RefreshWithPice(); break;
+				case "buttonDeserti": artikliButtonList.RefreshWithDesert(); break;
+				case "buttonOstalo": artikliButtonList.RefreshWithOstalo(); break;
+			}
+
+			vboxArtikli1.Foreach(vboxArtikli1.Remove);
+			vboxArtikli2.Foreach(vboxArtikli2.Remove);
+
+			bool prvi = true;
+			artikliButtonList.ArtikliButton.ForEach(b => {
+				if(prvi) {
+					vboxArtikli1.Add(b);
+					prvi = false;
+				} else {
+					vboxArtikli2.Add(b);
+					prvi = true;
+				}
+				b.Clicked += ButtonAddArtiklClicked;
+			});
+			vboxArtikli.ShowAll();
+		}
+
+		protected void ButtonAddArtiklClicked(object sender, EventArgs e) {
+			comboboxSifraArtikla.Active = ArtikliPresenter.GetIndex((sender as ArtiklButton).Sifra);
+			spinbuttonKolicina.Value = 1;
+			comboboxStatus.Active = 0;
+
+			nodeviewStavke.Selection.UnselectAll();
+			SpremiPromjene();
+			nodeviewStavke.GrabFocus();
+		}
+
+		protected void ButtonChangeKolicinaClicked(object sender, EventArgs e) {
+			int val = 0;
+			switch((sender as Button).Name) {
+				case "buttonOne": val = 1; break;
+				case "buttonTwo": val = 2; break;
+				case "buttonThree": val = 3; break;
+				case "buttonFour": val = 4; break;
+				case "buttonFive": val = 5; break;
+				case "buttonSix": val = 6; break;
+				case "buttonSeven": val = 7; break;
+				case "buttonEight": val = 8; break;
+				case "buttonNine": val = 9; break;
+				case "buttonZero": val = 0; break;
+			}
+			spinbuttonKolicina.Value *= 10;
+			spinbuttonKolicina.Value += val;
+		}
+
+		protected void OnButtonCClicked(object sender, EventArgs e) {
+			spinbuttonKolicina1.Value = 0;
+		}
+
+		protected void OnButtonApplyClicked(object sender, EventArgs e) {
+			if((nodeviewStavke.NodeSelection.SelectedNode as StavkaNarudzbeNode) != null){
+				SpremiPromjene();
+				nodeviewStavke.GrabFocus();
+			}
+		}
 	}
 }

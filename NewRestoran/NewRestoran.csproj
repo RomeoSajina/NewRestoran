@@ -178,6 +178,45 @@
     <EmbeddedResource Include="..\icons\Desert.png">
       <Link>images\Desert.png</Link>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\Common.png">
+      <Link>images\Common.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\Eight.png">
+      <Link>images\Eight.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\Five.png">
+      <Link>images\Five.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\Four.png">
+      <Link>images\Four.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\Nine.png">
+      <Link>images\Nine.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\One.png">
+      <Link>images\One.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\Seven.png">
+      <Link>images\Seven.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\Six.png">
+      <Link>images\Six.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\Three.png">
+      <Link>images\Three.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\Two.png">
+      <Link>images\Two.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\Zero.png">
+      <Link>images\Zero.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\Enter.png">
+      <Link>images\Enter.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\icons\C.png">
+      <Link>images\C.png</Link>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
@@ -223,6 +262,8 @@
     <Compile Include="gtk-gui\NewRestoran.CalendarWindow.cs" />
     <Compile Include="Widget\FixedRestoranSheme.cs" />
     <Compile Include="gtk-gui\NewRestoran.FixedRestoranSheme.cs" />
+    <Compile Include="Presenter\ArtiklButton.cs" />
+    <Compile Include="Presenter\ArtiklButtonList.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />

@@ -19,7 +19,7 @@ namespace NewRestoran {
 			this.Build ();
 			DB.OpenConnection();
 
-			//LoginWindow login = new LoginWindow(this);
+			LoginWindow login = new LoginWindow(this);
 
 			stavkeChanged += () => RefreshStatusNodeView();
 
@@ -109,7 +109,7 @@ namespace NewRestoran {
 			nodeviewNarudzbe.Selection.Changed += NodeSelectionChanged;
 
 
-			this.Resize(1400, 970);
+			this.Resize(1500, 970);
 			Color c = new Color();
 			Color.Parse("#00bd00", ref c);
 			labelSpremljen.ModifyFg(StateType.Normal, c);
@@ -138,6 +138,7 @@ namespace NewRestoran {
 
 			RefreshStatusNodeView();
 			fixedrestoransheme.TableSelected += FixedRestoranShemeTableSelected;
+			nodeviewNarudzbe.GrabFocus();
 		}
 
 		protected void NodeSelectionChanged(object sender, EventArgs e) {

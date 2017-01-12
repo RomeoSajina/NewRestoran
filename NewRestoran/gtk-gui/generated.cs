@@ -78,6 +78,32 @@ namespace Stetic
 				w1.Add("table4chairs", w33);
 				global::Gtk.IconSet w34 = new global::Gtk.IconSet(global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.Desert.png"));
 				w1.Add("Desert", w34);
+				global::Gtk.IconSet w35 = new global::Gtk.IconSet(global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.Common.png"));
+				w1.Add("Common", w35);
+				global::Gtk.IconSet w36 = new global::Gtk.IconSet(global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.One.png"));
+				w1.Add("One", w36);
+				global::Gtk.IconSet w37 = new global::Gtk.IconSet(global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.Two.png"));
+				w1.Add("Two", w37);
+				global::Gtk.IconSet w38 = new global::Gtk.IconSet(global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.Three.png"));
+				w1.Add("Three", w38);
+				global::Gtk.IconSet w39 = new global::Gtk.IconSet(global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.Four.png"));
+				w1.Add("Four", w39);
+				global::Gtk.IconSet w40 = new global::Gtk.IconSet(global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.Five.png"));
+				w1.Add("Five", w40);
+				global::Gtk.IconSet w41 = new global::Gtk.IconSet(global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.Six.png"));
+				w1.Add("Six", w41);
+				global::Gtk.IconSet w42 = new global::Gtk.IconSet(global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.Seven.png"));
+				w1.Add("Seven", w42);
+				global::Gtk.IconSet w43 = new global::Gtk.IconSet(global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.Eight.png"));
+				w1.Add("Eight", w43);
+				global::Gtk.IconSet w44 = new global::Gtk.IconSet(global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.Nine.png"));
+				w1.Add("Nine", w44);
+				global::Gtk.IconSet w45 = new global::Gtk.IconSet(global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.Zero.png"));
+				w1.Add("Zero", w45);
+				global::Gtk.IconSet w46 = new global::Gtk.IconSet(global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.Enter.png"));
+				w1.Add("Enter", w46);
+				global::Gtk.IconSet w47 = new global::Gtk.IconSet(global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.C.png"));
+				w1.Add("C", w47);
 				w1.AddDefault();
 			}
 		}
