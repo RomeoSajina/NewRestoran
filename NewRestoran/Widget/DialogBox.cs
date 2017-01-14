@@ -27,6 +27,13 @@ namespace NewRestoran{
 			return false;
 		}
 
+		public static void ShowNoneButtons(Window window, string message, uint timeout) {
+			Dialog d = new Gtk.MessageDialog(window, DialogFlags.Modal, MessageType.Info, ButtonsType.None, message);
+			d.SetPosition(WindowPosition.Center);
+			d.Icon = Gdk.Pixbuf.LoadFromResource("NewRestoran.images.logo.png");
+			GLib.Timeout.Add(timeout, () => { d.Destroy(); return false; });
+			d.Run();
+		}
 
 		public static void ShowInfo (Window window, string message) { Show(window, MessageType.Info, message);}
 		public static void ShowWarning (Window window, string message) { Show (window, MessageType.Warning, message); }

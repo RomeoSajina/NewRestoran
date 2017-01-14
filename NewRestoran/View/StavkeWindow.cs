@@ -234,6 +234,7 @@ namespace NewRestoran {
 		}
 
 		protected void OnButtonZakljuciClicked(object sender, EventArgs e) {
+			DialogBox.ShowNoneButtons(this, "Printanje...", 2000);
 			narudzba.Zakljuci();
 			narudzbaStore.RemoveNode(narudzba);
 		}

@@ -117,7 +117,6 @@ namespace NewRestoran {
 
 			ForAll<Label>(l => l.ModifyFont(Pango.FontDescription.FromString("bold 10")), new Container[] { hbox8, hbox9, hbox10, hbox11 });
 			notebookMain.ShowTabs = false;
-
 			
 			stolChanged += () => {
 				ListStore stolOznaka = new ListStore(typeof(Pixbuf), typeof(string));
@@ -247,6 +246,7 @@ namespace NewRestoran {
 		protected void OnButtonZakljuciClicked(object sender, EventArgs e) {
 			NarudzbeNode n = (nodeviewNarudzbe.NodeSelection.SelectedNode as NarudzbeNode);
 			if(n != null) {
+				DialogBox.ShowNoneButtons(this, "Printanje...", 2000);
 				n.Zakljuci();
 				narudzbeNodeStore.RemoveNode(n);
 				ClearForm();
@@ -318,6 +318,7 @@ namespace NewRestoran {
 				case 4: PrikaziStatus(StavkaNarudzbe.StatusStavke.Dostavljeno); break;
 				case 5: PrikaziStatus(); break;
 				}
+				return;
 			}
 
 			NarudzbeNode n = (nodeviewNarudzbe.NodeSelection.SelectedNode as NarudzbeNode);
@@ -330,7 +331,7 @@ namespace NewRestoran {
 				case 4: PrikaziStatus(StavkaNarudzbe.StatusStavke.Dostavljeno); break;
 				case 5: nodeviewNarudzbeStatus.NodeStore = n.stavkeNarudzbeNodeStore; break;
 				}
-			}
+			} else nodeviewNarudzbeStatus.NodeStore = null;
 		}
 
 		protected void PrikaziStatus() { 
@@ -392,6 +393,8 @@ namespace NewRestoran {
 					return;
 				}
 			}
+			nodeviewNarudzbe.Selection.UnselectAll();
+			if(comboboxSveTrenutna.Active == 1)RefreshStatusNodeView();
 		}
 
 		protected void OnButtonOdustaniClicked(object sender, EventArgs e) {
