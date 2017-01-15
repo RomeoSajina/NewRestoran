@@ -43,9 +43,9 @@ namespace NewRestoran {
 			ID = id;
 		}
 
-		public void AddStavka(StavkaNarudzbe ns) {
-			CheckUniqueArtikl(ns, ns.ArtiklStavke.Sifra);
-			Stavke.Add(ns);
+		public void AddStavka(StavkaNarudzbe sn) {
+			CheckUniqueArtikl(sn, sn.ArtiklStavke.Sifra);
+			Stavke.Add(sn);
 		}
 
 		public float Ukupno() {
@@ -54,8 +54,8 @@ namespace NewRestoran {
 			return ukupno;
 		}
 
-		public void CheckUniqueArtikl(StavkaNarudzbe ns, string sifra) {
-			if(Stavke.Find(s => s.ArtiklStavke.Sifra == sifra && s != ns) != null)
+		public void CheckUniqueArtikl(StavkaNarudzbe sn, string sifra) {
+			if(Stavke.Find(s => s.ArtiklStavke.Sifra == sifra && s != sn) != null)
 				 throw new ArgumentException("Stavka sa odabranim artiklom već postoji.", nameof(sifra));			
 		}
 

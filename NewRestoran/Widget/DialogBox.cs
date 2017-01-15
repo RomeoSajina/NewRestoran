@@ -2,7 +2,7 @@
 using Gtk;
 namespace NewRestoran{
 	
-	public class DialogBox{
+	public static class DialogBox{
 	 
 		public static void Show(Window window, MessageType msgType, string message){
 			Dialog d = new Gtk.MessageDialog(window, DialogFlags.Modal, msgType, ButtonsType.Ok, message);

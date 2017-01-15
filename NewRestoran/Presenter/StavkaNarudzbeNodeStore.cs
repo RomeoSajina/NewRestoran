@@ -13,7 +13,7 @@ namespace NewRestoran {
 		}
 
 		public void AddList(List<StavkaNarudzbe> stavkeNarudzbe, string oznakaStola) {
-			stavkeNarudzbe.ForEach (ns => this.AddNode (new StavkaNarudzbeNode (ns, oznakaStola)));
+			stavkeNarudzbe.ForEach (ns => this.Add(ns, oznakaStola));
 		}
 
 

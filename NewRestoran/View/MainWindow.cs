@@ -9,7 +9,7 @@ namespace NewRestoran {
 		public StavkaNarudzbeNodeStore current;
 		private bool prikazStatusSve = true;
 		private bool formPrikaz = false;
-		public Zaposlenik Zaposlenik { get; set; }
+		public Zaposlenik zaposlenik { get; set; }
 
 		public delegate void Changed();
 		public static Changed stavkeChanged;
@@ -101,9 +101,6 @@ namespace NewRestoran {
 
 			//Prikazivanje ili sakrivanje gumbova ovisno o fokusu
 			vboxStatusButtons.Hide ();
-			//vboxNarudzbeButtons.Hide ();
-			//nodeviewNarudzbe.FocusInEvent += (o, args) => { vboxNarudzbeButtons.Show ();};
-			//nodeviewNarudzbe.FocusOutEvent += (o, args) => {  vboxNarudzbeButtons.Hide (); };
 			nodeviewNarudzbeStatus.FocusInEvent += (o, args) => { vboxStatusButtons.Show (); vboxNarudzbeButtons.Hide();};
 			nodeviewNarudzbeStatus.FocusOutEvent += (o, args) => { vboxStatusButtons.Hide (); vboxNarudzbeButtons.Show();};
 			nodeviewNarudzbe.Selection.Changed += NodeSelectionChanged;
@@ -466,7 +463,7 @@ namespace NewRestoran {
 		}
 
 		protected void OnZaposleniciActionActivated(object sender, EventArgs e) {
-			if(Zaposlenik.Uloga != Zaposlenik.UlogaZaposlenik.Sef) return;
+			if(zaposlenik.Uloga != Zaposlenik.UlogaZaposlenik.Sef) return;
 			switch(Open(3)) {
 				case 0: 
 					ZaposleniciWindow zw = new ZaposleniciWindow(false);
@@ -485,7 +482,7 @@ namespace NewRestoran {
 		}
 
 		protected void OnSingOutActionActivated(object sender, EventArgs e) {
-			Zaposlenik = null;
+			zaposlenik = null;
 			LoginWindow l = new LoginWindow(this);
 		}
 

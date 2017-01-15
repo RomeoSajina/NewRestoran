@@ -111,8 +111,8 @@ namespace NewRestoran {
 			case 0:  // uri-list
 				string[] uri_list = Regex.Split(data, "\r\n");
 				foreach(string u in uri_list) {
-					if(u.Length > 0)
-						System.Console.WriteLine("Got URI {0}", u);
+					//if(u.Length > 0)
+						//System.Console.WriteLine("Got URI {0}", u);
 				}
 				success = true;
 				break;

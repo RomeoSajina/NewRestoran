@@ -217,8 +217,10 @@ namespace NewRestoran {
 
 		protected void OnButtonDeleteClicked(object sender, EventArgs e) {
 			StavkaNarudzbeNode ns = (nodeviewStavke.NodeSelection.SelectedNode as StavkaNarudzbeNode);
-			if(ns != null)
+			if(ns != null) {
 				narudzba.IzbrisiStavku(ns);
+				buttonDodajStavku.Click();
+			}
 		}
 
 		protected void OnButtonBackAndSaveClicked(object sender, EventArgs e) {
@@ -237,6 +239,7 @@ namespace NewRestoran {
 			DialogBox.ShowNoneButtons(this, "Printanje...", 2000);
 			narudzba.Zakljuci();
 			narudzbaStore.RemoveNode(narudzba);
+			this.Destroy();
 		}
 
 

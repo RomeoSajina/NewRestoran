@@ -15,7 +15,7 @@ namespace NewRestoran {
 		}
 
 		public void AddList(List<Narudzba> narudzbe) {
-			narudzbe.ForEach (n => this.AddNode (new NarudzbeNode(n)));
+			narudzbe.ForEach (n => this.Add(n));
 		}
 
 		public void DodajNarudzbu(string oznakaStola) {

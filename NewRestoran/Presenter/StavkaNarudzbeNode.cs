@@ -23,6 +23,7 @@ namespace NewRestoran {
 				stavka.ArtiklStavke = ArtikliPresenter.GetArtikl(value);
 				sifra = stavka.ArtiklStavke.Sifra;
 				Naziv = stavka.ArtiklStavke.Naziv;
+				Cijena = stavka.ArtiklStavke.Cijena.ToString("C");
 				Ukupno = (stavka.ArtiklStavke.Cijena * stavka.Kolicina).ToString("C");
 			}
 		}
@@ -90,3 +91,4 @@ namespace NewRestoran {
 
 	}
 }
+	

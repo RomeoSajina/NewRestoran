@@ -61,7 +61,7 @@ namespace NewRestoran {
 			return hbox2;
 		}
 
-		void SelectedNodeChanged(object sender, EventArgs e) {
+		protected void SelectedNodeChanged(object sender, EventArgs e) {
 			ArtiklNode a = (nodeviewArtikli.NodeSelection.SelectedNode as ArtiklNode);
 			if(a != null) { 
 				entrySifra.Text = a.Sifra;
