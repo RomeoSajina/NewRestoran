@@ -13,7 +13,7 @@ namespace NewRestoran {
 				CREATE TABLE IF NOT EXISTS Artikl (
 					ID integer NOT NULL PRIMARY KEY AUTOINCREMENT,
 					sifra nvarchar(20) NOT NULL UNIQUE,
-					naziv nvarchar(20) NOT NULL,
+					naziv nvarchar(30) NOT NULL,
 					duzi_naziv nvarchar(40),
 					sastav nvarchar(60) NOT NULL,
 					cijena numeric NOT NULL,

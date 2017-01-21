@@ -20,7 +20,7 @@ namespace NewRestoran
 
 		private global::Gtk.Label label1;
 
-		private global::Gtk.SpinButton spinbuttonSize;
+		private global::Gtk.HScale hscaleSize;
 
 		private global::Gtk.Button buttonApplySize;
 
@@ -139,17 +139,21 @@ namespace NewRestoran
 			w7.Expand = false;
 			w7.Fill = false;
 			// Container child hbox1.Gtk.Box+BoxChild
-			this.spinbuttonSize = new global::Gtk.SpinButton(10D, 150D, 1D);
-			this.spinbuttonSize.CanFocus = true;
-			this.spinbuttonSize.Name = "spinbuttonSize";
-			this.spinbuttonSize.Adjustment.PageIncrement = 10D;
-			this.spinbuttonSize.ClimbRate = 1D;
-			this.spinbuttonSize.Numeric = true;
-			this.hbox1.Add(this.spinbuttonSize);
-			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.spinbuttonSize]));
+			this.hscaleSize = new global::Gtk.HScale(null);
+			this.hscaleSize.WidthRequest = 190;
+			this.hscaleSize.CanFocus = true;
+			this.hscaleSize.Name = "hscaleSize";
+			this.hscaleSize.Adjustment.Lower = 10D;
+			this.hscaleSize.Adjustment.Upper = 150D;
+			this.hscaleSize.Adjustment.PageIncrement = 10D;
+			this.hscaleSize.Adjustment.StepIncrement = 1D;
+			this.hscaleSize.DrawValue = true;
+			this.hscaleSize.Digits = 0;
+			this.hscaleSize.ValuePos = ((global::Gtk.PositionType)(0));
+			this.hbox1.Add(this.hscaleSize);
+			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.hscaleSize]));
 			w8.Position = 1;
 			w8.Expand = false;
-			w8.Fill = false;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.buttonApplySize = new global::Gtk.Button();
 			this.buttonApplySize.CanFocus = true;
@@ -314,6 +318,7 @@ namespace NewRestoran
 			// Container child vbox5.Gtk.Box+BoxChild
 			this.fixedSheme = new global::Gtk.Fixed();
 			this.fixedSheme.WidthRequest = 600;
+			this.fixedSheme.HeightRequest = 800;
 			this.fixedSheme.Name = "fixedSheme";
 			this.fixedSheme.HasWindow = false;
 			this.vbox5.Add(this.fixedSheme);

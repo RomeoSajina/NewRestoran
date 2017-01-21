@@ -177,8 +177,7 @@ namespace NewRestoran {
 		}
 
 		protected void OnButtonApplySizeClicked(object sender, EventArgs e) {
-
-			size = spinbuttonSize.ValueAsInt;
+			size = (int)hscaleSize.Value;
 
 			fixedSheme.Foreach((b) => {
 				if(b is Button) {
@@ -221,7 +220,7 @@ namespace NewRestoran {
 
 				XmlNodeList sizeList = doc.GetElementsByTagName("Size");
 				size = int.Parse(sizeList[0].InnerText);
-				spinbuttonSize.Value = size;
+				hscaleSize.Value = size;
 
 				XmlNodeList itemList = doc.GetElementsByTagName("Item");
 				XmlNodeList detailsList;

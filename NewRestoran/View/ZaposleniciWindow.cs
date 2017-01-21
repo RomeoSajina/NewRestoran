@@ -22,10 +22,10 @@ namespace NewRestoran {
 			ulogaColumn.PackStart(ulogaTextCell, true);
 			ulogaColumn.AddAttribute(ulogaPixbufCell, "pixbuf", 5);
 			ulogaColumn.AddAttribute(ulogaTextCell, "text", 6);
-
+ 			
 			nodeviewZaposlenici.AppendColumn("Ime", new CellRendererText(), "text", 0).MinWidth = 150;
 			nodeviewZaposlenici.AppendColumn("Prezime", new CellRendererText(), "text", 1).MinWidth = 150;
-			nodeviewZaposlenici.AppendColumn("Password", new CellRendererText(), "text", 2).MinWidth = 150;
+			nodeviewZaposlenici.AppendColumn("Lozinka", new CellRendererText(), "text", 2).MinWidth = 150;
 			nodeviewZaposlenici.AppendColumn("Datum zaposlenja", new CellRendererText(), "text", 3).MinWidth = 140;
 			nodeviewZaposlenici.AppendColumn("Status", new CellRendererText(), "text", 4).MinWidth = 150;
 			nodeviewZaposlenici.AppendColumn(ulogaColumn);
@@ -196,7 +196,7 @@ namespace NewRestoran {
 				switch(ae.ParamName) {
 				case "ime": msg = "Ime je obavezno."; break;
 				case "prezime": msg = "Prezime je obavezno."; break;
-				case "password": msg = "Lozinka je obavezna."; break;
+				case "password": msg = "Lozinka je obavezna i mora sadržavati najmanje 4 znaka."; break;
 				case "datumZaposlenja":
 					if(entryDatum.Text.Equals(""))
 						msg = "Datum zaposlenja je obavezan.";

@@ -154,15 +154,17 @@ namespace NewRestoran
 
 		private global::Gtk.VBox vboxStatusButtons;
 
-		private global::Gtk.Button buttonDeliver;
+		private global::Gtk.Fixed fixed5;
 
-		private global::Gtk.Button buttonStatusDown;
-
-		private global::Gtk.Button buttonStatusUp;
+		private global::Gtk.Button buttonTakeOrder;
 
 		private global::Gtk.Button buttonFinishOrder;
 
-		private global::Gtk.Button buttonTakeOrder;
+		private global::Gtk.Button buttonStatusUp;
+
+		private global::Gtk.Button buttonStatusDown;
+
+		private global::Gtk.Button buttonDeliver;
 
 		private global::Gtk.Label label2;
 
@@ -816,86 +818,92 @@ namespace NewRestoran
 			this.vboxStatusButtons.Name = "vboxStatusButtons";
 			this.vboxStatusButtons.Spacing = 23;
 			// Container child vboxStatusButtons.Gtk.Box+BoxChild
-			this.buttonDeliver = new global::Gtk.Button();
-			this.buttonDeliver.CanFocus = true;
-			this.buttonDeliver.Name = "buttonDeliver";
-			this.buttonDeliver.UseUnderline = true;
-			this.buttonDeliver.FocusOnClick = false;
-			global::Gtk.Image w63 = new global::Gtk.Image();
-			w63.Pixbuf = global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.delivering.png");
-			this.buttonDeliver.Image = w63;
-			this.vboxStatusButtons.Add(this.buttonDeliver);
-			global::Gtk.Box.BoxChild w64 = ((global::Gtk.Box.BoxChild)(this.vboxStatusButtons[this.buttonDeliver]));
-			w64.PackType = ((global::Gtk.PackType)(1));
-			w64.Position = 0;
-			w64.Expand = false;
-			w64.Fill = false;
-			// Container child vboxStatusButtons.Gtk.Box+BoxChild
-			this.buttonStatusDown = new global::Gtk.Button();
-			this.buttonStatusDown.CanFocus = true;
-			this.buttonStatusDown.Name = "buttonStatusDown";
-			this.buttonStatusDown.UseUnderline = true;
-			this.buttonStatusDown.FocusOnClick = false;
-			global::Gtk.Image w65 = new global::Gtk.Image();
-			w65.Pixbuf = global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.down.png");
-			this.buttonStatusDown.Image = w65;
-			this.vboxStatusButtons.Add(this.buttonStatusDown);
-			global::Gtk.Box.BoxChild w66 = ((global::Gtk.Box.BoxChild)(this.vboxStatusButtons[this.buttonStatusDown]));
-			w66.PackType = ((global::Gtk.PackType)(1));
-			w66.Position = 1;
-			w66.Expand = false;
-			w66.Fill = false;
-			// Container child vboxStatusButtons.Gtk.Box+BoxChild
-			this.buttonStatusUp = new global::Gtk.Button();
-			this.buttonStatusUp.CanFocus = true;
-			this.buttonStatusUp.Name = "buttonStatusUp";
-			this.buttonStatusUp.UseUnderline = true;
-			this.buttonStatusUp.FocusOnClick = false;
-			global::Gtk.Image w67 = new global::Gtk.Image();
-			w67.Pixbuf = global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.up.png");
-			this.buttonStatusUp.Image = w67;
-			this.vboxStatusButtons.Add(this.buttonStatusUp);
-			global::Gtk.Box.BoxChild w68 = ((global::Gtk.Box.BoxChild)(this.vboxStatusButtons[this.buttonStatusUp]));
-			w68.PackType = ((global::Gtk.PackType)(1));
-			w68.Position = 2;
-			w68.Expand = false;
-			w68.Fill = false;
-			// Container child vboxStatusButtons.Gtk.Box+BoxChild
-			this.buttonFinishOrder = new global::Gtk.Button();
-			this.buttonFinishOrder.CanFocus = true;
-			this.buttonFinishOrder.Name = "buttonFinishOrder";
-			this.buttonFinishOrder.UseUnderline = true;
-			this.buttonFinishOrder.FocusOnClick = false;
-			global::Gtk.Image w69 = new global::Gtk.Image();
-			w69.Pixbuf = global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.order-ready.png");
-			this.buttonFinishOrder.Image = w69;
-			this.vboxStatusButtons.Add(this.buttonFinishOrder);
-			global::Gtk.Box.BoxChild w70 = ((global::Gtk.Box.BoxChild)(this.vboxStatusButtons[this.buttonFinishOrder]));
-			w70.PackType = ((global::Gtk.PackType)(1));
-			w70.Position = 3;
-			w70.Expand = false;
-			w70.Fill = false;
+			this.fixed5 = new global::Gtk.Fixed();
+			this.fixed5.WidthRequest = 0;
+			this.fixed5.HeightRequest = 376;
+			this.fixed5.Name = "fixed5";
+			this.fixed5.HasWindow = false;
+			this.vboxStatusButtons.Add(this.fixed5);
+			global::Gtk.Box.BoxChild w63 = ((global::Gtk.Box.BoxChild)(this.vboxStatusButtons[this.fixed5]));
+			w63.Position = 0;
+			w63.Expand = false;
+			w63.Fill = false;
 			// Container child vboxStatusButtons.Gtk.Box+BoxChild
 			this.buttonTakeOrder = new global::Gtk.Button();
 			this.buttonTakeOrder.CanFocus = true;
 			this.buttonTakeOrder.Name = "buttonTakeOrder";
 			this.buttonTakeOrder.UseUnderline = true;
 			this.buttonTakeOrder.FocusOnClick = false;
-			global::Gtk.Image w71 = new global::Gtk.Image();
-			w71.Pixbuf = global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.take-order.png");
-			this.buttonTakeOrder.Image = w71;
+			global::Gtk.Image w64 = new global::Gtk.Image();
+			w64.Pixbuf = global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.take-order.png");
+			this.buttonTakeOrder.Image = w64;
 			this.vboxStatusButtons.Add(this.buttonTakeOrder);
-			global::Gtk.Box.BoxChild w72 = ((global::Gtk.Box.BoxChild)(this.vboxStatusButtons[this.buttonTakeOrder]));
-			w72.PackType = ((global::Gtk.PackType)(1));
-			w72.Position = 4;
-			w72.Expand = false;
-			w72.Fill = false;
-			this.hbox1.Add(this.vboxStatusButtons);
-			global::Gtk.Box.BoxChild w73 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.vboxStatusButtons]));
-			w73.Position = 4;
+			global::Gtk.Box.BoxChild w65 = ((global::Gtk.Box.BoxChild)(this.vboxStatusButtons[this.buttonTakeOrder]));
+			w65.Position = 1;
+			w65.Expand = false;
+			w65.Fill = false;
+			// Container child vboxStatusButtons.Gtk.Box+BoxChild
+			this.buttonFinishOrder = new global::Gtk.Button();
+			this.buttonFinishOrder.CanFocus = true;
+			this.buttonFinishOrder.Name = "buttonFinishOrder";
+			this.buttonFinishOrder.UseUnderline = true;
+			this.buttonFinishOrder.FocusOnClick = false;
+			global::Gtk.Image w66 = new global::Gtk.Image();
+			w66.Pixbuf = global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.order-ready.png");
+			this.buttonFinishOrder.Image = w66;
+			this.vboxStatusButtons.Add(this.buttonFinishOrder);
+			global::Gtk.Box.BoxChild w67 = ((global::Gtk.Box.BoxChild)(this.vboxStatusButtons[this.buttonFinishOrder]));
+			w67.Position = 2;
+			w67.Expand = false;
+			w67.Fill = false;
+			// Container child vboxStatusButtons.Gtk.Box+BoxChild
+			this.buttonStatusUp = new global::Gtk.Button();
+			this.buttonStatusUp.CanFocus = true;
+			this.buttonStatusUp.Name = "buttonStatusUp";
+			this.buttonStatusUp.UseUnderline = true;
+			this.buttonStatusUp.FocusOnClick = false;
+			global::Gtk.Image w68 = new global::Gtk.Image();
+			w68.Pixbuf = global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.up.png");
+			this.buttonStatusUp.Image = w68;
+			this.vboxStatusButtons.Add(this.buttonStatusUp);
+			global::Gtk.Box.BoxChild w69 = ((global::Gtk.Box.BoxChild)(this.vboxStatusButtons[this.buttonStatusUp]));
+			w69.Position = 3;
+			w69.Expand = false;
+			w69.Fill = false;
+			// Container child vboxStatusButtons.Gtk.Box+BoxChild
+			this.buttonStatusDown = new global::Gtk.Button();
+			this.buttonStatusDown.CanFocus = true;
+			this.buttonStatusDown.Name = "buttonStatusDown";
+			this.buttonStatusDown.UseUnderline = true;
+			this.buttonStatusDown.FocusOnClick = false;
+			global::Gtk.Image w70 = new global::Gtk.Image();
+			w70.Pixbuf = global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.down.png");
+			this.buttonStatusDown.Image = w70;
+			this.vboxStatusButtons.Add(this.buttonStatusDown);
+			global::Gtk.Box.BoxChild w71 = ((global::Gtk.Box.BoxChild)(this.vboxStatusButtons[this.buttonStatusDown]));
+			w71.Position = 4;
+			w71.Expand = false;
+			w71.Fill = false;
+			// Container child vboxStatusButtons.Gtk.Box+BoxChild
+			this.buttonDeliver = new global::Gtk.Button();
+			this.buttonDeliver.CanFocus = true;
+			this.buttonDeliver.Name = "buttonDeliver";
+			this.buttonDeliver.UseUnderline = true;
+			this.buttonDeliver.FocusOnClick = false;
+			global::Gtk.Image w72 = new global::Gtk.Image();
+			w72.Pixbuf = global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.delivering.png");
+			this.buttonDeliver.Image = w72;
+			this.vboxStatusButtons.Add(this.buttonDeliver);
+			global::Gtk.Box.BoxChild w73 = ((global::Gtk.Box.BoxChild)(this.vboxStatusButtons[this.buttonDeliver]));
+			w73.Position = 5;
 			w73.Expand = false;
 			w73.Fill = false;
-			w73.Padding = ((uint)(32));
+			this.hbox1.Add(this.vboxStatusButtons);
+			global::Gtk.Box.BoxChild w74 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.vboxStatusButtons]));
+			w74.Position = 4;
+			w74.Expand = false;
+			w74.Fill = false;
+			w74.Padding = ((uint)(32));
 			this.notebookMain.Add(this.hbox1);
 			// Notebook tab
 			this.label2 = new global::Gtk.Label();
@@ -909,8 +917,8 @@ namespace NewRestoran
 			this.boxStavke.Spacing = 6;
 			this.boxStavke.BorderWidth = ((uint)(20));
 			this.notebookMain.Add(this.boxStavke);
-			global::Gtk.Notebook.NotebookChild w75 = ((global::Gtk.Notebook.NotebookChild)(this.notebookMain[this.boxStavke]));
-			w75.Position = 1;
+			global::Gtk.Notebook.NotebookChild w76 = ((global::Gtk.Notebook.NotebookChild)(this.notebookMain[this.boxStavke]));
+			w76.Position = 1;
 			// Notebook tab
 			this.label5 = new global::Gtk.Label();
 			this.label5.Name = "label5";
@@ -923,8 +931,8 @@ namespace NewRestoran
 			this.boxArtikli.Spacing = 6;
 			this.boxArtikli.BorderWidth = ((uint)(20));
 			this.notebookMain.Add(this.boxArtikli);
-			global::Gtk.Notebook.NotebookChild w76 = ((global::Gtk.Notebook.NotebookChild)(this.notebookMain[this.boxArtikli]));
-			w76.Position = 2;
+			global::Gtk.Notebook.NotebookChild w77 = ((global::Gtk.Notebook.NotebookChild)(this.notebookMain[this.boxArtikli]));
+			w77.Position = 2;
 			// Notebook tab
 			this.label10 = new global::Gtk.Label();
 			this.label10.Name = "label10";
@@ -937,8 +945,8 @@ namespace NewRestoran
 			this.boxZaposlenici.Spacing = 6;
 			this.boxZaposlenici.BorderWidth = ((uint)(20));
 			this.notebookMain.Add(this.boxZaposlenici);
-			global::Gtk.Notebook.NotebookChild w77 = ((global::Gtk.Notebook.NotebookChild)(this.notebookMain[this.boxZaposlenici]));
-			w77.Position = 3;
+			global::Gtk.Notebook.NotebookChild w78 = ((global::Gtk.Notebook.NotebookChild)(this.notebookMain[this.boxZaposlenici]));
+			w78.Position = 3;
 			// Notebook tab
 			this.label11 = new global::Gtk.Label();
 			this.label11.Name = "label11";
@@ -951,8 +959,8 @@ namespace NewRestoran
 			this.boxStolovi.Spacing = 6;
 			this.boxStolovi.BorderWidth = ((uint)(20));
 			this.notebookMain.Add(this.boxStolovi);
-			global::Gtk.Notebook.NotebookChild w78 = ((global::Gtk.Notebook.NotebookChild)(this.notebookMain[this.boxStolovi]));
-			w78.Position = 4;
+			global::Gtk.Notebook.NotebookChild w79 = ((global::Gtk.Notebook.NotebookChild)(this.notebookMain[this.boxStolovi]));
+			w79.Position = 4;
 			// Notebook tab
 			this.label12 = new global::Gtk.Label();
 			this.label12.Name = "label12";
@@ -962,16 +970,16 @@ namespace NewRestoran
 			w4.Add(this.notebookMain);
 			this.scrolledwindow1.Add(w4);
 			this.vbox1.Add(this.scrolledwindow1);
-			global::Gtk.Box.BoxChild w81 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.scrolledwindow1]));
-			w81.Position = 2;
-			w81.Padding = ((uint)(10));
+			global::Gtk.Box.BoxChild w82 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.scrolledwindow1]));
+			w82.Position = 2;
+			w82.Padding = ((uint)(10));
 			this.Add(this.vbox1);
 			if ((this.Child != null))
 			{
 				this.Child.ShowAll();
 			}
 			this.DefaultWidth = 2161;
-			this.DefaultHeight = 1104;
+			this.DefaultHeight = 1141;
 			this.hboxSpremljen.Hide();
 			this.vboxFormPrikaz.Hide();
 			this.Show();

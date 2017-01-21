@@ -244,7 +244,7 @@ namespace NewRestoran
 			this.entryNaziv.CanFocus = true;
 			this.entryNaziv.Name = "entryNaziv";
 			this.entryNaziv.IsEditable = true;
-			this.entryNaziv.MaxLength = 20;
+			this.entryNaziv.MaxLength = 30;
 			this.entryNaziv.InvisibleChar = '●';
 			this.hbox3.Add(this.entryNaziv);
 			global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.entryNaziv]));

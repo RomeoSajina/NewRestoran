@@ -419,7 +419,7 @@
                     <property name="WidthRequest">290</property>
                     <property name="CanFocus">True</property>
                     <property name="IsEditable">True</property>
-                    <property name="MaxLength">20</property>
+                    <property name="MaxLength">30</property>
                     <property name="InvisibleChar">●</property>
                   </widget>
                   <packing>
@@ -899,7 +899,7 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Window" id="NewRestoran.MainWindow" design-size="2161 1104">
+  <widget class="Gtk.Window" id="NewRestoran.MainWindow" design-size="2161 1141">
     <action-group name="Default">
       <action id="OdjavaAction">
         <property name="Type">Action</property>
@@ -1774,57 +1774,32 @@
                             <property name="MemberName" />
                             <property name="Spacing">23</property>
                             <child>
-                              <widget class="Gtk.Button" id="buttonDeliver">
+                              <widget class="Gtk.Fixed" id="fixed5">
+                                <property name="MemberName" />
+                                <property name="WidthRequest">0</property>
+                                <property name="HeightRequest">376</property>
+                                <property name="HasWindow">False</property>
+                              </widget>
+                              <packing>
+                                <property name="Position">0</property>
+                                <property name="AutoSize">False</property>
+                                <property name="Expand">False</property>
+                                <property name="Fill">False</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="Gtk.Button" id="buttonTakeOrder">
                                 <property name="MemberName" />
                                 <property name="CanFocus">True</property>
                                 <property name="Type">TextAndIcon</property>
-                                <property name="Icon">resource:NewRestoran.images.delivering.png</property>
+                                <property name="Icon">resource:NewRestoran.images.take-order.png</property>
                                 <property name="Label" translatable="yes" />
                                 <property name="UseUnderline">True</property>
                                 <property name="FocusOnClick">False</property>
                                 <signal name="Clicked" handler="OnButtonUpdateStatusClicked" />
                               </widget>
                               <packing>
-                                <property name="PackType">End</property>
-                                <property name="Position">0</property>
-                                <property name="AutoSize">True</property>
-                                <property name="Expand">False</property>
-                                <property name="Fill">False</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <widget class="Gtk.Button" id="buttonStatusDown">
-                                <property name="MemberName" />
-                                <property name="CanFocus">True</property>
-                                <property name="Type">TextAndIcon</property>
-                                <property name="Icon">resource:NewRestoran.images.down.png</property>
-                                <property name="Label" translatable="yes" />
-                                <property name="UseUnderline">True</property>
-                                <property name="FocusOnClick">False</property>
-                                <signal name="Clicked" handler="OnButtonStatusDownClicked" />
-                              </widget>
-                              <packing>
-                                <property name="PackType">End</property>
                                 <property name="Position">1</property>
-                                <property name="AutoSize">True</property>
-                                <property name="Expand">False</property>
-                                <property name="Fill">False</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <widget class="Gtk.Button" id="buttonStatusUp">
-                                <property name="MemberName" />
-                                <property name="CanFocus">True</property>
-                                <property name="Type">TextAndIcon</property>
-                                <property name="Icon">resource:NewRestoran.images.up.png</property>
-                                <property name="Label" translatable="yes" />
-                                <property name="UseUnderline">True</property>
-                                <property name="FocusOnClick">False</property>
-                                <signal name="Clicked" handler="OnButtonStatusUpClicked" />
-                              </widget>
-                              <packing>
-                                <property name="PackType">End</property>
-                                <property name="Position">2</property>
                                 <property name="AutoSize">True</property>
                                 <property name="Expand">False</property>
                                 <property name="Fill">False</property>
@@ -1842,7 +1817,24 @@
                                 <signal name="Clicked" handler="OnButtonUpdateStatusClicked" />
                               </widget>
                               <packing>
-                                <property name="PackType">End</property>
+                                <property name="Position">2</property>
+                                <property name="AutoSize">True</property>
+                                <property name="Expand">False</property>
+                                <property name="Fill">False</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="Gtk.Button" id="buttonStatusUp">
+                                <property name="MemberName" />
+                                <property name="CanFocus">True</property>
+                                <property name="Type">TextAndIcon</property>
+                                <property name="Icon">resource:NewRestoran.images.up.png</property>
+                                <property name="Label" translatable="yes" />
+                                <property name="UseUnderline">True</property>
+                                <property name="FocusOnClick">False</property>
+                                <signal name="Clicked" handler="OnButtonStatusUpClicked" />
+                              </widget>
+                              <packing>
                                 <property name="Position">3</property>
                                 <property name="AutoSize">True</property>
                                 <property name="Expand">False</property>
@@ -1850,19 +1842,36 @@
                               </packing>
                             </child>
                             <child>
-                              <widget class="Gtk.Button" id="buttonTakeOrder">
+                              <widget class="Gtk.Button" id="buttonStatusDown">
                                 <property name="MemberName" />
                                 <property name="CanFocus">True</property>
                                 <property name="Type">TextAndIcon</property>
-                                <property name="Icon">resource:NewRestoran.images.take-order.png</property>
+                                <property name="Icon">resource:NewRestoran.images.down.png</property>
+                                <property name="Label" translatable="yes" />
+                                <property name="UseUnderline">True</property>
+                                <property name="FocusOnClick">False</property>
+                                <signal name="Clicked" handler="OnButtonStatusDownClicked" />
+                              </widget>
+                              <packing>
+                                <property name="Position">4</property>
+                                <property name="AutoSize">True</property>
+                                <property name="Expand">False</property>
+                                <property name="Fill">False</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="Gtk.Button" id="buttonDeliver">
+                                <property name="MemberName" />
+                                <property name="CanFocus">True</property>
+                                <property name="Type">TextAndIcon</property>
+                                <property name="Icon">resource:NewRestoran.images.delivering.png</property>
                                 <property name="Label" translatable="yes" />
                                 <property name="UseUnderline">True</property>
                                 <property name="FocusOnClick">False</property>
                                 <signal name="Clicked" handler="OnButtonUpdateStatusClicked" />
                               </widget>
                               <packing>
-                                <property name="PackType">End</property>
-                                <property name="Position">4</property>
+                                <property name="Position">5</property>
                                 <property name="AutoSize">True</property>
                                 <property name="Expand">False</property>
                                 <property name="Fill">False</property>
@@ -3493,7 +3502,7 @@
                     <property name="MemberName" />
                     <property name="WidthRequest">100</property>
                     <property name="Xalign">1</property>
-                    <property name="LabelProp" translatable="yes">Password:</property>
+                    <property name="LabelProp" translatable="yes">Lozinka:</property>
                   </widget>
                   <packing>
                     <property name="Position">0</property>
@@ -3510,6 +3519,7 @@
                     <property name="CanFocus">True</property>
                     <property name="IsEditable">True</property>
                     <property name="MaxLength">20</property>
+                    <property name="Visibility">False</property>
                     <property name="InvisibleChar">●</property>
                   </widget>
                   <packing>
@@ -4668,7 +4678,7 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="NewRestoran.FixedRestoranSheme" design-size="759 948">
+  <widget class="Gtk.Bin" id="NewRestoran.FixedRestoranSheme" design-size="818 951">
     <property name="MemberName" />
     <child>
       <widget class="Gtk.VBox" id="vbox4">
@@ -4757,21 +4767,22 @@
               </packing>
             </child>
             <child>
-              <widget class="Gtk.SpinButton" id="spinbuttonSize">
+              <widget class="Gtk.HScale" id="hscaleSize">
                 <property name="MemberName" />
+                <property name="WidthRequest">190</property>
                 <property name="CanFocus">True</property>
                 <property name="Lower">10</property>
                 <property name="Upper">150</property>
                 <property name="PageIncrement">10</property>
                 <property name="StepIncrement">1</property>
-                <property name="ClimbRate">1</property>
-                <property name="Numeric">True</property>
+                <property name="DrawValue">True</property>
+                <property name="Digits">0</property>
+                <property name="ValuePos">Left</property>
               </widget>
               <packing>
                 <property name="Position">1</property>
-                <property name="AutoSize">True</property>
+                <property name="AutoSize">False</property>
                 <property name="Expand">False</property>
-                <property name="Fill">False</property>
               </packing>
             </child>
             <child>

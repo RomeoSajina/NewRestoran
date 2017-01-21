@@ -38,7 +38,7 @@ namespace NewRestoran {
 
 		[TreeNodeValue(Column = 2)]
 		public string Password {
-			get { return password; }
+			get { return "".PadRight(password.Length, '●');}
 			set {
 				zaposlenik.Password = value;
 				password = zaposlenik.Password;

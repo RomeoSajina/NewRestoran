@@ -98,6 +98,7 @@ namespace NewRestoran {
 
 			nodeviewNarudzbe.HeightRequest = nodeviewNarudzbeStatus.HeightRequest = GtkScrolledWindowNarudzbe.HeightRequest = 
 			GtkScrolledWindowStatusStavaka.HeightRequest = Gdk.Screen.Default.Height / 3;
+			fixed5.HeightRequest = nodeviewNarudzbe.HeightRequest + 100;
 
 			//Prikazivanje ili sakrivanje gumbova ovisno o fokusu
 			vboxStatusButtons.Hide ();
@@ -483,6 +484,7 @@ namespace NewRestoran {
 
 		protected void OnSingOutActionActivated(object sender, EventArgs e) {
 			zaposlenik = null;
+			notebookMain.Page = 0;
 			LoginWindow l = new LoginWindow(this);
 		}
 
