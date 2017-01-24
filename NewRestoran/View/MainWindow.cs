@@ -464,7 +464,10 @@ namespace NewRestoran {
 		}
 
 		protected void OnZaposleniciActionActivated(object sender, EventArgs e) {
-			if(zaposlenik.Uloga != Zaposlenik.UlogaZaposlenik.Sef) return;
+			if(zaposlenik.Uloga != Zaposlenik.UlogaZaposlenik.Sef) {
+				DialogBox.ShowError(this, "Samo administrator može pristupiti i uređivati zaposlenike.");
+				return;
+			}
 			switch(Open(3)) {
 				case 0: 
 					ZaposleniciWindow zw = new ZaposleniciWindow(false);

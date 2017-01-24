@@ -103,6 +103,8 @@ namespace NewRestoran {
 			List<Artikl> artikli = new List<Artikl>();
 			SqliteCommand c = DB.con.CreateCommand();
 
+			System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(DBStavkeNarudzbe).TypeHandle);
+
 			c.CommandText = String.Format(@"SELECT * FROM Artikl a 
 											ORDER BY (SELECT COUNT(*) FROM Stavka_Narudzbe WHERE id_artikl = a.id) DESC");
 			

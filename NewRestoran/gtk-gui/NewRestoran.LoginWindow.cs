@@ -31,7 +31,7 @@ namespace NewRestoran
 			global::Stetic.Gui.Initialize(this);
 			// Widget NewRestoran.LoginWindow
 			this.Name = "NewRestoran.LoginWindow";
-			this.Title = global::Mono.Unix.Catalog.GetString("Login");
+			this.Title = global::Mono.Unix.Catalog.GetString("Prijava");
 			this.Icon = global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.logo.png");
 			this.WindowPosition = ((global::Gtk.WindowPosition)(3));
 			this.Modal = true;

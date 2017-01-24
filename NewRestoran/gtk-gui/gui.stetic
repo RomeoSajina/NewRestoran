@@ -4441,7 +4441,7 @@
   </widget>
   <widget class="Gtk.Window" id="NewRestoran.LoginWindow" design-size="378 288">
     <property name="MemberName" />
-    <property name="Title" translatable="yes">Login</property>
+    <property name="Title" translatable="yes">Prijava</property>
     <property name="Icon">resource:NewRestoran.images.logo.png</property>
     <property name="WindowPosition">CenterAlways</property>
     <property name="Modal">True</property>
