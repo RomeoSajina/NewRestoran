@@ -44,9 +44,12 @@ namespace NewRestoran {
 
 		public static void DeleteStol(Stol s) {
 			SqliteCommand com = DB.con.CreateCommand();
+			System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(DBNarudzba).TypeHandle);
+
+			com.CommandText = String.Format(@"UPDATE Narudzba SET id_stol = NULL WHERE id_stol = {0}", s.ID);
+			com.ExecuteNonQuery();
 
 			com.CommandText = String.Format(@"DELETE FROM Stol WHERE id = {0}", s.ID);
-
 			com.ExecuteNonQuery();
 			com.Dispose();
 		}

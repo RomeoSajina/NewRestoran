@@ -104,7 +104,7 @@ namespace NewRestoran
 
 		private global::Gtk.Button buttonOstalo;
 
-		private global::Gtk.ScrolledWindow scrolledwindow1;
+		private global::Gtk.ScrolledWindow scrolledwindowArtikli;
 
 		private global::Gtk.VBox vboxArtikli;
 
@@ -185,7 +185,7 @@ namespace NewRestoran
 			this.Name = "NewRestoran.StavkeWindow";
 			this.Title = global::Mono.Unix.Catalog.GetString("Stavke narudžbe");
 			this.Icon = global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.logo.png");
-			this.WindowPosition = ((global::Gtk.WindowPosition)(3));
+			this.WindowPosition = ((global::Gtk.WindowPosition)(1));
 			this.Modal = true;
 			// Container child NewRestoran.StavkeWindow.Gtk.Container+ContainerChild
 			this.hbox1 = new global::Gtk.HBox();
@@ -263,13 +263,13 @@ namespace NewRestoran
 			w7.Fill = false;
 			// Container child vboxNodeView.Gtk.Box+BoxChild
 			this.GtkScrolledWindowStavke = new global::Gtk.ScrolledWindow();
-			this.GtkScrolledWindowStavke.WidthRequest = 845;
+			this.GtkScrolledWindowStavke.WidthRequest = 745;
 			this.GtkScrolledWindowStavke.HeightRequest = 550;
 			this.GtkScrolledWindowStavke.Name = "GtkScrolledWindowStavke";
 			this.GtkScrolledWindowStavke.ShadowType = ((global::Gtk.ShadowType)(1));
 			// Container child GtkScrolledWindowStavke.Gtk.Container+ContainerChild
 			this.nodeviewStavke = new global::Gtk.NodeView();
-			this.nodeviewStavke.WidthRequest = 845;
+			this.nodeviewStavke.WidthRequest = 745;
 			this.nodeviewStavke.CanFocus = true;
 			this.nodeviewStavke.Name = "nodeviewStavke";
 			this.nodeviewStavke.Reorderable = true;
@@ -706,12 +706,12 @@ namespace NewRestoran
 			w56.Expand = false;
 			w56.Fill = false;
 			// Container child vboxQickAdd.Gtk.Box+BoxChild
-			this.scrolledwindow1 = new global::Gtk.ScrolledWindow();
-			this.scrolledwindow1.HeightRequest = 533;
-			this.scrolledwindow1.CanFocus = true;
-			this.scrolledwindow1.Name = "scrolledwindow1";
-			this.scrolledwindow1.ShadowType = ((global::Gtk.ShadowType)(1));
-			// Container child scrolledwindow1.Gtk.Container+ContainerChild
+			this.scrolledwindowArtikli = new global::Gtk.ScrolledWindow();
+			this.scrolledwindowArtikli.HeightRequest = 533;
+			this.scrolledwindowArtikli.CanFocus = true;
+			this.scrolledwindowArtikli.Name = "scrolledwindowArtikli";
+			this.scrolledwindowArtikli.ShadowType = ((global::Gtk.ShadowType)(1));
+			// Container child scrolledwindowArtikli.Gtk.Container+ContainerChild
 			global::Gtk.Viewport w57 = new global::Gtk.Viewport();
 			w57.ShadowType = ((global::Gtk.ShadowType)(0));
 			// Container child GtkViewport.Gtk.Container+ContainerChild
@@ -741,9 +741,9 @@ namespace NewRestoran
 			global::Gtk.Box.BoxChild w60 = ((global::Gtk.Box.BoxChild)(this.vboxArtikli[this.hbox12]));
 			w60.Position = 0;
 			w57.Add(this.vboxArtikli);
-			this.scrolledwindow1.Add(w57);
-			this.vboxQickAdd.Add(this.scrolledwindow1);
-			global::Gtk.Box.BoxChild w63 = ((global::Gtk.Box.BoxChild)(this.vboxQickAdd[this.scrolledwindow1]));
+			this.scrolledwindowArtikli.Add(w57);
+			this.vboxQickAdd.Add(this.scrolledwindowArtikli);
+			global::Gtk.Box.BoxChild w63 = ((global::Gtk.Box.BoxChild)(this.vboxQickAdd[this.scrolledwindowArtikli]));
 			w63.Position = 1;
 			w63.Expand = false;
 			// Container child vboxQickAdd.Gtk.Box+BoxChild

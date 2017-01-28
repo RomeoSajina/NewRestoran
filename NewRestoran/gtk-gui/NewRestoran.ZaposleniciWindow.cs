@@ -103,7 +103,7 @@ namespace NewRestoran
 			this.Name = "NewRestoran.ZaposleniciWindow";
 			this.Title = global::Mono.Unix.Catalog.GetString("Zaposlenici");
 			this.Icon = global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.logo.png");
-			this.WindowPosition = ((global::Gtk.WindowPosition)(3));
+			this.WindowPosition = ((global::Gtk.WindowPosition)(1));
 			this.Modal = true;
 			this.BorderWidth = ((uint)(15));
 			// Container child NewRestoran.ZaposleniciWindow.Gtk.Container+ContainerChild

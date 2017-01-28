@@ -244,10 +244,6 @@
     <Compile Include="Presenter\ZaposlenikNodeStore.cs" />
     <Compile Include="View\ZaposleniciWindow.cs" />
     <Compile Include="gtk-gui\NewRestoran.ZaposleniciWindow.cs" />
-    <Compile Include="Presenter\StolNode.cs" />
-    <Compile Include="Presenter\StolNodeStore.cs" />
-    <Compile Include="View\StoloviWindow.cs" />
-    <Compile Include="gtk-gui\NewRestoran.StoloviWindow.cs" />
     <Compile Include="Presenter\StoloviPresenter.cs" />
     <Compile Include="Model\Baza\DB.cs" />
     <Compile Include="Model\Baza\DBArtikl.cs" />

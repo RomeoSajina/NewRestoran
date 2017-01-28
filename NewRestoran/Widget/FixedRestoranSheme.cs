@@ -25,7 +25,6 @@ namespace NewRestoran {
 		private static Gdk.Pixbuf table8Chair = new Pixbuf(null, "NewRestoran.images.table8chairs.png");
 		private Gtk.Image choosedImg;
 		private int size;
-		private List<string> comboNamesList = new List<string>();
 		public bool ToolboxShown { get; set; }
 		public delegate void TableSelection(string name);
 		public TableSelection TableSelected;
@@ -112,15 +111,40 @@ namespace NewRestoran {
 				string[] uri_list = Regex.Split(data, "\r\n");
 				foreach(string u in uri_list) {
 					//if(u.Length > 0)
-						//System.Console.WriteLine("Got URI {0}", u);
+					//System.Console.WriteLine("Got URI {0}", u);
 				}
 				success = true;
 				break;
 			case 1: // table
 				success = true;
 				string name = "NewTable";
-				if(source is Button) name = (source as Button).Name;
+				if(source is Button) { // Samo razmještaj stola
+					name = (source as Button).Name;
+				} else {  //Drag&Drop novog stola - INSERT
+					int brojStolica;
+					switch(data) { 
+						case "Table2Chair": brojStolica = 2; break;
+						case "Table4Chair": brojStolica = 4; break;
+						case "Table6Chair": brojStolica = 6; break;
+						case "Table8Chair": brojStolica = 8; break;
+						default: brojStolica = 2; break;
+					}
+
+					bool notUnique = true;
+					for(int i = 1; notUnique; i++) { 
+						name = "NewTable"+i;
+						Stol s = new Stol(name, brojStolica);
+						try {
+							StoloviPresenter.CheckUniqueOznaka(s, name);
+							StoloviPresenter.Add(s);
+							notUnique = false;
+						} catch(ArgumentException){}
+					}
+					entryOznaka.Text = "";
+				}
+
 				AddNewTableButtonImage(name, data, args.X, args.Y, size);
+				SaveToXml();
 				break;
 			}
 			Gtk.Drag.Finish(args.Context, success, true, args.Time);
@@ -151,8 +175,8 @@ namespace NewRestoran {
 						(b as Button).Relief = ReliefStyle.None;
 				});
 				(o as Button).Relief = ReliefStyle.Half;
-				labelOznaka.LabelProp = (o as Button).Name;
 				labelOznakaStola.LabelProp = (o as Button).Name;
+				entryOznaka.Text = (o as Button).Name;
 				OnTableSelection(((o as Button)).Name);
 			};
 
@@ -189,6 +213,7 @@ namespace NewRestoran {
 					}
 				}
 			});
+			SaveToXml();
 		}
 
 		public void CreateBackgroundImage(Pixbuf pixbuf) {
@@ -264,36 +289,33 @@ namespace NewRestoran {
 				file.Close();
 			}
 			filechooser.Destroy();
+
+			choosedImg.Pixbuf.Save("BackgroundImage.png", "png");
+			hboxSpremljeno.Show();
+			GLib.Timeout.Add(2000, () => { hboxSpremljeno.Hide(); return false; });
 		}
 
 		protected void OnButtonApplyClicked(object sender, EventArgs e) {
 			fixedSheme.Foreach((b) => {
 				if(b is Button && (b as Button).Relief == ReliefStyle.Half) {
-
-					if(!(b as Button).Name.Equals("NewTable")) {
-						comboNamesList.Add(b.Name);
-						comboboxName.AppendText(b.Name);
+					try {
+						StoloviPresenter.CheckUniqueOznaka(StoloviPresenter.GetStol(b.Name), entryOznaka.Text);
+						StoloviPresenter.Update(b.Name, entryOznaka.Text);
+						b.Name = entryOznaka.Text;
+						labelOznakaStola.Text = entryOznaka.Text;
+						SaveToXml();
+						OnTableSelection(b.Name);
+					} catch(ArgumentException ae) {
+						DialogBox.ShowError(new Gtk.Window(Gtk.WindowType.Popup), ae.Message);
 					}
-					if(!comboboxName.ActiveText.Equals("-")) {
-						b.Name = comboboxName.ActiveText;
-						comboboxName.RemoveText(comboNamesList.FindIndex(x => x == b.Name));
-						comboNamesList.Remove(b.Name);
-						comboboxName.Active = 0;
-					} else b.Name = "NewTable";
-
-					labelOznaka.LabelProp = b.Name;
 					return;
 				}
 			});
 		}
 
-		protected void OnButtonSaveClicked(object sender, EventArgs e) {
+		protected void SaveToXml() { 
 			XmlDocument doc = new XmlDocument();
 			doc.LoadXml("<TableSettings></TableSettings>");
-
-			if(choosedImg != null) {
-				choosedImg.Pixbuf.Save("BackgroundImage.png", "png");
-			}
 
 			XmlElement sizeElem = doc.CreateElement("Size");
 			sizeElem.InnerText = size.ToString();
@@ -336,30 +358,12 @@ namespace NewRestoran {
 		protected void OnButtonDeleteClicked(object sender, EventArgs e) {
 			fixedSheme.Foreach((b) => {
 				if(b is Button && (b as Button).Relief == ReliefStyle.Half) {
+					StoloviPresenter.Delete(b.Name);
 					fixedSheme.Remove(b);
+					SaveToXml();
 					return;
 				}
 			});
-		}
-
-		public void RefreshComboBox(List<string> list) {
-			comboNamesList.Clear();
-			ListStore newList = new ListStore(typeof(string));
-			list.ForEach(s => {
-
-				bool postoji = false;
-				fixedSheme.Foreach(b => {
-					if(b is Button && (b as Button).Name.Equals(s)) {
-						postoji = true;
-						return;
-					}
-				});
-				if(!postoji) {
-					comboNamesList.Add(s);
-					newList.AppendValues(s);
-				}
-			});
-			comboboxName.Model = newList;
 		}
 
 		public void SelectTable(string name) {
@@ -372,8 +376,8 @@ namespace NewRestoran {
 				} else if(b is Button) (b as Button).Relief = ReliefStyle.None;
 			});
 			if(!postoji) {
-				labelOznaka.LabelProp = "";
 				labelOznakaStola.LabelProp = "";
+				entryOznaka.Text = "";
 			}
 		}
 
@@ -425,6 +429,7 @@ namespace NewRestoran {
 			}
 		}
 
-
+		public int Width{ get { return fixedSheme.WidthRequest; } }
+		public int Height { get { return fixedSheme.HeightRequest; } }
 	}
 }

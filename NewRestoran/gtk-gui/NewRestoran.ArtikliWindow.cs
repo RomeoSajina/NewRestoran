@@ -103,7 +103,7 @@ namespace NewRestoran
 			this.Name = "NewRestoran.ArtikliWindow";
 			this.Title = global::Mono.Unix.Catalog.GetString("Artikli");
 			this.Icon = global::Gdk.Pixbuf.LoadFromResource("NewRestoran.images.logo.png");
-			this.WindowPosition = ((global::Gtk.WindowPosition)(3));
+			this.WindowPosition = ((global::Gtk.WindowPosition)(1));
 			this.Modal = true;
 			this.BorderWidth = ((uint)(13));
 			// Container child NewRestoran.ArtikliWindow.Gtk.Container+ContainerChild
@@ -338,7 +338,7 @@ namespace NewRestoran
 			w21.Fill = false;
 			w21.Padding = ((uint)(25));
 			// Container child hbox6.Gtk.Box+BoxChild
-			this.spinbuttonCijena = new global::Gtk.SpinButton(0D, 1000D, 1D);
+			this.spinbuttonCijena = new global::Gtk.SpinButton(0D, 10000D, 1D);
 			this.spinbuttonCijena.WidthRequest = 290;
 			this.spinbuttonCijena.CanFocus = true;
 			this.spinbuttonCijena.Name = "spinbuttonCijena";

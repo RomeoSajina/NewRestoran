@@ -57,10 +57,15 @@ namespace NewRestoran {
 		public static void DeleteArtikl(Artikl a) {
 			SqliteCommand com = DB.con.CreateCommand();
 
-			com.CommandText = String.Format(@"DELETE FROM Artikl WHERE id = {0}", a.ID);
+			System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(DBStavkeNarudzbe).TypeHandle);
 
-			com.ExecuteNonQuery();
+			com.CommandText = String.Format(@"DELETE FROM Artikl WHERE id = {0}  
+											         AND NOT EXISTS( SELECT 1 
+																	    FROM Stavka_Narudzbe 
+																		WHERE id_artikl = {0})", a.ID);
+			int rowAffected = com.ExecuteNonQuery();
 			com.Dispose();
+			if(rowAffected == 0) throw new ArgumentException("Artikl se koristi u stavkama te se ne može izbrisati.");
 		}
 
 		public static List<Artikl> GetArtikle() {

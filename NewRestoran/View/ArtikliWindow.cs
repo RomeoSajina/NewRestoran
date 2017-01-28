@@ -68,7 +68,7 @@ namespace NewRestoran {
 				entryNaziv.Text = a.Naziv;
 				entryDuziNaziv.Text = a.DuziNaziv;
 				entrySastav.Text = a.Sastav;
-				spinbuttonCijena.Value = float.Parse(a.Cijena, System.Globalization.NumberStyles.Any);
+				spinbuttonCijena.Value = a.artikl.Cijena;
 				comboboxOznaka.Active = Artikl.OznakaGetIndex(a.Oznaka);
 			}
 		}
@@ -143,8 +143,12 @@ namespace NewRestoran {
 		protected void OnButtonDeleteClicked(object sender, EventArgs e) {
 			ArtiklNode an = nodeviewArtikli.NodeSelection.SelectedNode as ArtiklNode;
 			if(an != null) {
-				artikliNodeStore.IzbrisiArtikl(an);
-				IsprazniFormu();
+				try {
+					artikliNodeStore.IzbrisiArtikl(an);
+					IsprazniFormu();
+				} catch(ArgumentException ae) {
+					DialogBox.ShowError(this, ae.Message);
+				}
 			}
 		}
 
@@ -178,6 +182,7 @@ namespace NewRestoran {
 					nodeviewArtikli.Selection.SelectIter(iter);
 				} else { //Update
 					artikliNodeStore.UpdateArtikl(an, entrySifra.Text, entryNaziv.Text, entryDuziNaziv.Text, entrySastav.Text, (float)spinbuttonCijena.Value, comboboxOznaka.Active);
+					MainWindow.artiklStavkeChanged();
 				}
 				hboxSpremljeno.Show();
 				GLib.Timeout.Add(2000, () => { hboxSpremljeno.Hide(); return false; });

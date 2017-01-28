@@ -18,10 +18,8 @@ namespace NewRestoran {
 		}
 
 		public void IzbrisiArtikl(ArtiklNode a) {
-			if(a != null) { 
-				this.RemoveNode(a);
-				ArtikliPresenter.DeleteArtikl(a.Sifra);
-			}
+			ArtikliPresenter.DeleteArtikl(a.artikl);
+			this.RemoveNode(a);
 
 		}
 

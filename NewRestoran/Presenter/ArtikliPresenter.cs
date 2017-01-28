@@ -31,12 +31,12 @@ namespace NewRestoran {
 		}
 
 		public static void DeleteArtikl(Artikl a) {
+			DBArtikl.DeleteArtikl(a);
 			TreeIter iter;
 			artikliListStore.IterNthChild(out iter, GetIndex(a.Sifra));
 			artikliListStore.Remove(ref iter);
 
 			SviArtikli.Remove(a);
-			DBArtikl.DeleteArtikl(a);
 		}
 
 		public static void DeleteArtikl(string sifra) {
@@ -45,17 +45,22 @@ namespace NewRestoran {
 
 		public static void UpdateArtikl(string oldSifra, ArtiklNode an) {
 			int index = GetIndex(oldSifra);
-			SviArtikli[index].Sifra = an.Sifra;
-			SviArtikli[index].Naziv = an.Naziv;
-			SviArtikli[index].DuziNaziv = an.DuziNaziv;
-			SviArtikli[index].Sastav = an.Sastav;
-			SviArtikli[index].Cijena = float.Parse(an.Cijena, System.Globalization.NumberStyles.Any);
-			SviArtikli[index].Oznaka = an.Oznaka;
+			if(index != -1) {//Artikl je mjenjan preko reference na ArtiklNode-u 
+				SviArtikli[index].Sifra = an.Sifra;
+				SviArtikli[index].Naziv = an.Naziv;
+				SviArtikli[index].DuziNaziv = an.DuziNaziv;
+				SviArtikli[index].Sastav = an.Sastav;
+				SviArtikli[index].Cijena = an.artikl.Cijena;
+				SviArtikli[index].Oznaka = an.Oznaka;
 
-			TreeIter iter;
-			artikliListStore.IterNthChild(out iter, index);
-			artikliListStore.SetValue(iter, 0, an.Sifra);
-
+				TreeIter iter;
+				artikliListStore.IterNthChild(out iter, index);
+				artikliListStore.SetValue(iter, 0, an.Sifra);
+			} else { 
+				TreeIter iter;
+				artikliListStore.IterNthChild(out iter, GetIndex(an.Sifra));
+				artikliListStore.SetValue(iter, 0, an.Sifra);
+			}
 			DBArtikl.UpdateArtikl(an.artikl);
 		}
 

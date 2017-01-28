@@ -14,6 +14,7 @@ namespace NewRestoran {
 		public delegate void Changed();
 		public static Changed stavkeChanged;
 		public static Changed stolChanged;
+		public static Changed artiklStavkeChanged;
 
 		public MainWindow() : base (Gtk.WindowType.Toplevel) {
 			this.Build ();
@@ -21,7 +22,7 @@ namespace NewRestoran {
 
 			LoginWindow login = new LoginWindow(this);
 
-			stavkeChanged += () => RefreshStatusNodeView();
+			stavkeChanged += () => RefreshStatusNodeView(); 
 
 			narudzbeNodeStore = new NarudzbeNodeStore(true);
 			current = new StavkaNarudzbeNodeStore();
@@ -106,8 +107,7 @@ namespace NewRestoran {
 			nodeviewNarudzbeStatus.FocusOutEvent += (o, args) => { vboxStatusButtons.Hide (); vboxNarudzbeButtons.Show();};
 			nodeviewNarudzbe.Selection.Changed += NodeSelectionChanged;
 
-
-			this.Resize(1500, 970);
+			this.Resize(fixedrestoransheme.Width + nodeviewNarudzbe.WidthRequest + 170, fixedrestoransheme.Height + 170);
 			Color c = new Color();
 			Color.Parse("#00bd00", ref c);
 			labelSpremljen.ModifyFg(StateType.Normal, c);
@@ -128,9 +128,12 @@ namespace NewRestoran {
 					}
 				});	
 				comboboxOznakaStola.Model = stolOznaka;
-
-				fixedrestoransheme.RefreshComboBox(StoloviPresenter.GetOznake());
+				narudzbeNodeStore.Refresh();
+				RefreshStatusNodeView();
 			};
+
+			artiklStavkeChanged += () => { narudzbeNodeStore.Refresh(); RefreshStatusNodeView(); };
+
 			stolChanged();
 
 			RefreshStatusNodeView();
@@ -448,23 +451,8 @@ namespace NewRestoran {
 			}
 		}
 
-		protected void OnStoloviActionActivated(object sender, EventArgs e) {
-			switch(Open(4)) {
-				case 0: 
-				StoloviWindow sw = new StoloviWindow(false);
-					sw.Destroyed += (o, args) => { notebookMain.Page = 0; };
-
-					boxStolovi.Foreach(box => boxStolovi.Remove(box));
-					boxStolovi.Add(sw.GetContent()); 
-				break;
-				case 1: StoloviWindow s = new StoloviWindow(true); break;
-				case 2: break;
-			}
-
-		}
-
 		protected void OnZaposleniciActionActivated(object sender, EventArgs e) {
-			if(zaposlenik.Uloga != Zaposlenik.UlogaZaposlenik.Sef) {
+			if(zaposlenik != null && zaposlenik.Uloga != Zaposlenik.UlogaZaposlenik.Sef) {
 				DialogBox.ShowError(this, "Samo administrator može pristupiti i uređivati zaposlenike.");
 				return;
 			}

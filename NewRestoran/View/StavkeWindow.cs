@@ -24,7 +24,7 @@ namespace NewRestoran {
 
 			TreeViewColumn statusColumn = new TreeViewColumn();
 			statusColumn.Title = "Status";
-			statusColumn.MinWidth = 100;
+			statusColumn.MinWidth = 50;
 			statusColumn.PackStart(statusPixbuf, false);
 			statusColumn.PackStart(statusText, true);
 			statusColumn.AddAttribute(statusPixbuf, "pixbuf", 5);
@@ -34,7 +34,7 @@ namespace NewRestoran {
 			nodeviewStavke.AppendColumn("Naziv", new CellRendererText(), "text", 1).MinWidth = 200;
 			nodeviewStavke.AppendColumn("Cijena", new CellRendererText(), "text", 2).MinWidth = 100;
 			nodeviewStavke.AppendColumn("Količina", new CellRendererText(), "text", 3).MinWidth = 80;
-			nodeviewStavke.AppendColumn("Ukupno", new CellRendererText(), "text", 4).MinWidth = 150;
+			nodeviewStavke.AppendColumn("Ukupno", new CellRendererText(), "text", 4).MinWidth = 100;
 			nodeviewStavke.AppendColumn(statusColumn);
 
 			dropdownStatusListStore.AppendValues(Pixbuf.LoadFromResource("NewRestoran.images.NaCekanju.png").ScaleSimple(20, 20, InterpType.Bilinear), "Na čekanju");
@@ -54,6 +54,9 @@ namespace NewRestoran {
 			vboxFormView.Hide();
 
 			this.Resize(500, 500);
+			GtkScrolledWindowStavke.HeightRequest = Gdk.Screen.Default.Height / 2;
+			scrolledwindowArtikli.HeightRequest = (Gdk.Screen.Default.Height / 2) - 17;
+				                       
 			labelBrojNarudzbe.LabelProp = narudzba.Broj;
 			labelUkupno.LabelProp = narudzba.Ukupno;
 			buttonNajcesce.Click();
@@ -87,7 +90,7 @@ namespace NewRestoran {
 				labelNazivArtikla.LabelProp = s.Naziv;
 				labelCijenaArtikla.LabelProp = s.Cijena;
 				spinbuttonKolicina.Value = int.Parse(s.Kolicina);
-				labelUkupnoArtikla.LabelProp = (spinbuttonKolicina.ValueAsInt * float.Parse(s.Cijena, System.Globalization.NumberStyles.Any)).ToString("C");
+				labelUkupnoArtikla.LabelProp = (spinbuttonKolicina.ValueAsInt * s.stavka.ArtiklStavke.Cijena).ToString("C");
 				comboboxStatus.Active = StavkaNarudzbe.StatusGetIndex(s.Status);
 			}
 		}
@@ -148,16 +151,20 @@ namespace NewRestoran {
 		}
 
 		protected void OnButtonDodajStavkuClicked(object sender, EventArgs e) {
+			ClearForm();
+			nodeviewStavke.Selection.UnselectAll();
+			if(!formPrikaz) buttonChange.Click();
+			comboboxSifraArtikla.Popup();
+
+		}
+
+		protected void ClearForm() { 
 			comboboxSifraArtikla.Active = -1;
 			spinbuttonKolicina.Value = 1;
 			comboboxStatus.Active = 0;
 			labelUkupnoArtikla.LabelProp = "0,00 kn";
 			labelNazivArtikla.LabelProp = "";
-			labelCijenaArtikla.LabelProp = "";
-			nodeviewStavke.Selection.UnselectAll();
-			if(!formPrikaz) buttonChange.Click();
-			comboboxSifraArtikla.Popup();
-
+			labelCijenaArtikla.LabelProp = "";	
 		}
 
 		protected void OnButtonSpremiClicked(object sender, EventArgs e) {
@@ -196,14 +203,14 @@ namespace NewRestoran {
 		}
 
 		protected void OnButtonOdustaniClicked(object sender, EventArgs e) {
-			buttonDodajStavku.Click();
+			ClearForm();
 			buttonChange.Click();
-			comboboxSifraArtikla.Popdown();
 		}
 
 		protected void OnSpinbuttonKolicinaValueChanged(object sender, EventArgs e) {
-			if(!labelCijenaArtikla.LabelProp.Equals(""))	 
-				labelUkupnoArtikla.LabelProp = (spinbuttonKolicina.ValueAsInt * float.Parse(labelCijenaArtikla.LabelProp, System.Globalization.NumberStyles.Any)).ToString("C");
+			StavkaNarudzbeNode sn = nodeviewStavke.NodeSelection.SelectedNode as StavkaNarudzbeNode;
+			if(!labelCijenaArtikla.LabelProp.Equals("") && sn != null)	 
+				labelUkupnoArtikla.LabelProp = (spinbuttonKolicina.ValueAsInt * sn.stavka.ArtiklStavke.Cijena).ToString("C");
 		}
 
 		protected void OnComboboxSifraArtiklaChanged(object sender, EventArgs e) {
@@ -219,7 +226,7 @@ namespace NewRestoran {
 			StavkaNarudzbeNode ns = (nodeviewStavke.NodeSelection.SelectedNode as StavkaNarudzbeNode);
 			if(ns != null) {
 				narudzba.IzbrisiStavku(ns);
-				buttonDodajStavku.Click();
+				ClearForm();
 			}
 		}
 
